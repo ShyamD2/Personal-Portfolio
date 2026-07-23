@@ -1,28 +1,14 @@
 import React, { useState, useRef } from 'react';
-import { ArrowRight, Volume2, VolumeX, FileText, Play, Pause } from 'lucide-react';
+import { ArrowRight, Volume2, VolumeX, FileText } from 'lucide-react';
 
 export default function HeroSection() {
   const [isMuted, setIsMuted] = useState(true);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
+    const videoRef = useRef<HTMLVideoElement>(null);
 
   const toggleMute = () => {
     if (videoRef.current) {
       videoRef.current.muted = !videoRef.current.muted;
       setIsMuted(videoRef.current.muted);
-    }
-  };
-
-  const togglePlay = () => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    if (video.paused) {
-      video.play().catch(() => {});
-      setIsPlaying(true);
-    } else {
-      video.pause();
-      setIsPlaying(false);
     }
   };
 
@@ -46,25 +32,16 @@ export default function HeroSection() {
     <section id="hero" className="hero-section">
       {/* Background Video */}
       <div className="video-background-container">
-        <video
-          ref={videoRef}
-          className="bg-video"
-          src="/videos/hero-banner.mp4"
-          loop
-          muted
-          playsInline
-        />
+       <video
+  ref={videoRef}
+  className="bg-video"
+  src="/videos/hero-banner.mp4"
+  autoPlay
+  loop
+  muted
+  playsInline
+/>
         <div className="video-vignette-overlay"></div>
-      </div>
-
-      {/* Play/Pause Control (Right Side) */}
-      <div className="video-play-trigger-box">
-        <button className="circular-audio-btn" onClick={togglePlay} aria-label={isPlaying ? "Pause video" : "Play video"}>
-          {isPlaying ? <Pause size={20} /> : <Play size={20} />}
-        </button>
-        <span className="audio-label-text" onClick={togglePlay}>
-          {isPlaying ? 'PAUSE' : 'PLAY'}
-        </span>
       </div>
 
       {/* Floating Content Overlaid on Video */}
@@ -287,30 +264,6 @@ export default function HeroSection() {
           gap: 12px;
           animation: fadeInUp 1s ease-out;
           z-index: 10;
-        }
-
-        /* Right-Side Play/Pause Control */
-        .video-play-trigger-box {
-          position: absolute;
-          top: 50%;
-          right: 24px;
-          transform: translateY(-50%);
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 8px;
-          z-index: 10;
-          animation: fadeInUp 1s ease-out;
-        }
-
-        .video-play-trigger-box .audio-label-text {
-          writing-mode: vertical-rl;
-        }
-
-        @media (max-width: 768px) {
-          .video-play-trigger-box {
-            right: 12px;
-          }
         }
 
         .circular-audio-btn {
