@@ -1,0 +1,200 @@
+Act as a world-class Full-Stack Web Developer, Senior UI/UX Designer, Creative Director, Personal Branding Strategist, and Recruiter. Your task is to create a modern, premium, visually stunning, fully responsive personal portfolio website based entirely on the resume, photos, and videos I provide below.
+
+Objective:
+Build a portfolio website that is visually exceptional, recruiter-focused, ATS-friendly, SEO-optimized, and designed to create a strong first impression. The website should feel premium, modern, elegant, and memorable, making visitors immediately say "WOW". The design should be comparable to high-end portfolios built with Framer, Apple-inspired design systems, Linear-style aesthetics, and modern startup websites.
+
+Requirements:
+
+* Create a complete single-page portfolio website.
+* Use HTML, CSS, JavaScript, React, or Next.js.
+* Fully responsive across mobile, tablet, laptop, and desktop devices.
+* Premium modern UI with smooth animations and micro-interactions.
+* Fast-loading, accessible, SEO-friendly, and production-ready.
+* Clean, reusable, scalable code structure.
+* Dark Mode and Light Mode support.
+* Sticky navigation bar with smooth scrolling.
+
+### Hero Section (Most Important Section)
+
+Create a highly impressive hero section that immediately captures attention.
+
+Include:
+
+* Full Name
+* Professional Title
+* Professional Tagline
+* Personal Branding Statement
+* CTA Buttons:
+
+  * View Resume
+  * Contact Me
+  * View Projects
+
+### Video Placement (IMPORTANT)
+
+Do NOT create a separate video section.
+
+Instead, place my uploaded video directly beside my name and introduction inside the Hero Section.
+
+Layout:
+
+* Left Side:
+
+  * Name
+  * Professional Title
+  * Tagline
+  * Professional Summary
+  * CTA Buttons
+
+* Right Side:
+
+  * Auto-playing featured video
+  * Muted by default
+  * Loop enabled
+  * Premium glassmorphism video frame
+  * Rounded corners
+  * Soft shadow effects
+  * Smooth hover animations
+
+The video should act as my personal introduction showcase and become the visual centerpiece of the landing page.
+
+The Hero section should feel similar to premium startup founder portfolios where the video plays beside the personal branding content.
+
+### Photo Placement (IMPORTANT)
+
+Do NOT create a separate gallery section.
+
+Instead, intelligently integrate all uploaded photos throughout the website where they naturally improve the design.
+
+Examples:
+
+* Between Hero and About sections.
+* Beside About Me content.
+* Inside Project showcases.
+* Between Skills and Projects sections.
+* Inside Experience timeline cards.
+* Between Certifications and Contact sections.
+* As premium image showcases.
+* As floating visual content blocks.
+* As modern masonry layouts between sections.
+
+Photos should enhance storytelling and personal branding throughout the website rather than being grouped into a dedicated gallery.
+
+### About Me
+
+* Rewrite professional summary into a compelling story.
+* Highlight strengths, ambitions, and career goals.
+
+### Skills Section
+
+Categorize into:
+
+* Programming Languages
+* Frameworks & Libraries
+* Cloud Technologies
+* Networking Technologies
+* Tools & Technologies
+* Soft Skills
+
+Include:
+
+* Interactive skill cards
+* Animated indicators
+* Modern icons
+
+### Projects Section
+
+For each project include:
+
+* Project Title
+* Problem Solved
+* Technologies Used
+* Key Features
+* Achievements
+* GitHub/Demo Links
+
+Use premium case-study style project cards.
+
+### Experience Section
+
+* Internships
+* Work Experience
+* Leadership Roles
+* Volunteer Activities
+
+Display using an animated professional timeline.
+
+### Education Section
+
+* Degree
+* Institution
+* Academic Highlights
+* Relevant Coursework
+
+### Certifications & Achievements
+
+* Certifications
+* Awards
+* Competitions
+* Hackathons
+* Workshops
+
+Display using modern achievement cards.
+
+### Contact Section
+
+* Email
+* Phone
+* LinkedIn
+* GitHub
+* Contact Form
+
+### Design Guidelines
+
+* Apple-inspired minimalism
+* Linear-inspired aesthetics
+* Elegant typography
+* Glassmorphism effects
+* Premium gradients
+* Smooth micro-interactions
+* Modern animations
+* Professional spacing and hierarchy
+
+### Additional Features
+
+* Resume Download Button
+* Dark/Light Mode Toggle
+* Scroll-to-Top Button
+* Sticky Navigation
+* SEO Meta Tags
+* Open Graph Tags
+* Structured Data
+* Loading Animation
+* Scroll Progress Indicator
+* Mobile Navigation Menu
+
+### Output Required
+
+1. Complete Source Code
+2. File Structure
+3. Setup Instructions
+4. Deployment Steps (Vercel, Netlify, GitHub Pages)
+5. Future Enhancement Suggestions
+
+### Important Instructions
+
+* Automatically extract information from the resume.
+* Rewrite content professionally.
+* Use the uploaded video beside my name in the Hero section.
+* Use uploaded photos naturally throughout the website.
+* Make the portfolio look premium, recruiter-focused, modern, memorable, and worthy of top-tier technology professionals.
+* The landing page should instantly create a "WOW" factor.
+
+Resume:
+[PASTE RESUME HERE]
+
+Uploaded Video:
+[ATTACH VIDEO HERE]
+
+Uploaded Photos:
+[ATTACH PHOTOS HERE]
