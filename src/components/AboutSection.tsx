@@ -45,7 +45,7 @@ export default function AboutSection() {
               Through flagship systems like KubeForecast (a Go Kubernetes scheduling engine hardware-validated on AWS EKS) and Project AEGIS (an autonomous AWS SOAR security fabric), I build production-grade solutions that eliminate compute waste, automate DevSecOps containment, and guarantee high availability with 100% codified Terraform.
             </p>
             <p className="story-emphasis">
-              Driven by automated delivery and operational reliability, I am targeting Cloud Infrastructure, DevOps, and SRE opportunities to build scalable distributed systems.
+              🎓 <strong>Currently in 6th Semester</strong> — Actively seeking a <strong>6-Month Full-Time Internship (with PPO Conversion)</strong> and graduate <strong>Cloud Infrastructure, DevOps & SRE Opportunities</strong>. Open to on-site relocation & remote.
             </p>
 
             {/* Quick attribute tags */}

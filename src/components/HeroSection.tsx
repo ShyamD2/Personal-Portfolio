@@ -460,7 +460,7 @@ export default function HeroSection({ onOpenHireMe }: { onOpenHireMe?: () => voi
         <div className="hero-main-details">
           <div className="hero-badge">
             <span className="badge-pulse"></span>
-            Cloud Infrastructure & DevOps
+            6th Sem • Open for 6-Month Internship & Full-Time Roles
           </div>
 
           <h1 className="hero-title">

@@ -170,8 +170,8 @@ export default function RecruiterRoleSelector({ onSelectRole }: { onSelectRole?:
                   <span className="hl-val">{selectedRole.targetCert}</span>
                 </div>
                 <div className="highlight-item">
-                  <span className="hl-label">Candidate Readiness:</span>
-                  <span className="hl-val green">Immediate (Full-Time / SRE Internship)</span>
+                  <span className="hl-label">Candidate Availability:</span>
+                  <span className="hl-val green">6th Sem 6-Month Internship (PPO Track) & Full-Time</span>
                 </div>
               </div>
             </div>
@@ -307,12 +307,42 @@ export default function RecruiterRoleSelector({ onSelectRole }: { onSelectRole?:
           position: relative;
           width: 100%;
           max-width: 620px;
+          max-height: calc(100vh - 48px);
+          display: flex;
+          flex-direction: column;
           background: var(--card-bg-solid);
           border: 1px solid var(--border-color);
           border-radius: var(--radius-lg);
-          padding: 32px;
+          padding: 24px 28px;
           box-shadow: 0 25px 60px var(--shadow-color);
           animation: scaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+          overflow: hidden;
+        }
+
+        .role-modal-header {
+          flex-shrink: 0;
+          padding-right: 44px;
+        }
+
+        .role-modal-body {
+          flex: 1;
+          overflow-y: auto;
+          padding-right: 8px;
+          margin-top: 4px;
+        }
+
+        .role-modal-body::-webkit-scrollbar {
+          width: 6px;
+        }
+        .role-modal-body::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .role-modal-body::-webkit-scrollbar-thumb {
+          background: var(--border-color);
+          border-radius: 4px;
+        }
+        .role-modal-body::-webkit-scrollbar-thumb:hover {
+          background: var(--accent-color);
         }
 
         .role-modal-close {
@@ -453,9 +483,12 @@ export default function RecruiterRoleSelector({ onSelectRole }: { onSelectRole?:
         }
 
         .role-modal-footer {
+          flex-shrink: 0;
           display: flex;
           gap: 12px;
-          margin-top: 24px;
+          margin-top: 16px;
+          padding-top: 16px;
+          border-top: 1px solid var(--border-color);
           flex-wrap: wrap;
         }
 

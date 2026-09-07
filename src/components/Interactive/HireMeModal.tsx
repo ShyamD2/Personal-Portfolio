@@ -33,10 +33,10 @@ export default function HireMeModal({ isOpen, onClose }: HireMeModalProps) {
         <div className="modal-header">
           <div className="modal-badge">
             <Sparkles size={12} />
-            <span>Open to Opportunities</span>
+            <span>Open for 6th Sem Internship & Full-Time</span>
           </div>
           <h3>Let's Connect & Collaborate</h3>
-          <p>Direct communication channels for recruiters, engineering leaders, and collaborators.</p>
+          <p>Actively seeking a 6-month full-time internship for Semester 6 (PPO track) and graduate Cloud / DevOps roles.</p>
         </div>
 
         {/* Candidate Profile Strip */}
@@ -156,10 +156,12 @@ export default function HireMeModal({ isOpen, onClose }: HireMeModalProps) {
           position: relative;
           width: 100%;
           max-width: 580px;
+          max-height: calc(100vh - 48px);
+          overflow-y: auto;
           background: var(--card-bg-solid);
           border: 1.5px solid var(--border-color);
           border-radius: var(--radius-lg);
-          padding: 36px 32px;
+          padding: 32px 28px;
           box-shadow: 0 25px 60px var(--shadow-color);
           animation: scaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
