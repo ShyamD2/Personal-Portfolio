@@ -292,47 +292,108 @@ export default function RecruiterRoleSelector({ onSelectRole }: { onSelectRole?:
         .role-modal-overlay {
           position: fixed;
           inset: 0;
-          background-color: rgba(0, 0, 0, 0.82);
-          backdrop-filter: blur(10px);
-          -webkit-backdrop-filter: blur(10px);
+          background-color: rgba(0, 0, 0, 0.85);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
           z-index: 10000;
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: 20px;
+          padding: 16px;
+          overflow-y: auto;
           animation: fadeIn 0.2s ease-out;
         }
 
         .role-modal-card {
           position: relative;
           width: 100%;
-          max-width: 620px;
-          max-height: calc(100vh - 48px);
+          max-width: 580px;
+          max-height: min(86vh, 600px);
           display: flex;
           flex-direction: column;
           background: var(--card-bg-solid);
           border: 1px solid var(--border-color);
           border-radius: var(--radius-lg);
-          padding: 24px 28px;
+          padding: 20px 24px;
           box-shadow: 0 25px 60px var(--shadow-color);
           animation: scaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
           overflow: hidden;
+          margin: auto;
+        }
+
+        .role-modal-close {
+          position: absolute;
+          top: 16px;
+          right: 16px;
+          background: var(--bg-color);
+          border: 1px solid var(--border-color);
+          color: var(--text-secondary);
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: var(--transition-fast);
+          z-index: 5;
+        }
+
+        .role-modal-close:hover {
+          background: var(--accent-color);
+          color: #FFFFFF;
+          border-color: var(--accent-color);
         }
 
         .role-modal-header {
           flex-shrink: 0;
-          padding-right: 44px;
+          padding-right: 36px;
+          padding-bottom: 10px;
+          border-bottom: 1px solid var(--border-color);
+          margin-bottom: 12px;
+        }
+
+        .role-badge-tag {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          background: rgba(56, 189, 248, 0.12);
+          border: 1px solid rgba(56, 189, 248, 0.3);
+          color: #38BDF8;
+          font-family: var(--font-display);
+          font-size: 10.5px;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          padding: 3px 10px;
+          border-radius: 50px;
+          margin-bottom: 6px;
+        }
+
+        .role-modal-header h3 {
+          font-size: 21px;
+          font-weight: 800;
+          color: var(--text-primary);
+          margin-bottom: 4px;
+        }
+
+        .role-tagline-text {
+          font-size: 13px;
+          color: var(--text-secondary);
+          line-height: 1.4;
+          margin-bottom: 0;
         }
 
         .role-modal-body {
-          flex: 1;
+          flex: 1 1 auto;
+          min-height: 0; /* CRITICAL: Enables flex child to shrink & scroll */
           overflow-y: auto;
-          padding-right: 8px;
+          padding-right: 6px;
           margin-top: 4px;
         }
 
         .role-modal-body::-webkit-scrollbar {
-          width: 6px;
+          width: 5px;
         }
         .role-modal-body::-webkit-scrollbar-track {
           background: transparent;
@@ -345,87 +406,33 @@ export default function RecruiterRoleSelector({ onSelectRole }: { onSelectRole?:
           background: var(--accent-color);
         }
 
-        .role-modal-close {
-          position: absolute;
-          top: 20px;
-          right: 20px;
-          background: var(--bg-color);
-          border: 1px solid var(--border-color);
-          color: var(--text-secondary);
-          width: 36px;
-          height: 36px;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-          transition: var(--transition-fast);
-        }
-
-        .role-modal-close:hover {
-          background: var(--accent-color);
-          color: #FFFFFF;
-          border-color: var(--accent-color);
-        }
-
-        .role-badge-tag {
-          display: inline-flex;
-          align-items: center;
-          gap: 6px;
-          background: rgba(56, 189, 248, 0.12);
-          border: 1px solid rgba(56, 189, 248, 0.3);
-          color: #38BDF8;
-          font-family: var(--font-display);
-          font-size: 11px;
-          font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: 0.05em;
-          padding: 4px 12px;
-          border-radius: 50px;
-          margin-bottom: 10px;
-        }
-
-        .role-modal-header h3 {
-          font-size: 26px;
-          font-weight: 800;
-          color: var(--text-primary);
-          margin-bottom: 6px;
-        }
-
-        .role-tagline-text {
-          font-size: 14px;
-          color: var(--text-secondary);
-          line-height: 1.5;
-          margin-bottom: 20px;
-        }
-
         .modal-section-block {
-          margin-bottom: 18px;
+          margin-bottom: 12px;
         }
 
         .section-mini-heading {
           display: block;
-          font-size: 11px;
+          font-size: 10.5px;
           font-weight: 700;
           text-transform: uppercase;
           letter-spacing: 0.05em;
           color: var(--text-muted);
-          margin-bottom: 8px;
+          margin-bottom: 6px;
         }
 
         .role-chips-wrap {
           display: flex;
           flex-wrap: wrap;
-          gap: 8px;
+          gap: 6px;
         }
 
         .tech-chip {
           background: var(--bg-color);
           border: 1px solid var(--border-color);
           color: var(--text-primary);
-          font-size: 12px;
+          font-size: 11.5px;
           font-weight: 600;
-          padding: 4px 10px;
+          padding: 3px 8px;
           border-radius: 6px;
         }
 
@@ -433,16 +440,16 @@ export default function RecruiterRoleSelector({ onSelectRole }: { onSelectRole?:
           list-style: none;
           display: flex;
           flex-direction: column;
-          gap: 10px;
+          gap: 7px;
         }
 
         .role-bullets-list li {
           display: flex;
           align-items: flex-start;
-          gap: 10px;
-          font-size: 13.5px;
+          gap: 8px;
+          font-size: 12.5px;
           color: var(--text-secondary);
-          line-height: 1.45;
+          line-height: 1.4;
         }
 
         .bullet-check {
@@ -454,19 +461,19 @@ export default function RecruiterRoleSelector({ onSelectRole }: { onSelectRole?:
         .highlight-box {
           background: var(--bg-color);
           border: 1px solid var(--border-color);
-          padding: 14px 18px;
+          padding: 10px 14px;
           border-radius: var(--radius-md);
           display: flex;
           flex-direction: column;
-          gap: 8px;
+          gap: 6px;
         }
 
         .highlight-item {
           display: flex;
           justify-content: space-between;
-          font-size: 12px;
+          font-size: 11.5px;
           flex-wrap: wrap;
-          gap: 6px;
+          gap: 4px;
         }
 
         .hl-label {
@@ -485,9 +492,9 @@ export default function RecruiterRoleSelector({ onSelectRole }: { onSelectRole?:
         .role-modal-footer {
           flex-shrink: 0;
           display: flex;
-          gap: 12px;
-          margin-top: 16px;
-          padding-top: 16px;
+          gap: 10px;
+          margin-top: 12px;
+          padding-top: 12px;
           border-top: 1px solid var(--border-color);
           flex-wrap: wrap;
         }
@@ -497,13 +504,13 @@ export default function RecruiterRoleSelector({ onSelectRole }: { onSelectRole?:
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          gap: 8px;
-          padding: 12px 20px;
+          gap: 6px;
+          padding: 10px 16px;
           background: var(--accent-color);
           border: 1px solid var(--accent-color);
           color: #FFFFFF;
           border-radius: 50px;
-          font-size: 13px;
+          font-size: 12px;
           font-weight: 700;
           text-decoration: none;
           transition: var(--transition-fast);
@@ -518,13 +525,14 @@ export default function RecruiterRoleSelector({ onSelectRole }: { onSelectRole?:
         .btn-dossier-secondary {
           display: inline-flex;
           align-items: center;
-          gap: 8px;
-          padding: 12px 18px;
+          justify-content: center;
+          gap: 6px;
+          padding: 10px 14px;
           background: var(--bg-color);
           border: 1px solid var(--border-color);
           color: var(--text-primary);
           border-radius: 50px;
-          font-size: 13px;
+          font-size: 12px;
           font-weight: 600;
           text-decoration: none;
           transition: var(--transition-fast);
