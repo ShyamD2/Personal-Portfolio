@@ -1,56 +1,56 @@
 import React from 'react';
-import { Calendar, Briefcase, Award, ShieldAlert, BarChart3 } from 'lucide-react';
+import { Calendar, Briefcase, Award, ShieldAlert, BarChart3, Terminal } from 'lucide-react';
 
 export default function TimelineSection() {
   const experiences = [
     {
       index: '01',
-      type: 'work',
-      title: 'Operations & Customer Experience Associate',
-      company: 'Sapna Garments, Madurai',
-      period: 'Sep 2024 – Present (Part-Time)',
-      icon: <Briefcase size={16} />,
-      details: [
-        'Managed daily point-of-sale (POS) transactional databases, payment processing, and cash reconciliation audits.',
-        'Supervised local inventory system stocks, coordinating timely restocking operations.',
-        'Resolved billing disputes and customer account inquiries directly using active listening and L1 escalation practices.'
-      ]
-    },
-    {
-      index: '02',
       type: 'internship',
-      title: 'Cloud Computing & Web Development Trainee',
+      title: 'Cloud Computing & Web Development Intern',
       company: 'Reccsar Pvt. Ltd.',
       period: 'Apr 2026',
       icon: <Award size={16} />,
       details: [
-        'Analyzed cloud service topologies (IaaS, PaaS, SaaS) and deployment structures.',
-        'Explored web application configurations on cloud computing platforms.',
-        'Observed system operational architectures supporting real-world, high-traffic environments.'
+        'Provisioned and managed AWS infrastructure topologies, IAM least-privilege boundaries, and secure VPC subnets.',
+        'Engineered automated deployment pipelines for containerized and static web application workloads.',
+        'Audited high-availability architectures and multi-tier networking topologies for production reliability.'
+      ]
+    },
+    {
+      index: '02',
+      type: 'certification',
+      title: 'Practical Security & Linux Systems Training',
+      company: 'TCM Security (Practical Academy)',
+      period: 'May 2026',
+      icon: <Terminal size={16} />,
+      details: [
+        'Mastered Linux OS internals, process trees, networking daemons, and system security administration (Linux 100).',
+        'Engineered Python automation scripts for log auditing, socket communications, and threat detection (Programming 100).',
+        'Implemented core Linux defense strategies, bash automation, and multi-user privilege management.'
       ]
     },
     {
       index: '03',
       type: 'simulation',
-      title: 'Deloitte Cybersecurity Incident Simulation',
-      company: 'Forage simulated Job Experience',
+      title: 'Enterprise Cybersecurity Threat & Incident Response',
+      company: 'Deloitte (Forage Experience)',
       period: 'Mar 2026',
       icon: <ShieldAlert size={16} />,
       details: [
-        'Conducted systems audit for security vulnerabilities and threat assessment anomalies.',
-        'Simulated network incident response procedures, compiling threat analysis reports for security operations centers.'
+        'Conducted systems audit for security vulnerabilities, access anomalies, and zero-day threat vectors.',
+        'Executed incident response playbooks and structured remediation reports for Security Operations Centers (SOC).'
       ]
     },
     {
       index: '04',
       type: 'simulation',
-      title: 'Deloitte Data Analytics Simulation',
-      company: 'Forage simulated Job Experience',
+      title: 'Industrial Systems & Telemetry Analytics',
+      company: 'Deloitte (Forage Experience)',
       period: 'Mar 2026',
       icon: <BarChart3 size={16} />,
       details: [
-        'Analyzed simulated factory machinery metrics to locate downtime trends and systems faults.',
-        'Generated visual diagnostic analytics summaries to support infrastructure reliability auditing.'
+        'Diagnosed simulated industrial machinery telemetry streams to isolate downtime bottlenecks and latency anomalies.',
+        'Formulated automated metrics dashboards to monitor distributed infrastructure reliability and uptime trends.'
       ]
     }
   ];
@@ -99,9 +99,9 @@ export default function TimelineSection() {
                   <img src="/assets/photo_desk_pose.png" alt="Shyam Kumar D at Desk" />
                 </div>
                 <div className="offset-card-text">
-                  <p className="philosophy-label">Operational Philosophy</p>
+                  <p className="philosophy-label">Engineering Philosophy</p>
                   <p className="philosophy-quote">
-                    "Every network outage has a root cause. The thrill is finding it through log diagnostics before it impacts the client's operation."
+                    "Resilience isn\'t an afterthought in distributed cloud systems—it is engineered through deterministic scheduling, immutable infrastructure, and automated incident containment."
                   </p>
                 </div>
               </div>
@@ -122,7 +122,7 @@ export default function TimelineSection() {
             <h4>B.Sc. Networking</h4>
             <h5>Subbalakshmi Lakshmipathy College of Science, Madurai</h5>
             <p className="edu-gpa">GPA: 8.4 / 10.0</p>
-            <p className="edu-desc">Core coursework in TCP/IP architectures, router configuration, database management, and network troubleshooting protocols.</p>
+            <p className="edu-desc">Core coursework in TCP/IP architectures, Linux systems administration, cloud computing, and high-performance network engineering.</p>
           </div>
 
           <div className="edu-card glass-card">
@@ -155,7 +155,7 @@ export default function TimelineSection() {
         }
 
         .timeline-trail::before {
-          content: '';
+          content: \'\';
           position: absolute;
           left: 17px;
           top: 14px;
@@ -318,13 +318,13 @@ export default function TimelineSection() {
           line-height: 1.5;
         }
 
-        /* Education Layout */
+        /* Education Divider */
         .education-divider {
           display: flex;
           align-items: center;
           gap: 16px;
           margin-top: 80px;
-          margin-bottom: 32px;
+          margin-bottom: 40px;
         }
 
         .edu-line {
@@ -349,10 +349,7 @@ export default function TimelineSection() {
         }
 
         .edu-card {
-          padding: 32px;
-          border-radius: var(--radius-md);
-          border: 1px solid var(--border-color);
-          background-color: var(--card-bg-solid);
+          padding: 28px;
         }
 
         .edu-year {
@@ -361,40 +358,40 @@ export default function TimelineSection() {
           font-weight: 700;
           color: var(--accent-color);
           background: rgba(var(--accent-rgb), 0.08);
-          border: 1px solid rgba(var(--accent-rgb), 0.15);
-          padding: 2px 10px;
+          padding: 3px 10px;
           border-radius: 50px;
           display: inline-block;
-          margin-bottom: 16px;
+          margin-bottom: 12px;
         }
 
         .edu-card h4 {
-          font-size: 20px;
+          font-size: 18px;
           color: var(--text-primary);
-          margin-bottom: 6px;
+          margin-bottom: 4px;
         }
 
         .edu-card h5 {
           font-size: 14px;
           color: var(--text-secondary);
-          margin-bottom: 16px;
+          margin-bottom: 8px;
           font-weight: 500;
         }
 
         .edu-gpa {
-          font-size: 14px;
+          font-family: var(--font-display);
+          font-size: 12px;
           font-weight: 700;
-          color: var(--text-primary);
-          margin-bottom: 8px;
+          color: var(--accent-color);
+          margin-bottom: 12px;
         }
 
         .edu-desc {
-          font-size: 13.5px;
+          font-size: 13px;
           color: var(--text-secondary);
           line-height: 1.5;
         }
 
-        @media (max-width: 992px) {
+        @media (max-width: 900px) {
           .timeline-layout-grid {
             grid-template-columns: 1fr;
             gap: 40px;

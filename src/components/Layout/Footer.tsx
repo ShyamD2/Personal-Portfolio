@@ -20,8 +20,8 @@ export default function Footer() {
       <style>{`
         .footer {
           border-top: 1px solid var(--border-color);
-          background: rgba(0, 0, 0, 0.2);
-          padding: 32px 0;
+          background: var(--card-bg);
+          padding: 32px 0 72px 0;
           margin-top: 40px;
         }
 

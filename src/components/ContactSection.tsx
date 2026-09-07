@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Linkedin, Github, FileText, Send, CheckCircle2 } from 'lucide-react';
-import CertTracker from './Interactive/CertTracker';
+import { Mail, Phone, MapPin, Linkedin, Github, FileText, Send, CheckCircle2, MessageSquare, Copy, Check, ExternalLink } from 'lucide-react';
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSent, setIsSent] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+  const [copied, setCopied] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -23,26 +23,35 @@ export default function ContactSection() {
     setErrorMsg('');
     setIsSubmitting(true);
 
-    // Simulate sending email
+    // Simulate sending inquiry
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSent(true);
       setFormData({ name: '', email: '', subject: '', message: '' });
-    }, 1500);
+    }, 1200);
   };
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText('shyamcloud021@gmail.com');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
+  };
+
+  const selectSubjectPreset = (preset: string) => {
+    setFormData(prev => ({ ...prev, subject: preset }));
+  };
+
+  const whatsappMessage = encodeURIComponent(
+    "Hi Shyam, I saw your Cloud & DevOps portfolio and would love to connect about an engineering opportunity!"
+  );
 
   return (
     <section id="contact" className="contact-section fade-in-section">
       <div className="container">
-        {/* AWS Certification & Learning Tracker */}
-        <div className="certs-showcase-wrapper">
-          <CertTracker />
-        </div>
-
         {/* Section title */}
-        <div className="section-header contact-header-gap">
+        <div className="section-header">
           <div className="section-label">05. Connect</div>
-          <h3 className="section-title">Initiate Contact & Relocation Queries</h3>
+          <h3 className="section-title">Initiate Contact & Engineering Inquiries</h3>
         </div>
 
         <div className="contact-grid">
@@ -55,7 +64,7 @@ export default function ContactSection() {
               </div>
               <div className="profile-titles">
                 <h4>Shyam Kumar D</h4>
-                <p>Systems & Support Specialist</p>
+                <p>Cloud & DevOps Engineer</p>
                 <span className="location-pill">
                   <MapPin size={10} /> Madurai, Tamil Nadu
                 </span>
@@ -63,13 +72,36 @@ export default function ContactSection() {
             </div>
 
             <p className="contact-intro-description">
-              Looking for a systems professional ready for L1/L2 cloud support queues, network diagnostics, and 24/7/365 shift rotations? Let's initiate a discussion.
+              Specializing in Kubernetes container orchestration, AWS cloud infrastructure, Terraform IaC, and autonomous security engineering. Open to full-time roles, internships, and cloud architecture projects.
             </p>
 
+            {/* Quick Connect Action Buttons */}
+            <div className="quick-connect-banner">
+              <a
+                href={`https://wa.me/917010672248?text=${whatsappMessage}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-whatsapp-action"
+              >
+                <MessageSquare size={16} />
+                <span>Chat on WhatsApp (+91 7010672248)</span>
+                <ExternalLink size={14} className="ext-icon" />
+              </a>
+
+              <button
+                type="button"
+                className="btn-copy-email-action"
+                onClick={handleCopyEmail}
+              >
+                {copied ? <Check size={16} className="copied-icon" /> : <Copy size={16} />}
+                <span>{copied ? 'Email Copied to Clipboard!' : 'Copy: shyamcloud021@gmail.com'}</span>
+              </button>
+            </div>
+
             <div className="contact-links-list">
-              <a href="mailto:dshyamkumar021@gmail.com" className="contact-link-item">
+              <a href="mailto:shyamcloud021@gmail.com" className="contact-link-item">
                 <Mail className="link-icon" size={16} />
-                <span>dshyamkumar021@gmail.com</span>
+                <span>shyamcloud021@gmail.com</span>
               </a>
               <a href="tel:+917010672248" className="contact-link-item">
                 <Phone className="link-icon" size={16} />
@@ -77,7 +109,7 @@ export default function ContactSection() {
               </a>
               <div className="contact-link-item non-click">
                 <MapPin className="link-icon" size={16} />
-                <span>Open to Relocation & Remote</span>
+                <span>Open to Relocation & Remote (Worldwide)</span>
               </div>
             </div>
 
@@ -98,9 +130,26 @@ export default function ContactSection() {
           <div className="contact-form-card glass-card">
             {!isSent ? (
               <form onSubmit={handleFormSubmit} className="actual-contact-form">
-                <h4>Send a direct notification</h4>
-                <p>Use the form below to initiate contact queries. Immediate telemetry updates enabled.</p>
+                <h4>Send a direct inquiry</h4>
+                <p>Fill out the form below or pick a preset topic. Telemetry routed directly to my inbox.</p>
                 
+                {/* Topic Presets */}
+                <div className="preset-topics-group">
+                  <span className="preset-label">Quick topics:</span>
+                  <div className="preset-chips">
+                    {['Full-Time Cloud Role', 'DevOps Internship', 'KubeForecast Inquiry', 'Cloud Advisory'].map((topic, i) => (
+                      <button
+                        key={i}
+                        type="button"
+                        className={`topic-chip ${formData.subject === topic ? 'selected' : ''}`}
+                        onClick={() => selectSubjectPreset(topic)}
+                      >
+                        {topic}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
                 {errorMsg && <div className="form-alert error">{errorMsg}</div>}
 
                 <div className="form-group-row">
@@ -112,7 +161,7 @@ export default function ContactSection() {
                       name="name"
                       value={formData.name}
                       onChange={handleInputChange}
-                      placeholder="e.g. Recruiter Name"
+                      placeholder="e.g. Recruiter / Engineering Manager"
                       required
                     />
                   </div>
@@ -124,7 +173,7 @@ export default function ContactSection() {
                       name="email"
                       value={formData.email}
                       onChange={handleInputChange}
-                      placeholder="e.g. hr@company.com"
+                      placeholder="e.g. hiring@company.com"
                       required
                     />
                   </div>
@@ -138,7 +187,7 @@ export default function ContactSection() {
                     name="subject"
                     value={formData.subject}
                     onChange={handleInputChange}
-                    placeholder="e.g. Interview Scheduling"
+                    placeholder="e.g. Cloud Infrastructure Role / Interview Invitation"
                   />
                 </div>
 
@@ -150,13 +199,13 @@ export default function ContactSection() {
                     rows={4}
                     value={formData.message}
                     onChange={handleInputChange}
-                    placeholder="Provide details about opportunities, scheduling, or questions..."
+                    placeholder="Provide details about the opportunity, role requirements, or project scope..."
                     required
                   ></textarea>
                 </div>
 
                 <button type="submit" className="btn btn-primary form-submit-btn" disabled={isSubmitting}>
-                  {isSubmitting ? 'Transmitting Data...' : (
+                  {isSubmitting ? 'Transmitting Inquiries...' : (
                     <>
                       Transmit Message <Send size={14} />
                     </>
@@ -169,7 +218,7 @@ export default function ContactSection() {
                 <h4>Message Transmitted Successfully!</h4>
                 <p>Data packets successfully routed to Shyam Kumar D. You will receive a response within 12 business hours.</p>
                 <button className="btn btn-secondary" onClick={() => setIsSent(false)}>
-                  Send another message
+                  Send another inquiry
                 </button>
               </div>
             )}
@@ -181,14 +230,6 @@ export default function ContactSection() {
         .contact-section {
           padding: 80px 0;
           position: relative;
-        }
-
-        .certs-showcase-wrapper {
-          margin-bottom: 60px;
-        }
-
-        .contact-header-gap {
-          margin-top: 40px;
         }
 
         .contact-grid {
@@ -214,7 +255,7 @@ export default function ContactSection() {
           display: flex;
           align-items: center;
           gap: 16px;
-          margin-bottom: 24px;
+          margin-bottom: 20px;
         }
 
         .avatar-wrapper {
@@ -248,14 +289,15 @@ export default function ContactSection() {
         }
 
         .profile-titles h4 {
-          font-size: 18px;
+          font-size: 20px;
           color: var(--text-primary);
           margin-bottom: 2px;
         }
 
         .profile-titles p {
-          font-size: 12px;
-          color: var(--text-secondary);
+          font-size: 13px;
+          color: var(--accent-color);
+          font-weight: 600;
           margin-bottom: 6px;
         }
 
@@ -263,27 +305,83 @@ export default function ContactSection() {
           display: inline-flex;
           align-items: center;
           gap: 4px;
-          background: var(--bg-color);
-          border: 1px solid var(--border-color);
+          font-size: 11px;
           color: var(--text-secondary);
-          padding: 2px 10px;
-          border-radius: 50px;
-          font-size: 10px;
-          font-weight: 600;
+          background-color: var(--bg-color);
+          padding: 2px 8px;
+          border-radius: 4px;
+          border: 1px solid var(--border-color);
         }
 
         .contact-intro-description {
           font-size: 14px;
           color: var(--text-secondary);
-          line-height: 1.5;
+          line-height: 1.6;
+          margin-bottom: 20px;
+        }
+
+        /* Quick Connect Banner */
+        .quick-connect-banner {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
           margin-bottom: 24px;
+        }
+
+        .btn-whatsapp-action {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          background: #25D366;
+          color: #FFFFFF;
+          padding: 12px 18px;
+          border-radius: var(--radius-md);
+          font-weight: 700;
+          font-size: 13px;
+          text-decoration: none;
+          transition: var(--transition-fast);
+        }
+
+        .btn-whatsapp-action:hover {
+          background: #1EBE5D;
+          transform: translateY(-2px);
+          box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+        }
+
+        .ext-icon {
+          margin-left: auto;
+          opacity: 0.8;
+        }
+
+        .btn-copy-email-action {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          background: rgba(var(--accent-rgb), 0.08);
+          border: 1px solid rgba(var(--accent-rgb), 0.25);
+          color: var(--text-primary);
+          padding: 10px 16px;
+          border-radius: var(--radius-md);
+          font-size: 12px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: var(--transition-fast);
+        }
+
+        .btn-copy-email-action:hover {
+          background: rgba(var(--accent-rgb), 0.15);
+          border-color: var(--accent-color);
+        }
+
+        .copied-icon {
+          color: #10B981;
         }
 
         .contact-links-list {
           display: flex;
           flex-direction: column;
-          gap: 14px;
-          margin-bottom: 32px;
+          gap: 12px;
+          margin-bottom: 24px;
         }
 
         .contact-link-item {
@@ -307,91 +405,106 @@ export default function ContactSection() {
         .social-links-row {
           display: flex;
           gap: 12px;
+          align-items: center;
           flex-wrap: wrap;
         }
 
         .social-box {
           width: 44px;
           height: 44px;
-          border-radius: var(--radius-sm);
+          border-radius: var(--radius-md);
+          background-color: var(--bg-color);
           border: 1px solid var(--border-color);
-          background: var(--bg-color);
           display: flex;
           align-items: center;
           justify-content: center;
-          color: var(--text-secondary);
+          color: var(--text-primary);
           text-decoration: none;
-          transition: var(--transition-normal);
+          transition: var(--transition-fast);
         }
 
         .social-box:hover {
           border-color: var(--accent-color);
           color: var(--accent-color);
-          box-shadow: 0 0 10px var(--accent-glow);
+          transform: translateY(-2px);
         }
 
         .resume-btn-box {
           width: auto;
-          flex-grow: 1;
-          display: flex;
-          gap: 8px;
           padding: 0 16px;
-          font-family: var(--font-display);
-          font-size: 12px;
-          font-weight: 700;
-          text-transform: uppercase;
-          background-color: var(--accent-color);
-          color: white;
-          border-color: var(--accent-color);
+          gap: 8px;
+          font-size: 13px;
+          font-weight: 600;
         }
 
-        .resume-btn-box:hover {
-          background-color: transparent;
-          color: var(--accent-color);
-          box-shadow: 0 4px 15px var(--accent-glow);
-        }
-
-        /* Form Card Styling */
+        /* Form Card */
         .contact-form-card {
           padding: 32px;
           border-radius: var(--radius-lg);
           background-color: var(--card-bg-solid);
           border: 1px solid var(--border-color);
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
         }
 
         .actual-contact-form h4 {
-          font-size: 18px;
+          font-size: 22px;
           color: var(--text-primary);
           margin-bottom: 4px;
         }
 
         .actual-contact-form p {
-          font-size: 12px;
-          color: var(--text-muted);
-          margin-bottom: 24px;
+          font-size: 14px;
+          color: var(--text-secondary);
+          margin-bottom: 20px;
         }
 
-        .form-alert {
-          padding: 10px 14px;
-          border-radius: var(--radius-sm);
-          font-size: 12px;
-          margin-bottom: 16px;
+        /* Preset topics */
+        .preset-topics-group {
+          margin-bottom: 20px;
         }
 
-        .form-alert.error {
-          background-color: rgba(239, 68, 68, 0.1);
-          border: 1px solid rgba(239, 68, 68, 0.2);
-          color: #fca5a5;
+        .preset-label {
+          font-size: 11px;
+          font-weight: 700;
+          color: var(--text-secondary);
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          display: block;
+          margin-bottom: 8px;
+        }
+
+        .preset-chips {
+          display: flex;
+          gap: 8px;
+          flex-wrap: wrap;
+        }
+
+        .topic-chip {
+          background: var(--bg-color);
+          border: 1px solid var(--border-color);
+          color: var(--text-secondary);
+          font-size: 12px;
+          font-weight: 600;
+          padding: 6px 12px;
+          border-radius: 50px;
+          cursor: pointer;
+          transition: var(--transition-fast);
+        }
+
+        .topic-chip:hover {
+          border-color: var(--accent-color);
+          color: var(--accent-color);
+        }
+
+        .topic-chip.selected {
+          background: var(--accent-color);
+          color: #FFFFFF;
+          border-color: var(--accent-color);
         }
 
         .form-group-row {
           display: grid;
-          grid-template-columns: repeat(2, 1fr);
+          grid-template-columns: 1fr 1fr;
           gap: 16px;
-          margin-bottom: 16px;
         }
 
         .form-group {
@@ -403,51 +516,56 @@ export default function ContactSection() {
 
         .form-group label {
           font-size: 12px;
-          font-weight: 600;
-          color: var(--text-secondary);
+          font-weight: 700;
+          color: var(--text-primary);
+          text-transform: uppercase;
+          letter-spacing: 0.04em;
         }
 
-        .form-group input, .form-group textarea {
-          background: var(--bg-color);
+        .form-group input,
+        .form-group textarea {
+          padding: 12px 14px;
+          border-radius: var(--radius-md);
           border: 1px solid var(--border-color);
-          border-radius: var(--radius-sm);
-          padding: 10px 14px;
+          background-color: var(--bg-color);
           color: var(--text-primary);
-          font-family: var(--font-body);
-          font-size: 13.5px;
+          font-family: inherit;
+          font-size: 14px;
           outline: none;
           transition: var(--transition-fast);
         }
 
-        .form-group input:focus, .form-group textarea:focus {
+        .form-group input:focus,
+        .form-group textarea:focus {
           border-color: var(--accent-color);
-          box-shadow: 0 0 10px var(--accent-glow);
+          box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.12);
         }
 
         .form-submit-btn {
           width: 100%;
-          border: none;
           justify-content: center;
-          font-weight: 700;
+          padding: 14px;
+          font-size: 15px;
+          margin-top: 8px;
         }
 
-        /* Success Card */
         .success-overlay-card {
           display: flex;
           flex-direction: column;
           align-items: center;
+          justify-content: center;
           text-align: center;
-          padding: 32px 16px;
+          padding: 48px 24px;
+          height: 100%;
         }
 
         .success-icon {
           color: #10b981;
-          margin-bottom: 20px;
-          filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.3));
+          margin-bottom: 16px;
         }
 
         .success-overlay-card h4 {
-          font-size: 20px;
+          font-size: 22px;
           color: var(--text-primary);
           margin-bottom: 8px;
         }
@@ -455,19 +573,14 @@ export default function ContactSection() {
         .success-overlay-card p {
           font-size: 14px;
           color: var(--text-secondary);
-          line-height: 1.5;
           margin-bottom: 24px;
-          max-width: 400px;
+          max-width: 380px;
         }
 
-        @media (max-width: 992px) {
+        @media (max-width: 900px) {
           .contact-grid {
             grid-template-columns: 1fr;
-            gap: 24px;
           }
-        }
-
-        @media (max-width: 480px) {
           .form-group-row {
             grid-template-columns: 1fr;
           }

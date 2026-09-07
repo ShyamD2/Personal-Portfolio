@@ -1,74 +1,77 @@
-import React from 'react';
-import { Network, Cloud, LifeBuoy, Wrench, Terminal, Users } from 'lucide-react';
+import { Network, Cloud, Shield, Terminal, Activity, Layers } from 'lucide-react';
 
 export default function SkillsSection() {
   const skillCategories = [
     {
-      title: 'Networking & Systems',
-      icon: <Network className="skill-icon" size={22} />,
-      skills: [
-        { name: 'TCP/IP Protocol Suite', status: 'Core' },
-        { name: 'DNS Records & Routing', status: 'Core' },
-        { name: 'DHCP & IP Addressing', status: 'Core' },
-        { name: 'OSI Model Layers', status: 'Core' },
-        { name: 'VPC Subnetting & CIDR', status: 'Advanced' },
-        { name: 'VPN Configuration', status: 'Advanced' }
-      ]
-    },
-    {
-      title: 'Cloud Technologies',
+      title: 'Cloud Infrastructure (AWS)',
       icon: <Cloud className="skill-icon" size={22} />,
       skills: [
-        { name: 'AWS EC2 instances', status: 'Expert' },
-        { name: 'AWS S3 Storage', status: 'Expert' },
+        { name: 'AWS EKS (Kubernetes)', status: 'Advanced' },
+        { name: 'AWS EC2 & Auto Scaling', status: 'Expert' },
         { name: 'Application Load Balancers', status: 'Expert' },
-        { name: 'AWS Virtual Private Cloud', status: 'Advanced' },
-        { name: 'Azure Core Compute', status: 'Basic' },
-        { name: 'Azure Storage & Networking', status: 'Basic' }
+        { name: 'AWS VPC & Networking', status: 'Expert' },
+        { name: 'AWS Lambda & API Gateway', status: 'Advanced' },
+        { name: 'DynamoDB & S3 Storage', status: 'Advanced' }
       ]
     },
     {
-      title: 'Support & Ticketing',
-      icon: <LifeBuoy className="skill-icon" size={22} />,
+      title: 'Containers & Orchestration',
+      icon: <Layers className="skill-icon" size={22} />,
       skills: [
-        { name: 'Zendesk Service Desk', status: 'Proficient' },
-        { name: 'Freshdesk ticketing', status: 'Proficient' },
-        { name: 'JIRA Service Desk', status: 'Core' },
-        { name: 'SLA Monitoring & SLA breach prevention', status: 'Core' },
-        { name: 'First Contact Resolution (FCR)', status: 'Core' },
-        { name: 'Voice Support & escalation handling', status: 'Core' }
+        { name: 'Kubernetes Architecture', status: 'Advanced' },
+        { name: 'Custom Scheduler Plugins', status: 'Advanced' },
+        { name: 'Docker Multi-Stage Builds', status: 'Expert' },
+        { name: 'Helm v3 Charts & Deployments', status: 'Advanced' },
+        { name: 'Pod Disruption Budgets (PDB)', status: 'Core' },
+        { name: 'Cluster Autoscaling & FinOps', status: 'Advanced' }
       ]
     },
     {
-      title: 'Systems & Troubleshooting',
-      icon: <Wrench className="skill-icon" size={22} />,
-      skills: [
-        { name: 'Windows Server / client systems', status: 'Expert' },
-        { name: 'Linux systems administration (Ubuntu)', status: 'Advanced' },
-        { name: 'Root Cause Analysis (RCA)', status: 'Expert' },
-        { name: 'Remote Desktop Protocol (RDP)', status: 'Expert' },
-        { name: 'System Log analysis', status: 'Advanced' },
-        { name: 'Postman API Testing', status: 'Proficient' }
-      ]
-    },
-    {
-      title: 'Automation & Scripting',
+      title: 'IaC & CI/CD Automation',
       icon: <Terminal className="skill-icon" size={22} />,
       skills: [
-        { name: 'Python scripting', status: 'Advanced' },
-        { name: 'Bash automation scripting', status: 'Advanced' },
-        { name: 'Git & GitHub version control', status: 'Proficient' },
-        { name: 'System cron jobs scheduler', status: 'Advanced' }
+        { name: 'Terraform Modules & State', status: 'Expert' },
+        { name: 'GitHub Actions Workflows', status: 'Expert' },
+        { name: 'Automated CI/CD Pipelines', status: 'Advanced' },
+        { name: 'Bash Shell Automation', status: 'Expert' },
+        { name: 'Python Automation Scripts', status: 'Advanced' },
+        { name: 'Linux Systemd Services', status: 'Core' }
       ]
     },
     {
-      title: 'Professional Soft Skills',
-      icon: <Users className="skill-icon" size={22} />,
+      title: 'Networking & Protocols',
+      icon: <Network className="skill-icon" size={22} />,
       skills: [
-        { name: 'Active Listening & empathy', status: 'Core' },
-        { name: 'Clear technical translation', status: 'Core' },
-        { name: 'Patient Under Pressure', status: 'Core' },
-        { name: 'Flexible with rotational shifts', status: 'Core' }
+        { name: 'TCP/IP & OSI Model', status: 'Core' },
+        { name: 'CIDR & Subnet Slicing', status: 'Expert' },
+        { name: 'Route Tables & Gateways', status: 'Expert' },
+        { name: 'IPsec Site-to-Site VPN', status: 'Advanced' },
+        { name: 'DNS (Route 53) & HTTP/S', status: 'Core' },
+        { name: 'Security Groups & NACLs', status: 'Expert' }
+      ]
+    },
+    {
+      title: 'Observability & Monitoring',
+      icon: <Activity className="skill-icon" size={22} />,
+      skills: [
+        { name: 'Prometheus Metrics Collection', status: 'Advanced' },
+        { name: 'Grafana Custom Dashboards', status: 'Advanced' },
+        { name: 'AWS CloudWatch Alarms', status: 'Expert' },
+        { name: 'System Telemetry & Exporters', status: 'Advanced' },
+        { name: 'Log Ingestion & Athena SQL', status: 'Advanced' },
+        { name: 'Live Hardware Soak Testing', status: 'Core' }
+      ]
+    },
+    {
+      title: 'DevSecOps & Cloud Governance',
+      icon: <Shield className="skill-icon" size={22} />,
+      skills: [
+        { name: 'IAM Least-Privilege Policies', status: 'Expert' },
+        { name: 'Autonomous SOAR Pipelines', status: 'Advanced' },
+        { name: 'SEC Rule 17a-4 S3 WORM', status: 'Advanced' },
+        { name: 'Static Security (Checkov, Trivy)', status: 'Advanced' },
+        { name: 'AWS KMS Key Management', status: 'Advanced' },
+        { name: 'EventBridge & Step Functions', status: 'Advanced' }
       ]
     }
   ];

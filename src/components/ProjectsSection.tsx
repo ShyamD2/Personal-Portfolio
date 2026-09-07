@@ -1,33 +1,43 @@
-import React from 'react';
-import { Github, Command } from 'lucide-react';
+import React, { useState } from 'react';
+import { Github, Command, PlayCircle } from 'lucide-react';
 import ArchitectureShowcase from './Interactive/ArchitectureShowcase';
 import SupportTerminal from './Interactive/SupportTerminal';
+import VideoModal from './Interactive/VideoModal';
 
 export default function ProjectsSection() {
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const projectsList = [
     {
-      title: 'Scalable Traffic Handling System',
-      badge: 'AWS Infrastructure',
-      problem: 'Configuring high-availability server setups capable of handling unpredictable traffic spikes without manual intervention.',
-      solution: 'Configured a multi-server setup utilizing AWS EC2 compute units registered under an Application Load Balancer target group. Enabled Auto-Scaling policies based on real-time CPU capacity thresholds and implemented port health checks.',
-      tech: ['AWS EC2', 'AWS ALB', 'Auto Scaling', 'VPC Routing', 'Nginx'],
-      github: 'https://github.com/ShyamD2',
+      title: 'KubeForecast: Kubernetes Predictive Scheduler & FinOps Engine',
+      badge: 'Kubernetes & AWS EKS',
+      problem: 'Standard Kubernetes round-robin scheduling causes severe fleet fragmentation, stranding nodes at 15–30% capacity while paying for 100% compute hours.',
+      solution: 'Engineered a custom Go Kubernetes Scheduling Framework plugin (evaluating node placement in 90.35 ns) and 100% Terraform AWS EKS IaC. Steers pods to safe waterline nodes, validated on live AWS EKS with 50%–66.7% node reduction and 5 Grafana dashboards.',
+      tech: ['Kubernetes', 'AWS EKS v1.31', 'Terraform', 'Go 1.23', 'Helm v3', 'Prometheus', 'Grafana'],
+      github: 'https://github.com/ShyamD2/KubeForecast',
     },
     {
-      title: 'Config-Driven Backend System',
-      badge: 'Systems Automation',
-      problem: 'Building robust, parameter-based systems architectures that adjust behaviors dynamically without code restarts.',
-      solution: 'Developed a backend configuration manager using structured system settings. Integrated logging systems to track runtime changes and built a solutions repository within a knowledge base database for future system audits.',
-      tech: ['Python Scripting', 'Systems Logging', 'YAML Parser', 'Shell Automation'],
-      github: 'https://github.com/ShyamD2',
+      title: 'Project AEGIS: Autonomous Cloud Defense & SOAR Fabric',
+      badge: '100% Terraform & DevSecOps',
+      problem: 'Manual cloud threat containment is slow and error-prone, while digital forensic records remain vulnerable to tampering during security breaches.',
+      solution: 'Codified 100% multi-account AWS infrastructure in Terraform. Engineered autonomous SOAR containment pipelines using EventBridge, Step Functions, and Lambda, streaming immutable forensic trails to SEC Rule 17a-4 S3 WORM vaults.',
+      tech: ['AWS Multi-Account', 'Terraform', 'EventBridge', 'Step Functions', 'S3 WORM', 'KMS', 'Checkov'],
+      github: 'https://github.com/ShyamD2/aegis-cloud-security',
     },
     {
-      title: 'IT Helpdesk Ticketing Lab',
-      badge: 'Technical Support Operations',
-      problem: 'Handling customer escalation queries efficiently under tight SLA windows.',
-      solution: 'Deployed a Level 1 helpdesk environment handling mock access control, software, and routing tickets. Practiced SLA ticket classification, first-contact resolutions (FCR), and escalation routing paths.',
-      tech: ['Zendesk API', 'JIRA Service Desk', 'Active Listening', 'RCA Diagnostics'],
-      github: 'https://github.com/ShyamD2',
+      title: 'Event-Driven Serverless URL Shortener & Analytics',
+      badge: 'AWS Serverless & Data',
+      problem: 'Traditional container or VM-based redirect services incur continuous idle baseline costs ($20–$80/mo) and couple analytics logging directly to redirection latency.',
+      solution: 'Architected an asynchronous event-driven system using HTTP API Gateway and Lambda for sub-30ms redirects at $0 idle cost. Decoupled analytics via Amazon SQS dead-letter queues to partitioned S3 logs, queried in-place via Amazon Athena.',
+      tech: ['AWS Lambda', 'API Gateway', 'DynamoDB', 'Amazon SQS', 'Amazon S3', 'Amazon Athena', 'Terraform'],
+      github: 'https://github.com/ShyamD2/aws-cloud-serverless-url-shortener',
+    },
+    {
+      title: 'Scalable Multi-AZ Infrastructure & Traffic Management',
+      badge: 'AWS Core Infrastructure',
+      problem: 'Designing fault-tolerant, highly available cloud web systems capable of surviving availability zone failures with zero manual downtime.',
+      solution: 'Architected high-availability multi-tier infrastructure across 3 AZs using Application Load Balancers, dynamic Auto Scaling groups, VPC private subnets, and CloudWatch alarms, automated with Bash User Data on Ubuntu.',
+      tech: ['AWS EC2', 'AWS ALB', 'Auto Scaling', 'VPC Routing', 'CloudWatch', 'Bash Scripting'],
+      github: 'https://github.com/ShyamD2/Scalable-AWS-Cloud-Infrastructure-Deployment',
     }
   ];
 
@@ -69,6 +79,17 @@ export default function ProjectsSection() {
                   <span key={tIdx} className="tech-tag">{t}</span>
                 ))}
               </div>
+
+              {idx === 0 && (
+                <button
+                  type="button"
+                  className="btn-watch-demo-card"
+                  onClick={() => setIsVideoModalOpen(true)}
+                >
+                  <PlayCircle size={15} />
+                  <span>Watch Live K8s Demo Video</span>
+                </button>
+              )}
             </div>
           ))}
         </div>
@@ -77,13 +98,13 @@ export default function ProjectsSection() {
         <div className="sandbox-divider">
           <span className="sandbox-line"></span>
           <div className="sandbox-title">
-            <Command size={16} /> Interactive Systems Playground
+            <Command size={16} /> Interactive Cloud & DevOps Systems Playground
           </div>
           <span className="sandbox-line"></span>
         </div>
         
         <p className="sandbox-intro-text">
-          Don't just review my credentials. Test my cloud configurations and troubleshooting workflows inside the active terminal console.
+          Don't just review my credentials. Test my live Kubernetes scheduling algorithms, zero-trust SOAR containment workflows, and infrastructure consolidation in the active sandboxes below.
         </p>
 
         {/* WOW Factor Simulators Layout */}
@@ -95,8 +116,8 @@ export default function ProjectsSection() {
                 <img src="/assets/photo_desk_arms.png" alt="Shyam Kumar D at Desk" />
               </div>
               <div className="bento-photo-caption">
-                <h5>Active Support Engineering</h5>
-                <p>Equipped with white noise-cancelling headphones and direct system diagnostics for immediate ticketing responses.</p>
+                <h5>Cloud Systems & DevOps Engineering</h5>
+                <p>Engineering automated cloud infrastructure, low-latency container schedulers, and zero-trust security fabric.</p>
               </div>
             </div>
             
@@ -306,6 +327,30 @@ export default function ProjectsSection() {
           justify-content: center;
         }
 
+        .btn-watch-demo-card {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: rgba(229, 62, 62, 0.12);
+          border: 1px solid rgba(229, 62, 62, 0.3);
+          color: #FFFFFF;
+          padding: 8px 16px;
+          border-radius: 50px;
+          font-size: 12px;
+          font-weight: 700;
+          cursor: pointer;
+          margin-top: 16px;
+          transition: var(--transition-fast);
+          width: fit-content;
+        }
+
+        .btn-watch-demo-card:hover {
+          background: var(--accent-color);
+          color: #FFFFFF;
+          transform: translateY(-2px);
+          box-shadow: 0 6px 18px rgba(229, 62, 62, 0.35);
+        }
+
         @media (max-width: 992px) {
           .terminal-bento-grid {
             grid-template-columns: 1fr;
@@ -324,6 +369,15 @@ export default function ProjectsSection() {
           }
         }
       `}</style>
+
+      {/* Kubernetes Video Demo Lightbox Modal */}
+      <VideoModal
+        isOpen={isVideoModalOpen}
+        onClose={() => setIsVideoModalOpen(false)}
+        videoSrc="/videos/kubeforecast_live_cockpit_demo.mp4"
+        title="KubeForecast™ Live Cockpit & Kubernetes Scheduler Evaluation"
+        subtitle="Live demonstration of Go PreScore/Score evaluation hooks (90.35 ns) and 50% cluster waterline bin-packing on AWS EKS"
+      />
     </section>
   );
 }

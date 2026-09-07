@@ -1,478 +1,1001 @@
 import React, { useState } from 'react';
-import { Activity, Server, ShieldAlert, Cpu, HardDrive, HelpCircle } from 'lucide-react';
+import { Activity, Layers, Cpu, Server, CheckCircle2, AlertCircle, RefreshCw, Zap, DollarSign, Clock, PlayCircle, Monitor, Shield, ArrowRight, Flame, Network } from 'lucide-react';
+import ChaosSimulator from './ChaosSimulator';
+import FinOpsCalculator from './FinOpsCalculator';
+import NetworkTopologyExplorer from './NetworkTopologyExplorer';
+import { playTactileClick, playSuccessChime, playConsolidationHum } from '../../utils/soundEffects';
+
+interface Pod {
+  id: string;
+  name: string;
+  cpu: number; // in cores e.g. 0.5
+  mem: number; // in GiB
+  status: 'Running' | 'Migrating' | 'Pending';
+}
+
+interface NodeData {
+  id: string;
+  name: string;
+  instanceType: string;
+  zone: string;
+  maxCpu: number;
+  status: 'Ready' | 'Draining' | 'Scaled Down';
+  pods: Pod[];
+}
 
 export default function ArchitectureShowcase() {
-  const [trafficActive, setTrafficActive] = useState(false);
-  const [scalingActive, setScalingActive] = useState(false);
-  const [instances, setInstances] = useState([
-    { id: 1, name: 'EC2-Server-01', status: 'Healthy', ip: '10.0.1.14', load: '12%' },
-    { id: 2, name: 'EC2-Server-02', status: 'Healthy', ip: '10.0.1.85', load: '14%' }
-  ]);
-  const [selectedNode, setSelectedNode] = useState<any>(null);
+  const [viewMode, setViewMode] = useState<'simulator' | 'chaos' | 'finops' | 'topology' | 'video'>('simulator');
 
-  const simulateTraffic = () => {
-    if (trafficActive) return;
-    setTrafficActive(true);
-    setSelectedNode({
-      name: 'Application Load Balancer (ALB)',
-      type: 'Routing & Health Checks',
-      details: 'Distributing traffic to target groups. Detection of high capacity load. Initiating auto-scaling trigger.'
-    });
+  const initialNodes: NodeData[] = [
+    {
+      id: 'node-1',
+      name: 'eks-worker-01 (ip-10-0-1-42)',
+      instanceType: 'm6i.xlarge (4 vCPU / 16GB)',
+      zone: 'ap-south-1a',
+      maxCpu: 4,
+      status: 'Ready',
+      pods: [
+        { id: 'p1', name: 'order-api', cpu: 1.0, mem: 2, status: 'Running' },
+        { id: 'p2', name: 'auth-vault', cpu: 0.5, mem: 1, status: 'Running' }
+      ]
+    },
+    {
+      id: 'node-2',
+      name: 'eks-worker-02 (ip-10-0-1-88)',
+      instanceType: 'm6i.xlarge (4 vCPU / 16GB)',
+      zone: 'ap-south-1b',
+      maxCpu: 4,
+      status: 'Ready',
+      pods: [
+        { id: 'p3', name: 'payment-svc', cpu: 0.8, mem: 1.5, status: 'Running' },
+        { id: 'p4', name: 'inventory-svc', cpu: 0.6, mem: 1.0, status: 'Running' }
+      ]
+    },
+    {
+      id: 'node-3',
+      name: 'eks-worker-03 (ip-10-0-1-19)',
+      instanceType: 'm6i.xlarge (4 vCPU / 16GB)',
+      zone: 'ap-south-1c',
+      maxCpu: 4,
+      status: 'Scaled Down',
+      pods: []
+    }
+  ];
 
-    // Animate scale up after 2 seconds
+  const [nodes, setNodes] = useState<NodeData[]>(initialNodes);
+  const [selectedItem, setSelectedItem] = useState<any>(null);
+  const [isConsolidated, setIsConsolidated] = useState(false);
+  const [isSimulating, setIsSimulating] = useState(false);
+  const [logs, setLogs] = useState<string>('Cluster idle. Ready to test KubeForecast waterline bin-packing.');
+
+  const calculateNodeUsage = (node: NodeData) => {
+    const used = node.pods.reduce((acc, p) => acc + p.cpu, 0);
+    return {
+      used,
+      pct: Math.min(100, Math.round((used / node.maxCpu) * 100))
+    };
+  };
+
+  const runBinPacking = () => {
+    if (isSimulating) return;
+    playTactileClick();
+    setIsSimulating(true);
+    setLogs('[ALGORITHM] KubeForecast PreScore invoked: evaluating 3 nodes in 90.35 ns...');
+
     setTimeout(() => {
-      setScalingActive(true);
-      setInstances(prev => [
-        ...prev,
-        { id: 3, name: 'EC2-Server-03 (Auto)', status: 'Initializing', ip: '10.0.1.201', load: '0%' }
-      ]);
-    }, 1500);
-
-    // Complete scale up after 3.5 seconds
-    setTimeout(() => {
-      setInstances(prev =>
-        prev.map(inst =>
-          inst.id === 3 ? { ...inst, status: 'Healthy', load: '22%' } : { ...inst, load: '32%' }
+      setLogs('[DRAIN] Node-2 identified as underutilized candidate (waterline 35%). Initiating eviction...');
+      setNodes(prev =>
+        prev.map(n =>
+          n.id === 'node-2'
+            ? { ...n, status: 'Draining', pods: n.pods.map(p => ({ ...p, status: 'Migrating' })) }
+            : n
         )
       );
-    }, 3500);
+    }, 1200);
+
+    setTimeout(() => {
+      playConsolidationHum();
+      setLogs('[BIN-PACK] Consolidating payment-svc and inventory-svc onto Node-1 (Waterline target: 72.5%)...');
+      setNodes(prev => {
+        const movedPods: Pod[] = [
+          { id: 'p3', name: 'payment-svc', cpu: 0.8, mem: 1.5, status: 'Running' },
+          { id: 'p4', name: 'inventory-svc', cpu: 0.6, mem: 1.0, status: 'Running' }
+        ];
+        return [
+          {
+            ...prev[0],
+            pods: [...prev[0].pods, ...movedPods]
+          },
+          {
+            ...prev[1],
+            status: 'Scaled Down',
+            pods: []
+          },
+          prev[2]
+        ];
+      });
+      setIsConsolidated(true);
+      setIsSimulating(false);
+      playSuccessChime();
+      setLogs('[SUCCESS] Node-2 terminated! Monthly compute spend cut by 50% ($420/mo saved).');
+    }, 2800);
   };
 
-  const resetSimulation = () => {
-    setTrafficActive(false);
-    setScalingActive(false);
-    setInstances([
-      { id: 1, name: 'EC2-Server-01', status: 'Healthy', ip: '10.0.1.14', load: '12%' },
-      { id: 2, name: 'EC2-Server-02', status: 'Healthy', ip: '10.0.1.85', load: '14%' }
-    ]);
-    setSelectedNode(null);
-  };
-
-  const nodeInfo = {
-    route53: {
-      name: 'Amazon Route 53',
-      type: 'DNS Management',
-      details: 'Global DNS routing. Resolves shyamd2.com queries directly to the Application Load Balancer CNAME target.'
-    },
-    alb: {
-      name: 'Application Load Balancer (ALB)',
-      type: 'Traffic Distribution',
-      details: 'Handles incoming HTTPS requests. Monitors target group health checks on path /health and routes traffic to active EC2 nodes.'
-    },
-    ec2: {
-      name: 'EC2 Auto-Scaling Group',
-      type: 'Compute Resources',
-      details: 'Runs backend Nginx systems. Dynamically adjusts compute size based on CPU utilization metrics under SLA targets.'
-    },
-    s3: {
-      name: 'Amazon S3 Bucket',
-      type: 'Static Object Storage',
-      details: 'Hosts public portfolio media resources, static assets, and cached files with CloudFront distribution endpoints.'
-    }
+  const resetCluster = () => {
+    playTactileClick();
+    setNodes(initialNodes);
+    setIsConsolidated(false);
+    setIsSimulating(false);
+    setSelectedItem(null);
+    setLogs('Cluster reset to unoptimized initial state (fragmented nodes).');
   };
 
   return (
-    <div className="architecture-showcase glass-card">
+    <div id="kubernetes-showcase" className="architecture-showcase glass-card">
+      {/* Top Banner */}
       <div className="showcase-header">
-        <Activity className="header-icon" size={20} />
-        <div>
-          <h3>AWS Scalable Infrastructure Simulator</h3>
-          <p>Interactive network topology demonstrating Auto-scaling & ALB configurations</p>
+        <div className="header-badge-row">
+          <span className="live-pulse"></span>
+          <span className="badge-text">KubeForecast™ Live Platform</span>
+        </div>
+        <div className="header-info-line">
+          <div>
+            <h3>Kubernetes Scheduler & Waterline Bin-Packing Engine</h3>
+            <p>High-performance container scheduler on Amazon EKS v1.31 — 90.35 ns scoring & 50% node cost reduction</p>
+          </div>
+          
+          {/* Multi-Feature SRE Cockpit Mode Switcher */}
+          <div className="view-mode-tabs">
+            <button
+              type="button"
+              className={`mode-tab-btn ${viewMode === 'simulator' ? 'active' : ''}`}
+              onClick={() => { playTactileClick(); setViewMode('simulator'); }}
+            >
+              <Monitor size={14} />
+              <span>K8s Scheduler</span>
+            </button>
+            <button
+              type="button"
+              className={`mode-tab-btn ${viewMode === 'chaos' ? 'active' : ''}`}
+              onClick={() => { playTactileClick(); setViewMode('chaos'); }}
+            >
+              <Flame size={14} />
+              <span>Chaos Monkey</span>
+            </button>
+            <button
+              type="button"
+              className={`mode-tab-btn ${viewMode === 'finops' ? 'active' : ''}`}
+              onClick={() => { playTactileClick(); setViewMode('finops'); }}
+            >
+              <DollarSign size={14} />
+              <span>FinOps Calculator</span>
+            </button>
+            <button
+              type="button"
+              className={`mode-tab-btn ${viewMode === 'topology' ? 'active' : ''}`}
+              onClick={() => { playTactileClick(); setViewMode('topology'); }}
+            >
+              <Network size={14} />
+              <span>AWS & Terraform</span>
+            </button>
+            <button
+              type="button"
+              className={`mode-tab-btn ${viewMode === 'video' ? 'active' : ''}`}
+              onClick={() => { playTactileClick(); setViewMode('video'); }}
+            >
+              <PlayCircle size={14} />
+              <span>Demo Video</span>
+            </button>
+          </div>
         </div>
       </div>
 
-      <div className="simulator-grid">
-        {/* Left: SVG Diagram */}
-        <div className="diagram-container">
-          <svg className="topology-svg" viewBox="0 0 600 320">
-            {/* Connection Lines */}
-            {/* Route 53 -> ALB */}
-            <path
-              d="M 100 160 L 220 160"
-              className={`conn-line ${trafficActive ? 'active' : ''}`}
-            />
-            {/* ALB -> EC2-01 */}
-            <path
-              d="M 260 160 C 300 130, 320 80, 380 80"
-              className={`conn-line ${trafficActive ? 'active' : ''}`}
-            />
-            {/* ALB -> EC2-02 */}
-            <path
-              d="M 260 160 L 380 160"
-              className={`conn-line ${trafficActive ? 'active' : ''}`}
-            />
-            {/* ALB -> EC2-03 (Scaling) */}
-            <path
-              d="M 260 160 C 300 190, 320 240, 380 240"
-              className={`conn-line ${scalingActive ? 'active' : ''} ${scalingActive ? '' : 'hidden'}`}
-            />
-            {/* ALB -> S3 */}
-            <path
-              d="M 240 180 L 240 250"
-              className="conn-line static-conn"
-            />
-
-            {/* Nodes */}
-            {/* Route 53 */}
-            <g className="svg-node" onClick={() => setSelectedNode(nodeInfo.route53)}>
-              <circle cx="100" cy="160" r="28" className="node-bg" />
-              <text x="100" y="165" className="node-icon-text">R53</text>
-              <text x="100" y="205" className="node-label">Route 53</text>
-            </g>
-
-            {/* ALB */}
-            <g className="svg-node" onClick={() => setSelectedNode(nodeInfo.alb)}>
-              <circle cx="240" cy="160" r="32" className={`node-bg ${trafficActive ? 'pulse-border' : ''}`} />
-              <text x="240" y="165" className="node-icon-text">ALB</text>
-              <text x="240" y="210" className="node-label">AWS ALB</text>
-            </g>
-
-            {/* S3 Storage */}
-            <g className="svg-node" onClick={() => setSelectedNode(nodeInfo.s3)}>
-              <circle cx="240" cy="270" r="24" className="node-bg" />
-              <text x="240" y="274" className="node-icon-text">S3</text>
-              <text x="240" y="310" className="node-label">Static S3</text>
-            </g>
-
-            {/* EC2 Group */}
-            {/* Server 1 */}
-            <g className="svg-node" onClick={() => setSelectedNode(nodeInfo.ec2)}>
-              <rect x="380" y="55" width="130" height="50" rx="8" className="node-rect ec2-rect" />
-              <text x="392" y="85" className="node-text">EC2-Server-01</text>
-              <circle cx="500" cy="80" r="6" className="status-dot online" />
-            </g>
-
-            {/* Server 2 */}
-            <g className="svg-node" onClick={() => setSelectedNode(nodeInfo.ec2)}>
-              <rect x="380" y="135" width="130" height="50" rx="8" className="node-rect ec2-rect" />
-              <text x="392" y="165" className="node-text">EC2-Server-02</text>
-              <circle cx="500" cy="160" r="6" className="status-dot online" />
-            </g>
-
-            {/* Server 3 (Scaling Node) */}
-            <g className={`svg-node scaling-node-svg ${scalingActive ? 'visible' : ''}`} onClick={() => setSelectedNode(nodeInfo.ec2)}>
-              <rect x="380" y="215" width="130" height="50" rx="8" className="node-rect ec2-rect scaling" />
-              <text x="392" y="245" className="node-text">EC2-Server-03</text>
-              <circle
-                cx="500"
-                cy="240"
-                r="6"
-                className={`status-dot ${instances[2]?.status === 'Healthy' ? 'online' : 'initializing'}`}
-              />
-            </g>
-          </svg>
-        </div>
-
-        {/* Right: Controls & Details Panel */}
-        <div className="controls-container">
-          <div className="controls-actions">
-            {!trafficActive ? (
-              <button className="sim-btn trigger" onClick={simulateTraffic}>
-                Simulate Traffic Spike
+      {/* VIEW MODE 1: INTERACTIVE SIMULATOR */}
+      {viewMode === 'simulator' && (
+        <>
+          {/* Action Bar */}
+          <div className="simulator-actions-bar">
+            <div className="actions-left-text">
+              <span>Interactive Controls: Test node waterline evaluation or trigger pod bin-packing consolidation.</span>
+            </div>
+            <div className="header-actions">
+              <button
+                className="action-btn primary-action"
+                onClick={runBinPacking}
+                disabled={isSimulating || isConsolidated}
+              >
+                <Zap size={14} /> {isConsolidated ? 'Cluster Optimized (50% Cost Cut)' : 'Run Waterline Bin-Packing'}
               </button>
-            ) : (
-              <button className="sim-btn reset" onClick={resetSimulation}>
-                Reset Outage Simulation
+              <button className="action-btn secondary-action" onClick={resetCluster} title="Reset Cluster">
+                <RefreshCw size={14} /> Reset Cluster
               </button>
+            </div>
+          </div>
+
+          {/* Metrics Row */}
+          <div className="metrics-strip">
+            <div className="metric-chip">
+              <Clock size={16} className="metric-icon" />
+              <div className="metric-content">
+                <span className="metric-label">PreScore Latency</span>
+                <span className="metric-value">90.35 ns</span>
+              </div>
+            </div>
+            <div className="metric-chip">
+              <Layers size={16} className="metric-icon" />
+              <div className="metric-content">
+                <span className="metric-label">Waterline Target</span>
+                <span className="metric-value">75.0% Limit</span>
+              </div>
+            </div>
+            <div className="metric-chip">
+              <DollarSign size={16} className="metric-icon highlight" />
+              <div className="metric-content">
+                <span className="metric-label">Node Cost Reduction</span>
+                <span className="metric-value highlight">{isConsolidated ? '-50% Active EC2s' : '0% (Wasteful)'}</span>
+              </div>
+            </div>
+            <div className="metric-chip">
+              <CheckCircle2 size={16} className="metric-icon" />
+              <div className="metric-content">
+                <span className="metric-label">Pod Schedulability</span>
+                <span className="metric-value">100% Placed</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Cluster Nodes Interactive Grid */}
+          <div className="nodes-container-grid">
+            {nodes.map(node => {
+              const { used, pct } = calculateNodeUsage(node);
+              const isScaledDown = node.status === 'Scaled Down';
+
+              return (
+                <div
+                  key={node.id}
+                  className={`node-card ${isScaledDown ? 'scaled-down' : ''} ${selectedItem?.id === node.id ? 'selected' : ''}`}
+                  onClick={() => setSelectedItem({ type: 'node', data: node, used, pct })}
+                >
+                  <div className="node-top">
+                    <div className="node-badge-group">
+                      <Server size={14} />
+                      <span className="node-name">{node.name.split(' ')[0]}</span>
+                    </div>
+                    <span className={`status-pill ${node.status.toLowerCase().replace(' ', '-')}`}>
+                      {node.status}
+                    </span>
+                  </div>
+
+                  <div className="node-specs">
+                    <span>{node.instanceType}</span>
+                    <span>{node.zone}</span>
+                  </div>
+
+                  {/* Waterline Gauge */}
+                  <div className="waterline-gauge-wrapper">
+                    <div className="waterline-label-row">
+                      <span>Waterline Load</span>
+                      <span className="gauge-pct">{isScaledDown ? '0%' : `${pct}% (${used} / ${node.maxCpu} vCPU)`}</span>
+                    </div>
+                    <div className="waterline-track">
+                      <div
+                        className="waterline-fill"
+                        style={{
+                          width: isScaledDown ? '0%' : `${pct}%`,
+                          backgroundColor: pct > 75 ? '#EF4444' : pct > 50 ? '#10B981' : '#F59E0B'
+                        }}
+                      ></div>
+                      <div className="waterline-limit-marker" style={{ left: '75%' }} title="75% Waterline Threshold"></div>
+                    </div>
+                    <div className="waterline-threshold-caption">Target Limit: 75%</div>
+                  </div>
+
+                  {/* Scheduled Pods Inside Node */}
+                  <div className="node-pods-list">
+                    <span className="pods-title">Active Pods ({node.pods.length}):</span>
+                    {node.pods.length === 0 ? (
+                      <div className="empty-pods-indicator">
+                        {isScaledDown ? 'Instance Terminated ($0 spend)' : 'No pods assigned'}
+                      </div>
+                    ) : (
+                      node.pods.map(pod => (
+                        <div
+                          key={pod.id}
+                          className={`pod-tag ${pod.status.toLowerCase()}`}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setSelectedItem({ type: 'pod', data: pod, node: node.name });
+                          }}
+                        >
+                          <span className="pod-pulse"></span>
+                          <span className="pod-text">{pod.name}</span>
+                          <span className="pod-cpu">{pod.cpu} CPU</span>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Simulator Terminal Log & Inspector Strip */}
+          <div className="simulator-footer-bar">
+            <div className="footer-log">
+              <Activity size={14} className="log-icon" />
+              <span className="log-text">{logs}</span>
+            </div>
+
+            {selectedItem && (
+              <div className="footer-inspector">
+                <span className="inspector-label">
+                  Inspector: <strong>{selectedItem.data.name}</strong>
+                </span>
+                <span className="inspector-details">
+                  {selectedItem.type === 'node'
+                    ? `Capacity: ${selectedItem.data.maxCpu} vCPU | Active Load: ${selectedItem.used} vCPU (${selectedItem.pct}%) | Status: ${selectedItem.data.status}`
+                    : `Resource Request: ${selectedItem.data.cpu} vCPU, ${selectedItem.data.mem} GiB | Node: ${selectedItem.node}`}
+                </span>
+              </div>
             )}
-            <p className="sim-tip">Click nodes in diagram to inspect cloud configs</p>
+          </div>
+        </>
+      )}
+
+      {/* VIEW MODE 2: CHAOS ENGINEERING SIMULATOR */}
+      {viewMode === 'chaos' && <ChaosSimulator />}
+
+      {/* VIEW MODE 3: FINOPS CLOUD COST REDUCTION CALCULATOR */}
+      {viewMode === 'finops' && <FinOpsCalculator />}
+
+      {/* VIEW MODE 4: AWS & TERRAFORM TOPOLOGY EXPLORER */}
+      {viewMode === 'topology' && <NetworkTopologyExplorer />}
+
+      {/* VIEW MODE 5: LIVE COCKPIT VIDEO DEMONSTRATION */}
+      {viewMode === 'video' && (
+        <div className="video-demo-container">
+          <div className="video-player-wrapper glass-card">
+            <video
+              className="k8s-demo-video"
+              controls
+              src="/videos/kubeforecast_live_cockpit_demo.mp4"
+              poster="/assets/photo_desk_arms.png"
+              preload="metadata"
+              autoPlay
+            >
+              Your browser does not support the video tag.
+            </video>
           </div>
 
-          <div className="status-terminal glass-card">
-            <h4>System Telemetry Logs</h4>
-            <div className="terminal-logs">
-              <p className="log-line info">[INFO] Infrastructure running nominal. 2 nodes active.</p>
-              {trafficActive && (
-                <>
-                  <p className="log-line warn">[WARN] ALB incoming traffic spiking: +350% queries/sec.</p>
-                  <p className="log-line info">[INFO] ALB CPU utilization threshold breached (&gt;75%).</p>
-                  <p className="log-line alert">[SCALE] Auto-Scaling Group triggering rule: Scale-Out (+1 EC2).</p>
-                </>
-              )}
-              {scalingActive && (
-                <p className="log-line initializing-log">[INIT] Deploying EC2-Server-03 in subnet-1a. Launching Nginx...</p>
-              )}
-              {instances[2]?.status === 'Healthy' && (
-                <>
-                  <p className="log-line success">[OK] EC2-Server-03 health status: Healthy (200 OK).</p>
-                  <p className="log-line success">[OK] ALB rebalanced load across 3 active instances. Nominal logs.</p>
-                </>
-              )}
+          <div className="video-details-card glass-card">
+            <div className="video-details-header">
+              <div className="video-title-group">
+                <span className="demo-tag">Live Demonstration Recording</span>
+                <h4>KubeForecast™ Live Cockpit & Kubernetes Scheduler Evaluation</h4>
+                <p>Recorded session showcasing the custom kube-scheduler plugin executing real-time cluster scoring, waterline bin-packing, and node consolidation on AWS EKS.</p>
+              </div>
+              <button
+                className="action-btn secondary-action"
+                onClick={() => setViewMode('simulator')}
+              >
+                <Monitor size={14} /> Back to Simulator
+              </button>
+            </div>
+
+            <div className="video-key-milestones-grid">
+              <div className="milestone-box">
+                <span className="milestone-badge">01. Cockpit Init</span>
+                <h5>EKS Cluster Health & Prometheus Telemetry</h5>
+                <p>Inspection of live worker node states, resource fragmentation, and pod scheduling queues.</p>
+              </div>
+              <div className="milestone-box">
+                <span className="milestone-badge">02. 90.35 ns Latency</span>
+                <h5>Deterministic PreScore & Score Evaluation</h5>
+                <p>Executing Go-compiled scheduling hooks to evaluate optimal candidate nodes under microsecond latency budgets.</p>
+              </div>
+              <div className="milestone-box">
+                <span className="milestone-badge">03. 75% Waterline</span>
+                <h5>Dynamic High-Density Bin-Packing</h5>
+                <p>Packing workloads deterministically up to the 75% waterline limit without violating SLA thresholds.</p>
+              </div>
+              <div className="milestone-box">
+                <span className="milestone-badge">04. Cost Reduction</span>
+                <h5>Automated Node Draining & 50% Savings</h5>
+                <p>Consolidating fragmented pods, draining vacant worker instances, and slashing cloud compute expenses.</p>
+              </div>
             </div>
           </div>
-
-          {/* Node detail display card */}
-          {selectedNode && (
-            <div className="node-details-card glass-card">
-              <h5>{selectedNode.name}</h5>
-              <span className="node-details-type">{selectedNode.type}</span>
-              <p>{selectedNode.details}</p>
-            </div>
-          )}
         </div>
-      </div>
+      )}
 
       <style>{`
         .architecture-showcase {
           padding: 32px;
-          margin-top: 32px;
+          border-radius: var(--radius-lg);
+          margin-top: 24px;
+          background: var(--card-bg-solid);
+          border: 1px solid var(--border-color);
+          box-shadow: 0 10px 30px var(--shadow-color);
         }
 
         .showcase-header {
           display: flex;
-          align-items: center;
+          flex-direction: column;
           gap: 12px;
           margin-bottom: 24px;
         }
 
-        .header-icon {
-          color: var(--accent-color);
-        }
-
-        .showcase-header h3 {
-          font-size: 20px;
-          color: var(--text-primary);
-        }
-
-        .showcase-header p {
-          font-size: 13px;
-          color: var(--text-secondary);
-        }
-
-        .simulator-grid {
-          display: grid;
-          grid-template-columns: 1.2fr 0.8fr;
-          gap: 32px;
-        }
-
-        .diagram-container {
-          background: rgba(0, 0, 0, 0.2);
-          border: 1px solid var(--border-color);
-          border-radius: var(--radius-md);
-          display: flex;
+        .header-badge-row {
+          display: inline-flex;
           align-items: center;
-          justify-content: center;
-          padding: 16px;
+          gap: 8px;
+          background: rgba(var(--accent-rgb), 0.1);
+          border: 1px solid rgba(var(--accent-rgb), 0.25);
+          padding: 4px 12px;
+          border-radius: 50px;
+          width: fit-content;
         }
 
-        .topology-svg {
-          width: 100%;
-          height: auto;
-          max-height: 280px;
-        }
-
-        /* SVG Node Styling */
-        .svg-node {
-          cursor: pointer;
-        }
-
-        .node-bg {
-          fill: var(--card-bg-solid);
-          stroke: var(--border-color);
-          stroke-width: 2px;
-          transition: var(--transition-fast);
-        }
-
-        .svg-node:hover .node-bg {
-          stroke: var(--accent-color);
-          fill: rgba(var(--accent-rgb), 0.1);
-        }
-
-        .node-icon-text {
-          fill: var(--text-primary);
-          font-family: var(--font-display);
-          font-weight: 600;
-          font-size: 11px;
-          text-anchor: middle;
-        }
-
-        .node-label {
-          fill: var(--text-secondary);
-          font-family: var(--font-body);
-          font-size: 11px;
-          text-anchor: middle;
-        }
-
-        .node-rect {
-          fill: var(--card-bg-solid);
-          stroke: var(--border-color);
-          stroke-width: 1.5px;
-          transition: var(--transition-fast);
-        }
-
-        .svg-node:hover .node-rect {
-          stroke: var(--accent-color);
-        }
-
-        .node-text {
-          fill: var(--text-primary);
-          font-family: var(--font-body);
-          font-size: 11px;
-          font-weight: 500;
-        }
-
-        .status-dot {
-          transition: var(--transition-normal);
-        }
-
-        .status-dot.online {
-          fill: #10b981;
-          filter: drop-shadow(0 0 4px #10b981);
-        }
-
-        .status-dot.initializing {
-          fill: #f59e0b;
-          filter: drop-shadow(0 0 4px #f59e0b);
-          animation: pulse-glow 1s infinite;
-        }
-
-        .conn-line {
-          fill: none;
-          stroke: var(--border-color);
-          stroke-width: 2px;
-          stroke-dasharray: 6, 6;
-          transition: var(--transition-normal);
-        }
-
-        .conn-line.active {
-          stroke: var(--accent-color);
-          animation: dash 30s linear infinite;
-        }
-
-        .conn-line.static-conn {
-          stroke-dasharray: none;
-        }
-
-        .conn-line.hidden {
-          opacity: 0;
-        }
-
-        .scaling-node-svg {
-          opacity: 0;
-          transform: translateY(20px);
-          transition: all 0.5s ease-out;
-        }
-
-        .scaling-node-svg.visible {
-          opacity: 1;
-          transform: translateY(0);
-        }
-
-        @keyframes dash {
-          to {
-            stroke-dashoffset: -1000;
-          }
-        }
-
-        /* Controls Column */
-        .controls-container {
-          display: flex;
-          flex-direction: column;
-          gap: 20px;
-        }
-
-        .sim-btn {
-          width: 100%;
-          padding: 12px;
-          border-radius: var(--radius-sm);
-          font-family: var(--font-display);
-          font-size: 14px;
-          font-weight: 600;
-          border: none;
-          cursor: pointer;
-          transition: var(--transition-normal);
-        }
-
-        .sim-btn.trigger {
+        .live-pulse {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
           background-color: var(--accent-color);
-          color: white;
+          box-shadow: 0 0 8px var(--accent-color);
+          animation: pulse-glow 2s infinite;
         }
 
-        .sim-btn.trigger:hover {
-          transform: translateY(-1px);
-          box-shadow: 0 4px 15px rgba(var(--accent-rgb), 0.3);
-        }
-
-        .sim-btn.reset {
-          background-color: #1e1e24;
-          color: var(--text-primary);
-          border: 1px solid var(--border-color);
-        }
-
-        .sim-btn.reset:hover {
-          border-color: var(--accent-color);
-        }
-
-        .sim-tip {
+        .badge-text {
+          font-family: var(--font-display);
           font-size: 11px;
-          color: var(--text-muted);
-          text-align: center;
-          margin-top: 8px;
-        }
-
-        .status-terminal {
-          padding: 16px;
-          border-radius: var(--radius-sm);
-          background: rgba(0, 0, 0, 0.4);
-        }
-
-        .status-terminal h4 {
-          font-size: 12px;
+          font-weight: 700;
+          color: var(--accent-color);
           text-transform: uppercase;
-          letter-spacing: 0.05em;
-          color: var(--text-secondary);
-          margin-bottom: 12px;
+          letter-spacing: 0.06em;
         }
 
-        .terminal-logs {
-          font-family: monospace;
-          font-size: 11px;
+        .header-info-line {
           display: flex;
-          flex-direction: column;
-          gap: 6px;
-          height: 120px;
-          overflow-y: auto;
+          justify-content: space-between;
+          align-items: flex-start;
+          flex-wrap: wrap;
+          gap: 16px;
         }
 
-        .log-line {
-          margin: 0;
-        }
-
-        .log-line.info { color: #9ca3af; }
-        .log-line.warn { color: #f59e0b; }
-        .log-line.alert { color: #ef4444; }
-        .log-line.success { color: #10b981; }
-        .log-line.initializing-log { color: #3b82f6; }
-
-        .node-details-card {
-          padding: 16px;
-          border-radius: var(--radius-sm);
-          animation: fadeInUp 0.4s ease-out;
-        }
-
-        .node-details-card h5 {
-          font-size: 14px;
+        .header-info-line h3 {
+          font-size: 22px;
+          font-weight: 800;
           color: var(--text-primary);
           margin-bottom: 4px;
         }
 
-        .node-details-type {
-          font-size: 10px;
+        .header-info-line p {
+          font-size: 14px;
+          color: var(--text-secondary);
+        }
+
+        /* Mode Switcher Tabs */
+        .view-mode-tabs {
+          display: flex;
+          flex-wrap: wrap;
+          background: var(--bg-color);
+          border: 1px solid var(--border-color);
+          border-radius: 50px;
+          padding: 4px;
+          gap: 4px;
+        }
+
+        .mode-tab-btn {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          padding: 8px 16px;
+          border-radius: 50px;
+          background: transparent;
+          border: none;
+          color: var(--text-secondary);
+          font-size: 12px;
+          font-weight: 700;
+          cursor: pointer;
+          transition: var(--transition-fast);
+        }
+
+        .mode-tab-btn:hover {
+          color: var(--text-primary);
+        }
+
+        .mode-tab-btn.active {
+          background: var(--accent-color);
+          color: #FFFFFF;
+          box-shadow: 0 4px 15px rgba(229, 62, 62, 0.35);
+        }
+
+        /* Simulator Actions Bar */
+        .simulator-actions-bar {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 12px;
+          margin-bottom: 20px;
+          padding: 12px 18px;
+          background: var(--bg-color);
+          border: 1px solid var(--border-color);
+          border-radius: var(--radius-md);
+        }
+
+        .actions-left-text {
+          font-size: 13px;
+          color: var(--text-secondary);
+        }
+
+        .header-actions {
+          display: flex;
+          gap: 10px;
+          align-items: center;
+        }
+
+        .action-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 10px 18px;
+          border-radius: 50px;
+          font-size: 13px;
+          font-weight: 700;
+          cursor: pointer;
+          transition: var(--transition-fast);
+          border: none;
+        }
+
+        .primary-action {
+          background-color: var(--accent-color);
+          color: #FFFFFF;
+        }
+
+        .primary-action:hover:not(:disabled) {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 20px rgba(229, 62, 62, 0.35);
+        }
+
+        .primary-action:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+
+        .secondary-action {
+          background: var(--card-bg-solid);
+          color: var(--text-primary);
+          border: 1px solid var(--border-color);
+        }
+
+        .secondary-action:hover {
+          border-color: var(--accent-color);
           color: var(--accent-color);
+        }
+
+        /* Metrics Strip */
+        .metrics-strip {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+          gap: 16px;
+          margin-bottom: 28px;
+        }
+
+        .metric-chip {
+          background: var(--bg-color);
+          border: 1px solid var(--border-color);
+          border-radius: var(--radius-md);
+          padding: 14px;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
+
+        .metric-icon {
+          color: var(--accent-color);
+          flex-shrink: 0;
+        }
+
+        .metric-icon.highlight {
+          color: #10B981;
+        }
+
+        .metric-content {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .metric-label {
+          font-size: 11px;
+          color: var(--text-muted);
           text-transform: uppercase;
-          font-weight: 600;
-          display: inline-block;
+          letter-spacing: 0.04em;
+        }
+
+        .metric-value {
+          font-size: 15px;
+          font-weight: 700;
+          color: var(--text-primary);
+          font-family: var(--font-display);
+        }
+
+        .metric-value.highlight {
+          color: #10B981;
+        }
+
+        /* Nodes Grid */
+        .nodes-container-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          gap: 20px;
+          margin-bottom: 24px;
+        }
+
+        .node-card {
+          background: var(--card-bg);
+          border: 1.5px solid var(--border-color);
+          border-radius: var(--radius-md);
+          padding: 20px;
+          transition: var(--transition-normal);
+          cursor: pointer;
+        }
+
+        .node-card:hover {
+          border-color: rgba(229, 62, 62, 0.4);
+          transform: translateY(-2px);
+        }
+
+        .node-card.selected {
+          border-color: var(--accent-color);
+          box-shadow: 0 0 20px rgba(229, 62, 62, 0.2);
+        }
+
+        .node-card.scaled-down {
+          opacity: 0.55;
+          background: var(--bg-color);
+          border-style: dashed;
+        }
+
+        .node-top {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
           margin-bottom: 8px;
         }
 
-        .node-details-card p {
+        .node-badge-group {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          color: var(--text-primary);
+          font-weight: 700;
+          font-size: 14px;
+        }
+
+        .status-pill {
+          font-size: 10px;
+          font-weight: 700;
+          padding: 2px 8px;
+          border-radius: 50px;
+          text-transform: uppercase;
+        }
+
+        .status-pill.ready {
+          background: rgba(16, 185, 129, 0.15);
+          color: #10B981;
+          border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .status-pill.draining {
+          background: rgba(245, 158, 11, 0.15);
+          color: #F59E0B;
+          border: 1px solid rgba(245, 158, 11, 0.3);
+          animation: pulse 1s infinite;
+        }
+
+        .status-pill.scaled-down {
+          background: rgba(100, 116, 139, 0.15);
+          color: var(--text-muted);
+          border: 1px solid var(--border-color);
+        }
+
+        .node-specs {
+          display: flex;
+          justify-content: space-between;
+          font-size: 11px;
+          color: var(--text-muted);
+          margin-bottom: 16px;
+        }
+
+        .waterline-gauge-wrapper {
+          margin-bottom: 18px;
+        }
+
+        .waterline-label-row {
+          display: flex;
+          justify-content: space-between;
+          font-size: 11px;
+          margin-bottom: 6px;
+          color: var(--text-secondary);
+        }
+
+        .gauge-pct {
+          font-weight: 700;
+          color: var(--text-primary);
+        }
+
+        .waterline-track {
+          position: relative;
+          height: 10px;
+          background: var(--bg-color);
+          border: 1px solid var(--border-color);
+          border-radius: 50px;
+          overflow: hidden;
+        }
+
+        .waterline-fill {
+          height: 100%;
+          border-radius: 50px;
+          transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .waterline-limit-marker {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          width: 2px;
+          background: var(--accent-color);
+          box-shadow: 0 0 4px var(--accent-color);
+        }
+
+        .waterline-threshold-caption {
+          font-size: 9px;
+          color: var(--text-muted);
+          text-align: right;
+          margin-top: 4px;
+        }
+
+        .node-pods-list {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+        }
+
+        .pods-title {
+          font-size: 11px;
+          color: var(--text-muted);
+          font-weight: 600;
+        }
+
+        .empty-pods-indicator {
+          font-size: 12px;
+          color: var(--text-muted);
+          font-style: italic;
+          padding: 8px 0;
+        }
+
+        .pod-tag {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          background: var(--bg-color);
+          border: 1px solid var(--border-color);
+          padding: 6px 10px;
+          border-radius: 6px;
+          font-size: 12px;
+          color: var(--text-primary);
+          transition: var(--transition-fast);
+        }
+
+        .pod-tag:hover {
+          background: rgba(var(--accent-rgb), 0.08);
+          border-color: var(--accent-color);
+        }
+
+        .pod-tag.migrating {
+          border-color: #F59E0B;
+          color: #F59E0B;
+          animation: pulse 1.2s infinite;
+        }
+
+        .pod-pulse {
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: #10B981;
+          margin-right: 6px;
+        }
+
+        .pod-tag.migrating .pod-pulse {
+          background: #F59E0B;
+        }
+
+        .pod-text {
+          flex-grow: 1;
+          font-family: monospace;
+          font-size: 11px;
+        }
+
+        .pod-cpu {
+          font-size: 10px;
+          color: var(--text-muted);
+          background: var(--card-bg-solid);
+          border: 1px solid var(--border-color);
+          padding: 2px 6px;
+          border-radius: 4px;
+        }
+
+        /* Footer bar */
+        .simulator-footer-bar {
+          background: var(--bg-color);
+          border: 1px solid var(--border-color);
+          border-radius: var(--radius-md);
+          padding: 14px 18px;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .footer-log {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          font-family: monospace;
+          font-size: 12px;
+          color: var(--accent-color);
+        }
+
+        .log-icon {
+          color: var(--accent-color);
+          flex-shrink: 0;
+        }
+
+        .footer-inspector {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding-top: 8px;
+          border-top: 1px solid var(--border-color);
           font-size: 12px;
           color: var(--text-secondary);
         }
 
-        @media (max-width: 992px) {
-          .simulator-grid {
-            grid-template-columns: 1fr;
+        .inspector-label strong {
+          color: var(--text-primary);
+        }
+
+        /* VIDEO MODE STYLES */
+        .video-demo-container {
+          display: flex;
+          flex-direction: column;
+          gap: 24px;
+          animation: fadeIn 0.4s ease-out;
+        }
+
+        .video-player-wrapper {
+          position: relative;
+          width: 100%;
+          border-radius: var(--radius-lg);
+          overflow: hidden;
+          background: #000000;
+          border: 1px solid var(--border-color);
+          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .k8s-demo-video {
+          width: 100%;
+          max-height: 520px;
+          display: block;
+          object-fit: contain;
+          background-color: #08080A;
+        }
+
+        .video-details-card {
+          padding: 24px 28px;
+          background: var(--bg-color);
+          border: 1px solid var(--border-color);
+          border-radius: var(--radius-md);
+        }
+
+        .video-details-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          flex-wrap: wrap;
+          gap: 16px;
+          margin-bottom: 24px;
+        }
+
+        .video-title-group {
+          max-width: 700px;
+        }
+
+        .demo-tag {
+          display: inline-block;
+          font-family: var(--font-display);
+          font-size: 10px;
+          font-weight: 700;
+          color: var(--accent-color);
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+          background: rgba(var(--accent-rgb), 0.1);
+          border: 1px solid rgba(var(--accent-rgb), 0.25);
+          padding: 3px 10px;
+          border-radius: 50px;
+          margin-bottom: 8px;
+        }
+
+        .video-title-group h4 {
+          font-size: 20px;
+          font-weight: 800;
+          color: var(--text-primary);
+          margin-bottom: 6px;
+        }
+
+        .video-title-group p {
+          font-size: 14px;
+          color: var(--text-secondary);
+          line-height: 1.5;
+        }
+
+        .video-key-milestones-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+          gap: 16px;
+        }
+
+        .milestone-box {
+          background: var(--card-bg);
+          border: 1px solid var(--border-color);
+          padding: 16px;
+          border-radius: var(--radius-md);
+        }
+
+        .milestone-badge {
+          font-family: monospace;
+          font-size: 11px;
+          font-weight: 700;
+          color: var(--accent-color);
+          display: block;
+          margin-bottom: 6px;
+        }
+
+        .milestone-box h5 {
+          font-size: 13px;
+          font-weight: 700;
+          color: var(--text-primary);
+          margin-bottom: 6px;
+        }
+
+        .milestone-box p {
+          font-size: 12px;
+          color: var(--text-secondary);
+          line-height: 1.4;
+        }
+
+        @media (max-width: 768px) {
+          .architecture-showcase {
+            padding: 20px;
+          }
+          .header-info-line {
+            flex-direction: column;
+          }
+          .view-mode-tabs {
+            width: 100%;
+            justify-content: center;
+          }
+          .simulator-actions-bar {
+            flex-direction: column;
+            align-items: stretch;
+          }
+          .header-actions {
+            flex-direction: column;
+          }
+          .footer-inspector {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 4px;
           }
         }
       `}</style>

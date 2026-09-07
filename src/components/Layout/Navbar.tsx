@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 
-export default function Navbar() {
+interface NavbarProps {
+  onOpenHireMe?: () => void;
+}
+
+export default function Navbar({ onOpenHireMe }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [theme, setTheme] = useState('light');
   const [isScrolled, setIsScrolled] = useState(false);
@@ -17,7 +21,7 @@ export default function Navbar() {
       setIsScrolled(window.scrollY > 20);
 
       // Section tracking
-      const sections = ['hero', 'about', 'skills', 'experience', 'projects', 'contact'];
+      const sections = ['hero', 'about', 'skills', 'projects', 'reports', 'internship', 'certifications', 'experience', 'contact'];
       const scrollPosition = window.scrollY + 120;
 
       for (const section of sections) {
@@ -56,8 +60,10 @@ export default function Navbar() {
     { name: 'Home', href: '#hero', id: 'hero' },
     { name: 'About', href: '#about', id: 'about' },
     { name: 'Skills', href: '#skills', id: 'skills' },
-    { name: 'Experience', href: '#experience', id: 'experience' },
     { name: 'Projects', href: '#projects', id: 'projects' },
+    { name: 'Reports', href: '#reports', id: 'reports' },
+    { name: 'Internship', href: '#internship', id: 'internship' },
+    { name: 'Certs', href: '#certifications', id: 'certifications' },
     { name: 'Contact', href: '#contact', id: 'contact' },
   ];
 
@@ -88,16 +94,16 @@ export default function Navbar() {
           </button>
           
           {/* Desktop Hire Me button */}
-          <a
-            href="#contact"
+          <button
+            type="button"
             className="desktop-hire-btn"
-            onClick={(e) => {
-              e.preventDefault();
-              handleLinkClick('#contact');
+            onClick={() => {
+              if (onOpenHireMe) onOpenHireMe();
+              else handleLinkClick('#contact');
             }}
           >
             Hire Me
-          </a>
+          </button>
         </div>
 
         {/* Mobile toggle */}
@@ -138,16 +144,17 @@ export default function Navbar() {
 
         {/* Mobile Hire Me white pill button */}
         <div className="drawer-footer">
-          <a
-            href="#contact"
+          <button
+            type="button"
             className="mobile-hire-pill"
-            onClick={(e) => {
-              e.preventDefault();
-              handleLinkClick('#contact');
+            onClick={() => {
+              setIsOpen(false);
+              if (onOpenHireMe) onOpenHireMe();
+              else handleLinkClick('#contact');
             }}
           >
             Hire Me
-          </a>
+          </button>
         </div>
       </div>
 
@@ -186,10 +193,15 @@ export default function Navbar() {
           color: var(--text-primary);
           text-decoration: none;
           letter-spacing: -1px;
+          transition: var(--transition-fast);
         }
 
         .nav-logo span {
           color: var(--accent-color);
+        }
+
+        .navbar:not(.scrolled) .nav-logo {
+          color: #FFFFFF;
         }
 
         .nav-links {
@@ -212,6 +224,15 @@ export default function Navbar() {
           color: var(--text-primary);
         }
 
+        .navbar:not(.scrolled) .nav-item {
+          color: rgba(255, 255, 255, 0.85);
+        }
+
+        .navbar:not(.scrolled) .nav-item:hover,
+        .navbar:not(.scrolled) .nav-item.active {
+          color: #FFFFFF;
+        }
+
         .nav-item::after {
           content: '';
           position: absolute;
@@ -229,7 +250,7 @@ export default function Navbar() {
         }
 
         .theme-toggle {
-          background: none;
+          background: var(--card-bg);
           border: 1px solid var(--border-color);
           border-radius: 50%;
           width: 38px;
@@ -240,6 +261,13 @@ export default function Navbar() {
           cursor: pointer;
           color: var(--text-primary);
           transition: var(--transition-normal);
+        }
+
+        .navbar:not(.scrolled) .theme-toggle {
+          color: #FFFFFF;
+          border-color: rgba(255, 255, 255, 0.25);
+          background: rgba(0, 0, 0, 0.35);
+          backdrop-filter: blur(8px);
         }
 
         .theme-toggle:hover {
@@ -278,6 +306,11 @@ export default function Navbar() {
           color: var(--text-primary);
           cursor: pointer;
           z-index: 2001; /* Ensure close icon overlays menu */
+          transition: var(--transition-fast);
+        }
+
+        .navbar:not(.scrolled) .mobile-menu-btn {
+          color: #FFFFFF;
         }
 
         /* Red Full-Bleed Mobile Drawer Menu */

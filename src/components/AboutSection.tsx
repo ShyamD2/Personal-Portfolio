@@ -1,5 +1,4 @@
-import React from 'react';
-import { Cpu, Clock, Award } from 'lucide-react';
+import { Cpu, Shield, Terminal } from 'lucide-react';
 
 export default function AboutSection() {
   return (
@@ -8,10 +7,10 @@ export default function AboutSection() {
       <div className="about-parallax-banner">
         <div className="banner-overlay"></div>
         <div className="banner-content container">
-          <p className="banner-tag">Systems & Operations Strategy</p>
+          <p className="banner-tag">Cloud Infrastructure & DevOps Strategy</p>
           <h2 className="banner-quote">
-            "Automating systems workflows.<br />
-            Ensuring high availability."
+            "Automating cloud architectures.<br />
+            Eliminating compute waste."
           </h2>
         </div>
       </div>
@@ -37,28 +36,28 @@ export default function AboutSection() {
           {/* Right: Narrative Story */}
           <div className="about-story">
             <p className="story-lead">
-              I specialize in architecting secure, reliable cloud environments and resolving critical systems incidents.
+              I specialize in engineering resilient cloud infrastructure, custom Kubernetes scheduling plugins, and automated Infrastructure as Code.
             </p>
             <p className="story-body">
-              As a B.Sc. Networking student graduating in 2027, my core focus is bridging the gap between local system operations and scalable cloud virtualization. I specialize in the configuration of AWS resources (EC2, ALB, S3, VPC), Linux OS administration, and automated shell scripting.
+              As a B.Sc. Networking (Cloud Computing) undergraduate graduating in 2027, I bridge low-level network protocols—such as CIDR subnetting, route tables, and IPsec VPNs—with modern cloud virtualization and container orchestration on AWS.
             </p>
             <p className="story-body">
-              Through double Deloitte simulations in cybersecurity and data analytics, I've developed a rigorous methodology for diagnosing machinery outages, analyzing system telemetry records, and mitigating security threats.
+              Through flagship systems like KubeForecast (a Go Kubernetes scheduling engine hardware-validated on AWS EKS) and Project AEGIS (an autonomous AWS SOAR security fabric), I build production-grade solutions that eliminate compute waste, automate DevSecOps containment, and guarantee high availability with 100% codified Terraform.
             </p>
             <p className="story-emphasis">
-              Fully committed to high-availability targets, I am actively seeking Associate Cloud Support positions and am prepared to support global teams via rotational and night shifts.
+              Driven by automated delivery and operational reliability, I am targeting Cloud Infrastructure, DevOps, and SRE opportunities to build scalable distributed systems.
             </p>
 
             {/* Quick attribute tags */}
             <div className="about-attribute-chips">
               <div className="attr-chip">
-                <Cpu size={14} /> Systems Engineering
+                <Cpu size={14} /> Kubernetes & EKS
               </div>
               <div className="attr-chip">
-                <Clock size={14} /> Rotational Shift Ready
+                <Terminal size={14} /> 100% Terraform IaC
               </div>
               <div className="attr-chip">
-                <Award size={14} /> Deloitte Simulated
+                <Shield size={14} /> DevSecOps & FinOps
               </div>
             </div>
           </div>
