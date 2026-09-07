@@ -125,14 +125,15 @@ export default function RecruiterRoleSelector({ onSelectRole }: { onSelectRole?:
         </button>
       </div>
 
-      {/* Role Executive Summary Modal */}
+      {/* Role Executive Summary Modal - Full Box No-Scroll Layout */}
       {isModalOpen && (
         <div className="role-modal-overlay" onClick={() => setIsModalOpen(false)}>
           <div className="role-modal-card glass-card" onClick={(e) => e.stopPropagation()}>
             <button className="role-modal-close" onClick={() => setIsModalOpen(false)} aria-label="Close modal">
-              <X size={20} />
+              <X size={18} />
             </button>
 
+            {/* Top Header */}
             <div className="role-modal-header">
               <div className="role-badge-tag">
                 {selectedRole.icon}
@@ -142,47 +143,54 @@ export default function RecruiterRoleSelector({ onSelectRole }: { onSelectRole?:
               <p className="role-tagline-text">{selectedRole.tagline}</p>
             </div>
 
-            <div className="role-modal-body">
-              <div className="modal-section-block">
-                <span className="section-mini-heading">Core Technical Stack:</span>
-                <div className="role-chips-wrap">
-                  {selectedRole.coreStack.map((tech, i) => (
-                    <span key={i} className="tech-chip">{tech}</span>
-                  ))}
+            {/* Two-Column Full Box Grid: Entire Dossier Visible At Once */}
+            <div className="role-modal-grid">
+              {/* Left Column: Core Stack & Accreditation */}
+              <div className="modal-col-left">
+                <div className="modal-section-block">
+                  <span className="section-mini-heading">Core Technical Stack:</span>
+                  <div className="role-chips-wrap">
+                    {selectedRole.coreStack.map((tech, i) => (
+                      <span key={i} className="tech-chip">{tech}</span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="modal-section-block highlight-box">
+                  <div className="highlight-item">
+                    <span className="hl-label">Matching Accreditation:</span>
+                    <span className="hl-val">{selectedRole.targetCert}</span>
+                  </div>
+                  <div className="highlight-item">
+                    <span className="hl-label">Candidate Availability:</span>
+                    <span className="hl-val green">6th Sem 6-Month Internship (PPO Track) & Full-Time</span>
+                  </div>
                 </div>
               </div>
 
-              <div className="modal-section-block">
-                <span className="section-mini-heading">Key Engineering Proof Points:</span>
-                <ul className="role-bullets-list">
-                  {selectedRole.keyAchievements.map((item, i) => (
-                    <li key={i}>
-                      <CheckCircle2 size={15} className="bullet-check" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="modal-section-block highlight-box">
-                <div className="highlight-item">
-                  <span className="hl-label">Matching Accreditation:</span>
-                  <span className="hl-val">{selectedRole.targetCert}</span>
+              {/* Right Column: Key Achievements & Action Buttons */}
+              <div className="modal-col-right">
+                <div className="modal-section-block">
+                  <span className="section-mini-heading">Key Engineering Proof Points:</span>
+                  <ul className="role-bullets-list">
+                    {selectedRole.keyAchievements.map((item, i) => (
+                      <li key={i}>
+                        <CheckCircle2 size={15} className="bullet-check" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <div className="highlight-item">
-                  <span className="hl-label">Candidate Availability:</span>
-                  <span className="hl-val green">6th Sem 6-Month Internship (PPO Track) & Full-Time</span>
+
+                <div className="role-modal-actions">
+                  <a href="/Shyam_Kumar_D_Resume.pdf" download="Shyam_Kumar_D_Resume.pdf" className="btn btn-dossier-primary">
+                    <Download size={14} /> Download Official Resume (PDF)
+                  </a>
+                  <a href={selectedRole.recommendedReport.url} target="_blank" rel="noopener noreferrer" className="btn btn-dossier-secondary">
+                    <FileText size={14} /> Read Project Report <ExternalLink size={12} />
+                  </a>
                 </div>
               </div>
-            </div>
-
-            <div className="role-modal-footer">
-              <a href="/Shyam_Kumar_D_Resume.pdf" download="Shyam_Kumar_D_Resume.pdf" className="btn btn-dossier-primary">
-                <Download size={15} /> Download Official Resume (PDF)
-              </a>
-              <a href={selectedRole.recommendedReport.url} target="_blank" rel="noopener noreferrer" className="btn btn-dossier-secondary">
-                <FileText size={15} /> Read Project Report <ExternalLink size={13} />
-              </a>
             </div>
           </div>
         </div>
@@ -288,43 +296,37 @@ export default function RecruiterRoleSelector({ onSelectRole }: { onSelectRole?:
           transform: translateY(-1px);
         }
 
-        /* Modal Styles */
+        /* Modal Styles - Full Box Layout (No Scrollbar) */
         .role-modal-overlay {
           position: fixed;
           inset: 0;
           background-color: rgba(0, 0, 0, 0.85);
-          backdrop-filter: blur(12px);
-          -webkit-backdrop-filter: blur(12px);
+          backdrop-filter: blur(14px);
+          -webkit-backdrop-filter: blur(14px);
           z-index: 10000;
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: 16px;
-          overflow-y: auto;
+          padding: 20px;
           animation: fadeIn 0.2s ease-out;
         }
 
         .role-modal-card {
           position: relative;
           width: 100%;
-          max-width: 580px;
-          max-height: min(86vh, 600px);
-          display: flex;
-          flex-direction: column;
+          max-width: 860px;
           background: var(--card-bg-solid);
           border: 1px solid var(--border-color);
           border-radius: var(--radius-lg);
-          padding: 20px 24px;
+          padding: 24px 30px 26px 30px;
           box-shadow: 0 25px 60px var(--shadow-color);
           animation: scaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-          overflow: hidden;
-          margin: auto;
         }
 
         .role-modal-close {
           position: absolute;
-          top: 16px;
-          right: 16px;
+          top: 18px;
+          right: 18px;
           background: var(--bg-color);
           border: 1px solid var(--border-color);
           color: var(--text-secondary);
@@ -343,14 +345,14 @@ export default function RecruiterRoleSelector({ onSelectRole }: { onSelectRole?:
           background: var(--accent-color);
           color: #FFFFFF;
           border-color: var(--accent-color);
+          transform: rotate(90deg);
         }
 
         .role-modal-header {
-          flex-shrink: 0;
-          padding-right: 36px;
-          padding-bottom: 10px;
+          padding-right: 44px;
+          padding-bottom: 12px;
           border-bottom: 1px solid var(--border-color);
-          margin-bottom: 12px;
+          margin-bottom: 16px;
         }
 
         .role-badge-tag {
@@ -361,7 +363,7 @@ export default function RecruiterRoleSelector({ onSelectRole }: { onSelectRole?:
           border: 1px solid rgba(56, 189, 248, 0.3);
           color: #38BDF8;
           font-family: var(--font-display);
-          font-size: 10.5px;
+          font-size: 11px;
           font-weight: 700;
           text-transform: uppercase;
           letter-spacing: 0.05em;
@@ -371,7 +373,7 @@ export default function RecruiterRoleSelector({ onSelectRole }: { onSelectRole?:
         }
 
         .role-modal-header h3 {
-          font-size: 21px;
+          font-size: 22px;
           font-weight: 800;
           color: var(--text-primary);
           margin-bottom: 4px;
@@ -380,44 +382,43 @@ export default function RecruiterRoleSelector({ onSelectRole }: { onSelectRole?:
         .role-tagline-text {
           font-size: 13px;
           color: var(--text-secondary);
-          line-height: 1.4;
+          line-height: 1.45;
           margin-bottom: 0;
         }
 
-        .role-modal-body {
-          flex: 1 1 auto;
-          min-height: 0; /* CRITICAL: Enables flex child to shrink & scroll */
-          overflow-y: auto;
-          padding-right: 6px;
-          margin-top: 4px;
+        /* Two-Column Grid: Complete Full-Box View Without Scrolling */
+        .role-modal-grid {
+          display: grid;
+          grid-template-columns: 1fr 1.25fr;
+          gap: 24px;
+          align-items: start;
         }
 
-        .role-modal-body::-webkit-scrollbar {
-          width: 5px;
+        .modal-col-left {
+          display: flex;
+          flex-direction: column;
+          gap: 14px;
         }
-        .role-modal-body::-webkit-scrollbar-track {
-          background: transparent;
-        }
-        .role-modal-body::-webkit-scrollbar-thumb {
-          background: var(--border-color);
-          border-radius: 4px;
-        }
-        .role-modal-body::-webkit-scrollbar-thumb:hover {
-          background: var(--accent-color);
+
+        .modal-col-right {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
         }
 
         .modal-section-block {
-          margin-bottom: 12px;
+          display: flex;
+          flex-direction: column;
         }
 
         .section-mini-heading {
           display: block;
-          font-size: 10.5px;
+          font-size: 11px;
           font-weight: 700;
           text-transform: uppercase;
           letter-spacing: 0.05em;
           color: var(--text-muted);
-          margin-bottom: 6px;
+          margin-bottom: 8px;
         }
 
         .role-chips-wrap {
@@ -432,7 +433,7 @@ export default function RecruiterRoleSelector({ onSelectRole }: { onSelectRole?:
           color: var(--text-primary);
           font-size: 11.5px;
           font-weight: 600;
-          padding: 3px 8px;
+          padding: 4px 9px;
           border-radius: 6px;
         }
 
@@ -440,16 +441,16 @@ export default function RecruiterRoleSelector({ onSelectRole }: { onSelectRole?:
           list-style: none;
           display: flex;
           flex-direction: column;
-          gap: 7px;
+          gap: 9px;
         }
 
         .role-bullets-list li {
           display: flex;
           align-items: flex-start;
-          gap: 8px;
+          gap: 9px;
           font-size: 12.5px;
           color: var(--text-secondary);
-          line-height: 1.4;
+          line-height: 1.42;
         }
 
         .bullet-check {
@@ -461,42 +462,42 @@ export default function RecruiterRoleSelector({ onSelectRole }: { onSelectRole?:
         .highlight-box {
           background: var(--bg-color);
           border: 1px solid var(--border-color);
-          padding: 10px 14px;
+          padding: 12px 14px;
           border-radius: var(--radius-md);
           display: flex;
           flex-direction: column;
-          gap: 6px;
+          gap: 8px;
         }
 
         .highlight-item {
           display: flex;
-          justify-content: space-between;
+          flex-direction: column;
+          gap: 2px;
           font-size: 11.5px;
-          flex-wrap: wrap;
-          gap: 4px;
         }
 
         .hl-label {
           color: var(--text-muted);
+          font-size: 10.5px;
+          text-transform: uppercase;
+          letter-spacing: 0.04em;
         }
 
         .hl-val {
           font-weight: 700;
           color: var(--text-primary);
+          line-height: 1.35;
         }
 
         .hl-val.green {
           color: #10B981;
         }
 
-        .role-modal-footer {
-          flex-shrink: 0;
+        .role-modal-actions {
           display: flex;
           gap: 10px;
-          margin-top: 12px;
-          padding-top: 12px;
-          border-top: 1px solid var(--border-color);
           flex-wrap: wrap;
+          margin-top: auto;
         }
 
         .btn-dossier-primary {
@@ -505,7 +506,7 @@ export default function RecruiterRoleSelector({ onSelectRole }: { onSelectRole?:
           align-items: center;
           justify-content: center;
           gap: 6px;
-          padding: 10px 16px;
+          padding: 11px 16px;
           background: var(--accent-color);
           border: 1px solid var(--accent-color);
           color: #FFFFFF;
@@ -527,7 +528,7 @@ export default function RecruiterRoleSelector({ onSelectRole }: { onSelectRole?:
           align-items: center;
           justify-content: center;
           gap: 6px;
-          padding: 10px 14px;
+          padding: 11px 15px;
           background: var(--bg-color);
           border: 1px solid var(--border-color);
           color: var(--text-primary);
@@ -541,6 +542,22 @@ export default function RecruiterRoleSelector({ onSelectRole }: { onSelectRole?:
         .btn-dossier-secondary:hover {
           border-color: var(--accent-color);
           color: var(--accent-color);
+        }
+
+        @media (max-width: 768px) {
+          .role-modal-card {
+            max-width: 95%;
+            padding: 20px;
+            max-height: 90vh;
+            overflow-y: auto;
+          }
+          .role-modal-grid {
+            grid-template-columns: 1fr;
+            gap: 16px;
+          }
+          .role-modal-actions {
+            flex-direction: column;
+          }
         }
 
         @media (max-width: 600px) {
