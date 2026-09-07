@@ -3,18 +3,6 @@ import { Cpu, Shield, Terminal } from 'lucide-react';
 export default function AboutSection() {
   return (
     <section id="about" className="about-section fade-in-section">
-      {/* Parallax Image Break Banner (Photo 2: assetshero-banner.png) */}
-      <div className="about-parallax-banner">
-        <div className="banner-overlay"></div>
-        <div className="banner-content container">
-          <p className="banner-tag">Cloud Infrastructure & DevOps Strategy</p>
-          <h2 className="banner-quote">
-            "Automating cloud architectures.<br />
-            Eliminating compute waste."
-          </h2>
-        </div>
-      </div>
-
       <div className="container about-container">
         {/* Section title */}
         <div className="section-header">
@@ -66,54 +54,8 @@ export default function AboutSection() {
 
       <style>{`
         .about-section {
-          padding-bottom: 80px;
+          padding: 90px 0 80px 0;
           position: relative;
-        }
-
-        /* Parallax Image Break Banner */
-        .about-parallax-banner {
-          position: relative;
-          height: 420px;
-          background-image: url('/assets/assetshero-banner.png');
-          background-size: cover;
-          background-position: center;
-          background-attachment: fixed; /* Parallax effect */
-          display: flex;
-          align-items: center;
-          margin-bottom: 80px;
-        }
-
-        .banner-overlay {
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(to right, rgba(14, 14, 16, 0.9) 20%, rgba(14, 14, 16, 0.4) 100%);
-        }
-
-        [data-theme="light"] .banner-overlay {
-          background: linear-gradient(to right, rgba(250, 250, 252, 0.95) 20%, rgba(250, 250, 252, 0.6) 100%);
-        }
-
-        .banner-content {
-          position: relative;
-          z-index: 2;
-        }
-
-        .banner-tag {
-          font-family: var(--font-display);
-          font-size: 12px;
-          font-weight: 700;
-          color: var(--accent-color);
-          text-transform: uppercase;
-          letter-spacing: 0.15em;
-          margin-bottom: 12px;
-        }
-
-        .banner-quote {
-          font-size: 36px;
-          font-weight: 800;
-          color: var(--text-primary);
-          line-height: 1.2;
-          letter-spacing: -0.02em;
         }
 
         /* Grid */

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Cloud, Cpu, Shield, Terminal, ArrowRight, Download, FileText, CheckCircle2, Sparkles, X, ExternalLink } from 'lucide-react';
 import { playTactileClick, playSuccessChime } from '../../utils/soundEffects';
 
@@ -125,8 +126,8 @@ export default function RecruiterRoleSelector({ onSelectRole }: { onSelectRole?:
         </button>
       </div>
 
-      {/* Role Executive Summary Modal - Full Box No-Scroll Layout */}
-      {isModalOpen && (
+      {/* Role Executive Summary Modal - Portaled directly to document.body */}
+      {isModalOpen && typeof document !== 'undefined' && createPortal(
         <div className="role-modal-overlay" onClick={() => setIsModalOpen(false)}>
           <div className="role-modal-card glass-card" onClick={(e) => e.stopPropagation()}>
             <button className="role-modal-close" onClick={() => setIsModalOpen(false)} aria-label="Close modal">
@@ -193,7 +194,8 @@ export default function RecruiterRoleSelector({ onSelectRole }: { onSelectRole?:
               </div>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
       <style>{`
@@ -297,29 +299,35 @@ export default function RecruiterRoleSelector({ onSelectRole }: { onSelectRole?:
         }
 
         /* Modal Styles - Full Box Layout (No Scrollbar) */
+        /* Modal Styles - Rendered at document.body via Portal */
         .role-modal-overlay {
           position: fixed;
-          inset: 0;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          width: 100vw;
+          height: 100vh;
           background-color: rgba(0, 0, 0, 0.85);
           backdrop-filter: blur(14px);
           -webkit-backdrop-filter: blur(14px);
-          z-index: 10000;
+          z-index: 999999;
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: 20px;
+          padding: 24px;
           animation: fadeIn 0.2s ease-out;
         }
 
         .role-modal-card {
           position: relative;
           width: 100%;
-          max-width: 860px;
+          max-width: 840px;
           background: var(--card-bg-solid);
           border: 1px solid var(--border-color);
           border-radius: var(--radius-lg);
-          padding: 24px 30px 26px 30px;
-          box-shadow: 0 25px 60px var(--shadow-color);
+          padding: 24px 28px 26px 28px;
+          box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
           animation: scaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
