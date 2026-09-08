@@ -121,7 +121,15 @@ export default function HireMeModal({ isOpen, onClose }: HireMeModalProps) {
         {/* Footer Note */}
         <div className="modal-footer-note">
           <p>
-            Prefer sending a detailed inquiry?{' '}
+            Connect on{' '}
+            <a
+              href="https://www.linkedin.com/in/shyam-kumar-d-951254329/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              LinkedIn &rarr;
+            </a>{' '}
+            or submit via the{' '}
             <a
               href="#contact"
               onClick={(e) => {
@@ -131,7 +139,7 @@ export default function HireMeModal({ isOpen, onClose }: HireMeModalProps) {
                 if (el) el.scrollIntoView({ behavior: 'smooth' });
               }}
             >
-              Scroll down to the Contact Form &rarr;
+              Contact Form &rarr;
             </a>
           </p>
         </div>

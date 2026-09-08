@@ -1,4 +1,4 @@
-﻿# ⚡ Shyam Kumar D — SRE & Cloud DevOps Engineering Portfolio
+# ⚡ Shyam Kumar D — SRE & Cloud DevOps Engineering Portfolio
 
 <div align="center">
 
@@ -23,7 +23,7 @@
 
   <p>
     <a href="mailto:shyamcloud021@gmail.com"><strong>📬 Direct Email</strong></a> •
-    <a href="https://linkedin.com"><strong>💼 LinkedIn Profile</strong></a> •
+    <a href="https://www.linkedin.com/in/shyam-kumar-d-951254329/"><strong>💼 LinkedIn Profile</strong></a> •
     <a href="https://github.com/ShyamD2"><strong>💻 GitHub Profile</strong></a>
   </p>
 
@@ -218,7 +218,7 @@ npm run preview
 | Channel | Link / Handle | Status |
 | :--- | :--- | :--- |
 | **Email** | [shyamcloud021@gmail.com](mailto:shyamcloud021@gmail.com) | Primary Communication |
-| **LinkedIn** | [linkedin.com/in/shyam-kumar-d](https://linkedin.com) | Professional Network |
+| **LinkedIn** | [linkedin.com/in/shyam-kumar-d-951254329](https://www.linkedin.com/in/shyam-kumar-d-951254329/) | Professional Network |
 | **GitHub** | [@ShyamD2](https://github.com/ShyamD2) | Codebases & Open Source |
 | **Location** | Madurai, Tamil Nadu, India | Open to Relocation & Remote |
 

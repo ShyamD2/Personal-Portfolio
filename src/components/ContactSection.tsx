@@ -167,7 +167,7 @@ export default function ContactSection() {
             </div>
 
             <div className="social-links-row">
-              <a href="https://linkedin.com/in/shyam-kumar-d" target="_blank" rel="noopener noreferrer" className="social-box" aria-label="LinkedIn">
+              <a href="https://www.linkedin.com/in/shyam-kumar-d-951254329/" target="_blank" rel="noopener noreferrer" className="social-box" aria-label="LinkedIn">
                 <Linkedin size={18} />
               </a>
               <a href="https://github.com/ShyamD2" target="_blank" rel="noopener noreferrer" className="social-box" aria-label="GitHub">
