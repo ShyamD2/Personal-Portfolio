@@ -46,7 +46,46 @@ export default function HeroSection({ onOpenHireMe }: { onOpenHireMe?: () => voi
     const video = videoRef.current;
     if (!video) return;
 
-    // 2. Unmute by default (Always unmuted by default with full user toggle control)
+    let unmuted = false;
+
+    const removeListeners = () => {
+      window.removeEventListener('click', activateAudioOnGesture);
+      window.removeEventListener('touchend', activateAudioOnGesture);
+      window.removeEventListener('touchstart', activateAudioOnGesture);
+      window.removeEventListener('pointerup', activateAudioOnGesture);
+      window.removeEventListener('keydown', activateAudioOnGesture);
+      window.removeEventListener('scroll', activateAudioOnGesture);
+      document.removeEventListener('click', activateAudioOnGesture);
+      document.removeEventListener('touchend', activateAudioOnGesture);
+    };
+
+    const activateAudioOnGesture = () => {
+      if (unmuted) return;
+      if (!videoRef.current) return;
+
+      videoRef.current.muted = false;
+      videoRef.current.volume = 1.0;
+
+      const p = videoRef.current.play();
+      if (p !== undefined) {
+        p.then(() => {
+          unmuted = true;
+          setIsMuted(false);
+          setIsPlaying(true);
+          removeListeners();
+        }).catch(() => {
+          // If this specific gesture event was not accepted by the browser, keep listening for touchend/click
+        });
+      } else {
+        unmuted = true;
+        setIsMuted(false);
+        setIsPlaying(true);
+        removeListeners();
+      }
+    };
+
+    // Attempt unmuted playback by default
+    video.defaultMuted = false;
     video.muted = false;
     video.volume = 1.0;
     setIsMuted(false);
@@ -56,45 +95,32 @@ export default function HeroSection({ onOpenHireMe }: { onOpenHireMe?: () => voi
     if (playPromise !== undefined) {
       playPromise
         .then(() => {
+          unmuted = true;
           setIsPlaying(true);
+          setIsMuted(false);
         })
         .catch(() => {
           // If browser policy blocks zero-click unmuted autoplay:
-          // Start video, and on the very first user interaction anywhere, unmute audio immediately
+          // Start video muted, and enable sound on the very first user interaction anywhere
           video.muted = true;
           setIsMuted(true);
           video.play()
             .then(() => setIsPlaying(true))
             .catch(() => setIsPlaying(false));
 
-          const activateAudioOnGesture = () => {
-            if (videoRef.current) {
-              videoRef.current.muted = false;
-              videoRef.current.volume = 1.0;
-              setIsMuted(false);
-              if (videoRef.current.currentTime < 3.5) {
-                videoRef.current.currentTime = 0;
-              }
-              videoRef.current.play().catch(() => {});
-            }
-            removeListeners();
-          };
-
-          const removeListeners = () => {
-            window.removeEventListener('click', activateAudioOnGesture);
-            window.removeEventListener('pointerdown', activateAudioOnGesture);
-            window.removeEventListener('touchstart', activateAudioOnGesture);
-            window.removeEventListener('keydown', activateAudioOnGesture);
-          };
-
-          window.addEventListener('click', activateAudioOnGesture, { once: true });
-          window.addEventListener('pointerdown', activateAudioOnGesture, { once: true });
-          window.addEventListener('touchstart', activateAudioOnGesture, { once: true });
-          window.addEventListener('keydown', activateAudioOnGesture, { once: true });
+          window.addEventListener('click', activateAudioOnGesture, { passive: true });
+          window.addEventListener('touchend', activateAudioOnGesture, { passive: true });
+          window.addEventListener('touchstart', activateAudioOnGesture, { passive: true });
+          window.addEventListener('pointerup', activateAudioOnGesture, { passive: true });
+          window.addEventListener('keydown', activateAudioOnGesture, { passive: true });
+          window.addEventListener('scroll', activateAudioOnGesture, { passive: true });
+          document.addEventListener('click', activateAudioOnGesture, { passive: true });
+          document.addEventListener('touchend', activateAudioOnGesture, { passive: true });
         });
     }
 
     return () => {
+      removeListeners();
       if (animFrameIdRef.current) {
         cancelAnimationFrame(animFrameIdRef.current);
       }
@@ -354,13 +380,17 @@ export default function HeroSection({ onOpenHireMe }: { onOpenHireMe?: () => voi
   };
 
   // Toggle Mute / Unmute
-  const toggleMute = () => {
+  const toggleMute = (e?: React.MouseEvent) => {
+    if (e) {
+      e.stopPropagation();
+    }
     if (!videoRef.current) return;
     const nextMuted = !videoRef.current.muted;
     videoRef.current.muted = nextMuted;
     setIsMuted(nextMuted);
     if (!nextMuted) {
       videoRef.current.volume = 1.0;
+      videoRef.current.play().catch(() => {});
     }
   };
 
@@ -462,6 +492,20 @@ export default function HeroSection({ onOpenHireMe }: { onOpenHireMe?: () => voi
             <span className="badge-pulse"></span>
             6th Sem • Open for 6-Month Internship & Full-Time Roles
           </div>
+
+          {/* Sound Notification if Browser Autoplay Policy Blocked Audio on Load */}
+          {isMuted && !isDisintegrated && (
+            <button
+              type="button"
+              className="sound-autoplay-banner"
+              onClick={toggleMute}
+              aria-label="Click to play audio transmission"
+              title="Click to Unmute Audio Transmission"
+            >
+              <Volume2 size={15} className="sound-pulse-icon" />
+              <span>Audio Muted by Browser • Tap Anywhere to Play Sound</span>
+            </button>
+          )}
 
           <h1 className="hero-title">
             Hi, I'm a Cloud &<br />
@@ -663,6 +707,49 @@ export default function HeroSection({ onOpenHireMe }: { onOpenHireMe?: () => voi
           box-shadow: 0 0 8px #38BDF8;
           border-radius: 50%;
           animation: pulse-glow 2s infinite;
+        }
+
+        .sound-autoplay-banner {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: rgba(229, 62, 62, 0.2);
+          border: 1.5px solid var(--accent-color);
+          color: #FFFFFF;
+          padding: 8px 18px;
+          border-radius: 50px;
+          font-family: var(--font-display);
+          font-size: 12px;
+          font-weight: 700;
+          cursor: pointer;
+          margin-bottom: 20px;
+          width: fit-content;
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          animation: pulseGlow 2s infinite ease-in-out;
+          transition: var(--transition-fast);
+        }
+
+        .sound-autoplay-banner:hover {
+          background: var(--accent-color);
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(229, 62, 62, 0.4);
+        }
+
+        .sound-pulse-icon {
+          color: #FFFFFF;
+          flex-shrink: 0;
+        }
+
+        @keyframes pulseGlow {
+          0%, 100% {
+            box-shadow: 0 0 10px rgba(229, 62, 62, 0.3);
+            border-color: rgba(229, 62, 62, 0.6);
+          }
+          50% {
+            box-shadow: 0 0 22px rgba(229, 62, 62, 0.7);
+            border-color: #FFFFFF;
+          }
         }
 
         .hero-title {
@@ -989,6 +1076,14 @@ export default function HeroSection({ onOpenHireMe }: { onOpenHireMe?: () => voi
             padding: 5px 10px;
             margin-bottom: 14px;
             line-height: 1.35;
+          }
+
+          .sound-autoplay-banner {
+            font-size: 11px;
+            padding: 6px 12px;
+            margin-bottom: 14px;
+            width: 100%;
+            justify-content: center;
           }
 
           .hero-title {
