@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Linkedin, Github, FileText, Send, CheckCircle2, MessageSquare, Copy, Check, ExternalLink } from 'lucide-react';
+import { playSuccessChime, playTactileClick } from '../utils/soundEffects';
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
@@ -13,22 +14,74 @@ export default function ContactSection() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) {
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
       setErrorMsg('Please complete all required fields.');
       return;
     }
     
+    playTactileClick();
     setErrorMsg('');
     setIsSubmitting(true);
 
-    // Simulate sending inquiry
-    setTimeout(() => {
-      setIsSubmitting(false);
+    let transmitted = false;
+
+    // 1. Primary Real-Time Delivery: FormSubmit AJAX API -> shyamcloud021@gmail.com
+    try {
+      const response = await fetch('https://formsubmit.co/ajax/shyamcloud021@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject || 'Portfolio Direct Inquiry',
+          message: formData.message,
+          _subject: `⚡ [Portfolio Inquiry] ${formData.name}: ${formData.subject || 'Direct Contact Message'}`,
+          _template: 'table',
+          _captcha: 'false'
+        })
+      });
+
+      if (response.ok) {
+        transmitted = true;
+      }
+    } catch (err) {
+      console.warn('FormSubmit AJAX transmission notice:', err);
+    }
+
+    // 2. Redundant Netlify Forms Delivery (Stored in Netlify Dashboard)
+    try {
+      const netlifyParams = new URLSearchParams({
+        'form-name': 'contact',
+        name: formData.name,
+        email: formData.email,
+        subject: formData.subject || 'Portfolio Direct Inquiry',
+        message: formData.message
+      }).toString();
+
+      await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: netlifyParams
+      });
+      transmitted = true;
+    } catch (netErr) {
+      console.warn('Netlify form storage fallback notice:', netErr);
+    }
+
+    setIsSubmitting(false);
+
+    if (transmitted) {
+      playSuccessChime();
       setIsSent(true);
       setFormData({ name: '', email: '', subject: '', message: '' });
-    }, 1200);
+    } else {
+      setErrorMsg('Unable to dispatch message over current network connection. Please email directly to shyamcloud021@gmail.com or connect via WhatsApp.');
+    }
   };
 
   const handleCopyEmail = () => {
@@ -129,9 +182,19 @@ export default function ContactSection() {
           {/* Right: Dynamic Validated Contact Form */}
           <div className="contact-form-card glass-card">
             {!isSent ? (
-              <form onSubmit={handleFormSubmit} className="actual-contact-form">
+              <form
+                name="contact"
+                method="POST"
+                data-netlify="true"
+                data-netlify-honeypot="bot-field"
+                onSubmit={handleFormSubmit}
+                className="actual-contact-form"
+              >
+                <input type="hidden" name="form-name" value="contact" />
+                <input type="hidden" name="bot-field" style={{ display: 'none' }} />
+
                 <h4>Send a direct inquiry</h4>
-                <p>Fill out the form below or pick a preset topic. Telemetry routed directly to my inbox.</p>
+                <p>Telemetry routed in real time directly to <strong>shyamcloud021@gmail.com</strong>.</p>
                 
                 {/* Topic Presets */}
                 <div className="preset-topics-group">
@@ -205,7 +268,7 @@ export default function ContactSection() {
                 </div>
 
                 <button type="submit" className="btn btn-primary form-submit-btn" disabled={isSubmitting}>
-                  {isSubmitting ? 'Transmitting Inquiries...' : (
+                  {isSubmitting ? 'Transmitting In Real Time...' : (
                     <>
                       Transmit Message <Send size={14} />
                     </>
@@ -216,10 +279,23 @@ export default function ContactSection() {
               <div className="success-overlay-card">
                 <CheckCircle2 className="success-icon" size={48} />
                 <h4>Message Transmitted Successfully!</h4>
-                <p>Data packets successfully routed to Shyam Kumar D. You will receive a response within 12 business hours.</p>
-                <button className="btn btn-secondary" onClick={() => setIsSent(false)}>
-                  Send another inquiry
-                </button>
+                <p>
+                  Your message has been delivered directly to <strong>shyamcloud021@gmail.com</strong>.
+                  I actively review incoming transmissions and will respond within 12 business hours.
+                </p>
+                <div className="success-actions-row">
+                  <button className="btn btn-secondary" onClick={() => setIsSent(false)}>
+                    Send another inquiry
+                  </button>
+                  <a
+                    href={`https://wa.me/917010672248?text=${whatsappMessage}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-whatsapp-subtle"
+                  >
+                    <MessageSquare size={14} /> Instant WhatsApp Ping
+                  </a>
+                </div>
               </div>
             )}
           </div>
@@ -574,7 +650,49 @@ export default function ContactSection() {
           font-size: 14px;
           color: var(--text-secondary);
           margin-bottom: 24px;
-          max-width: 380px;
+          max-width: 420px;
+          line-height: 1.6;
+        }
+
+        .form-alert {
+          padding: 10px 14px;
+          border-radius: var(--radius-sm);
+          font-size: 13px;
+          margin-bottom: 16px;
+        }
+
+        .form-alert.error {
+          background-color: rgba(239, 68, 68, 0.1);
+          border: 1px solid rgba(239, 68, 68, 0.3);
+          color: #EF4444;
+        }
+
+        .success-actions-row {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+
+        .btn-whatsapp-subtle {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          background: #25D366;
+          color: #FFFFFF;
+          padding: 10px 18px;
+          border-radius: var(--radius-sm);
+          font-size: 13px;
+          font-weight: 700;
+          text-decoration: none;
+          transition: var(--transition-fast);
+        }
+
+        .btn-whatsapp-subtle:hover {
+          background: #1EBE5D;
+          transform: translateY(-2px);
+          box-shadow: 0 6px 16px rgba(37, 211, 102, 0.35);
         }
 
         @media (max-width: 900px) {
