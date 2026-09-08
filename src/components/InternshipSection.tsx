@@ -513,6 +513,35 @@ export default function InternshipSection() {
             grid-template-columns: 1fr;
           }
         }
+
+        @media (max-width: 768px) {
+          .internship-section {
+            padding: 50px 0;
+          }
+
+          .internship-showcase-grid {
+            grid-template-columns: 1fr;
+            gap: 20px;
+          }
+
+          .internship-meta-card {
+            padding: 20px 16px;
+          }
+
+          .internship-header-meta {
+            flex-direction: column;
+            gap: 12px;
+          }
+
+          .company-logo-avatar {
+            width: 48px;
+            height: 48px;
+          }
+
+          .internship-title-group h4 {
+            font-size: 18px;
+          }
+        }
       `}</style>
     </section>
   );

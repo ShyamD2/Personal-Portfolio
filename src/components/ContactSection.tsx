@@ -585,6 +585,31 @@ export default function ContactSection() {
             grid-template-columns: 1fr;
           }
         }
+
+        @media (max-width: 768px) {
+          .contact-section {
+            padding: 50px 0;
+          }
+          .contact-info-card,
+          .contact-form-card {
+            padding: 20px 16px;
+          }
+          .btn-whatsapp-action {
+            padding: 10px 14px;
+            font-size: 12px;
+          }
+          .btn-copy-email-action {
+            padding: 8px 12px;
+            font-size: 11px;
+          }
+          .contact-link-item {
+            font-size: 13px;
+            word-break: break-all;
+          }
+          .actual-contact-form h4 {
+            font-size: 19px;
+          }
+        }
       `}</style>
     </section>
   );

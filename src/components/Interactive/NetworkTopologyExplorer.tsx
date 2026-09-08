@@ -502,6 +502,21 @@ export default function NetworkTopologyExplorer() {
         @media (max-width: 800px) {
           .tier-inspector-card {
             grid-template-columns: 1fr;
+            padding: 16px 12px;
+          }
+          .topology-pipeline-row {
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+          }
+          .topology-pipeline-row::-webkit-scrollbar {
+            display: none;
+          }
+          .spec-prop-row {
+            flex-direction: column;
+            gap: 2px;
+          }
+          .prop-v {
+            text-align: left;
           }
         }
       `}</style>

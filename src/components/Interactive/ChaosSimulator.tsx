@@ -592,12 +592,28 @@ export default function ChaosSimulator() {
         @media (max-width: 650px) {
           .chaos-header-bar {
             flex-direction: column;
+            gap: 12px;
           }
           .chaos-actions-top {
             width: 100%;
           }
           .chaos-trigger-btn {
             flex: 1;
+            font-size: 11.5px;
+            padding: 8px 12px;
+          }
+          .chaos-scenarios-row {
+            flex-direction: column;
+          }
+          .chaos-scenario-chip {
+            width: 100%;
+            justify-content: flex-start;
+          }
+          .chaos-live-console {
+            padding: 14px 12px;
+          }
+          .chaos-metrics-grid {
+            grid-template-columns: 1fr;
           }
         }
       `}</style>

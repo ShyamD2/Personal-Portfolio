@@ -927,34 +927,99 @@ export default function HeroSection({ onOpenHireMe }: { onOpenHireMe?: () => voi
         @media (max-width: 900px) {
           .hero-section {
             min-height: 100vh;
+            min-height: 100dvh;
             height: auto;
-            padding: 120px 0 100px;
+            padding: 100px 0 60px;
+          }
+
+          .hero-content-container {
+            padding-top: 0;
+            justify-content: flex-start;
           }
 
           .hero-title {
-            font-size: 40px;
+            font-size: clamp(30px, 8.5vw, 44px);
+            margin-bottom: 12px;
+          }
+
+          .hero-subtitle {
+            font-size: 20px;
+            margin-bottom: 8px;
           }
 
           .hero-tagline {
-            font-size: 15px;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 24px;
           }
 
-          .hero-right-media-controls {
-            right: 16px;
-            bottom: 24px;
-          }
-
+          /* Hide redundant left quick-mute button to eliminate bottom collision disaster */
           .hero-quick-mute-wrapper {
-            left: 16px;
-            bottom: 24px;
+            display: none !important;
+          }
+
+          /* Flow media controls cleanly in-line below the content */
+          .hero-right-media-controls {
+            position: relative;
+            right: auto;
+            bottom: auto;
+            margin-top: 24px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: flex-start;
+            width: 100%;
           }
 
           .media-controls-dock {
-            padding: 6px 12px;
+            padding: 6px 14px;
           }
 
           .dock-status-label {
             display: none;
+          }
+        }
+
+        @media (max-width: 600px) {
+          .hero-section {
+            padding: 85px 0 40px;
+          }
+
+          .hero-badge {
+            font-size: 10px;
+            padding: 5px 10px;
+            margin-bottom: 14px;
+            line-height: 1.35;
+          }
+
+          .hero-title {
+            font-size: clamp(26px, 8vw, 36px);
+          }
+
+          .hero-cta-group {
+            flex-direction: column;
+            align-items: stretch;
+            width: 100%;
+            gap: 10px;
+          }
+
+          .btn-pill-white, .btn-pill-translucent {
+            width: 100%;
+            justify-content: center;
+            text-align: center;
+            padding: 12px 18px;
+            font-size: 13.5px;
+          }
+
+          .btn-resume-download {
+            width: 100%;
+            justify-content: center;
+            padding: 8px;
+            text-align: center;
+          }
+
+          .dock-ctrl-btn {
+            padding: 7px 12px;
+            font-size: 10.5px;
           }
         }
       `}</style>

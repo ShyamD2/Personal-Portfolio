@@ -115,7 +115,7 @@ export default function SkillsSection() {
 
         .skills-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+          grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
           gap: 24px;
           margin-top: 40px;
         }
@@ -211,6 +211,33 @@ export default function SkillsSection() {
           background-color: rgba(107, 114, 128, 0.08);
           color: #9ca3af;
           border: 1px solid rgba(107, 114, 128, 0.15);
+        }
+
+        @media (max-width: 768px) {
+          .skills-section {
+            padding: 50px 0;
+          }
+          .skills-grid {
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin-top: 24px;
+          }
+          .skills-card {
+            padding: 20px 16px;
+          }
+          .skills-card-header {
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+          }
+          .skills-list {
+            gap: 10px;
+          }
+          .skill-item {
+            padding: 8px 12px;
+          }
+          .skill-name {
+            font-size: 13px;
+          }
         }
 
         @media (max-width: 480px) {

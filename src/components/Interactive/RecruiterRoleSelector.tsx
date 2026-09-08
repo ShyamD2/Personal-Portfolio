@@ -554,9 +554,10 @@ export default function RecruiterRoleSelector({ onSelectRole }: { onSelectRole?:
 
         @media (max-width: 768px) {
           .role-modal-card {
-            max-width: 95%;
-            padding: 20px;
-            max-height: 90vh;
+            max-width: 95vw;
+            width: 95vw;
+            padding: 20px 16px;
+            max-height: 88vh;
             overflow-y: auto;
           }
           .role-modal-grid {
@@ -569,14 +570,54 @@ export default function RecruiterRoleSelector({ onSelectRole }: { onSelectRole?:
         }
 
         @media (max-width: 600px) {
+          .recruiter-fasttrack-wrapper {
+            padding: 12px 10px;
+            margin-top: 16px;
+            border-radius: var(--radius-sm);
+          }
+
+          .fasttrack-header {
+            margin-bottom: 8px;
+          }
+
+          .fasttrack-hint {
+            font-size: 11px;
+          }
+
+          .fasttrack-pills-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 6px;
+          }
+
+          .role-pill-btn {
+            padding: 7px 6px;
+            font-size: 11px;
+            justify-content: center;
+            gap: 4px;
+            text-align: center;
+          }
+
           .dossier-preview-btn {
+            grid-column: span 2;
             width: 100%;
             justify-content: center;
             margin-left: 0;
             margin-top: 4px;
+            padding: 9px 12px;
+            font-size: 11.5px;
           }
-          .role-modal-footer {
-            flex-direction: column;
+
+          .role-modal-header {
+            padding-right: 36px;
+          }
+
+          .role-modal-header h3 {
+            font-size: 18px;
+          }
+
+          .role-tagline-text {
+            font-size: 12px;
           }
         }
       `}</style>

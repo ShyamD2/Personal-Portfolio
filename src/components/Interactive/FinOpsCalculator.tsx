@@ -462,6 +462,20 @@ export default function FinOpsCalculator() {
           .results-main-kpi {
             grid-template-columns: 1fr;
           }
+          .instances-pills-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+          }
+          .instance-pill-btn {
+            width: 100%;
+          }
+          .finops-results-banner {
+            padding: 14px 12px;
+          }
+          .kpi-value {
+            font-size: 26px;
+          }
         }
       `}</style>
     </div>

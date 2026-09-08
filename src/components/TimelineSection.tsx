@@ -344,7 +344,7 @@ export default function TimelineSection() {
 
         .education-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+          grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
           gap: 24px;
         }
 
@@ -402,6 +402,38 @@ export default function TimelineSection() {
             top: 0;
             max-width: 400px;
             margin: 0 auto;
+          }
+        }
+
+        @media (max-width: 768px) {
+          .timeline-section {
+            padding: 50px 0;
+          }
+          .timeline-trail {
+            padding-left: 20px;
+          }
+          .timeline-trail::before {
+            left: 8px;
+          }
+          .timeline-marker {
+            left: -17px;
+          }
+          .red-timeline-card {
+            padding: 20px 16px;
+          }
+          .red-timeline-card h4 {
+            font-size: 18px;
+          }
+          .education-grid {
+            grid-template-columns: 1fr;
+            gap: 16px;
+          }
+          .edu-card {
+            padding: 20px 16px;
+          }
+          .education-divider {
+            margin-top: 48px;
+            margin-bottom: 24px;
           }
         }
       `}</style>

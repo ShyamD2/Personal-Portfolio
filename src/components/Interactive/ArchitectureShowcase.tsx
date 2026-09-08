@@ -976,26 +976,70 @@ export default function ArchitectureShowcase() {
 
         @media (max-width: 768px) {
           .architecture-showcase {
-            padding: 20px;
+            padding: 16px 14px;
           }
           .header-info-line {
             flex-direction: column;
+            gap: 12px;
           }
           .view-mode-tabs {
             width: 100%;
-            justify-content: center;
+            justify-content: flex-start;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            border-radius: 12px;
+            padding: 4px;
+          }
+          .view-mode-tabs::-webkit-scrollbar {
+            display: none;
+          }
+          .mode-tab-btn {
+            white-space: nowrap;
+            flex-shrink: 0;
+            padding: 6px 12px;
+            font-size: 11.5px;
           }
           .simulator-actions-bar {
             flex-direction: column;
             align-items: stretch;
+            padding: 12px;
           }
           .header-actions {
             flex-direction: column;
+            width: 100%;
+          }
+          .header-actions .action-btn {
+            width: 100%;
+            justify-content: center;
+          }
+          .metrics-strip {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 16px;
+          }
+          .metric-chip {
+            padding: 10px;
+            gap: 8px;
+          }
+          .nodes-container-grid {
+            grid-template-columns: 1fr;
+            gap: 12px;
+          }
+          .node-card {
+            padding: 14px;
           }
           .footer-inspector {
             flex-direction: column;
             align-items: flex-start;
             gap: 4px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .metrics-strip {
+            grid-template-columns: 1fr;
           }
         }
       `}</style>

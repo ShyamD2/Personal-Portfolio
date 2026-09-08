@@ -318,7 +318,7 @@ export default function Navbar({ onOpenHireMe }: NavbarProps) {
           position: fixed;
           inset: 0;
           background-color: #E53E3E; /* Solid red */
-          padding: 32px 24px;
+          padding: 24px 20px;
           display: flex;
           flex-direction: column;
           justify-content: space-between;
@@ -327,6 +327,8 @@ export default function Navbar({ onOpenHireMe }: NavbarProps) {
           opacity: 0;
           transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
           pointer-events: none;
+          overflow-y: auto;
+          -webkit-overflow-scrolling: touch;
         }
 
         .mobile-nav-drawer.open {
@@ -339,12 +341,12 @@ export default function Navbar({ onOpenHireMe }: NavbarProps) {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          margin-bottom: 32px;
+          margin-bottom: 24px;
         }
 
         .drawer-logo {
           font-family: var(--font-display);
-          font-size: 28px;
+          font-size: 26px;
           font-weight: 800;
           color: #FFFFFF;
         }
@@ -363,30 +365,31 @@ export default function Navbar({ onOpenHireMe }: NavbarProps) {
         .mobile-links {
           display: flex;
           flex-direction: column;
-          gap: 20px;
+          gap: 16px;
           margin-bottom: auto;
-          margin-top: 24px;
+          margin-top: 12px;
         }
 
         .mobile-nav-item {
           font-family: var(--font-display);
-          font-size: 32px;
+          font-size: 26px;
           font-weight: 700;
-          color: rgba(255, 255, 255, 0.75);
+          color: rgba(255, 255, 255, 0.85);
           text-decoration: none;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-          padding-bottom: 12px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+          padding-bottom: 10px;
           transition: var(--transition-fast);
         }
 
         .mobile-nav-item:hover, .mobile-nav-item.active {
           color: #FFFFFF;
-          padding-left: 12px;
+          padding-left: 10px;
           border-bottom-color: #FFFFFF;
         }
 
         .drawer-footer {
-          margin-top: 32px;
+          margin-top: 24px;
+          padding-bottom: 12px;
         }
 
         .mobile-hire-pill {
@@ -394,12 +397,12 @@ export default function Navbar({ onOpenHireMe }: NavbarProps) {
           width: 100%;
           text-align: center;
           font-family: var(--font-display);
-          font-size: 18px;
+          font-size: 16px;
           font-weight: 700;
           background-color: #FFFFFF; /* White pill */
           color: #E53E3E; /* Red text */
           text-decoration: none;
-          padding: 16px;
+          padding: 14px;
           border-radius: 50px;
           box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
           transition: var(--transition-normal);
@@ -417,6 +420,20 @@ export default function Navbar({ onOpenHireMe }: NavbarProps) {
 
           .mobile-actions {
             display: flex;
+          }
+        }
+
+        @media (max-height: 680px) {
+          .mobile-links {
+            gap: 10px;
+            margin-top: 8px;
+          }
+          .mobile-nav-item {
+            font-size: 20px;
+            padding-bottom: 6px;
+          }
+          .drawer-nav-header {
+            margin-bottom: 16px;
           }
         }
       `}</style>

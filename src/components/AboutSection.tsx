@@ -184,6 +184,27 @@ export default function AboutSection() {
             max-width: 300px;
           }
         }
+
+        @media (max-width: 768px) {
+          .about-section {
+            padding: 50px 0;
+          }
+          .about-container {
+            margin-top: 24px;
+          }
+          .portrait-card-wrapper {
+            max-width: min(260px, 75vw);
+          }
+          .story-lead {
+            font-size: 17px;
+          }
+          .story-body {
+            font-size: 14px;
+          }
+          .about-grid {
+            gap: 32px;
+          }
+        }
       `}</style>
     </section>
   );

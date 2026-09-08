@@ -368,6 +368,12 @@ export default function SupportTerminal() {
           background: var(--bg-color);
           border-bottom: 1px solid var(--border-color);
           overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+        }
+
+        .scenario-nav-tabs::-webkit-scrollbar {
+          display: none;
         }
 
         .scenario-tab-btn {
@@ -442,6 +448,12 @@ export default function SupportTerminal() {
           gap: 8px;
           border-top: 1px solid var(--border-color);
           overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+        }
+
+        .suggested-commands-bar::-webkit-scrollbar {
+          display: none;
         }
 
         .suggested-label {
@@ -525,6 +537,21 @@ export default function SupportTerminal() {
           gap: 8px;
           font-weight: 600;
           animation: fadeIn 0.3s ease-out;
+        }
+
+        @media (max-width: 600px) {
+          .terminal-body {
+            height: 200px;
+            padding: 12px;
+            font-size: 11px;
+          }
+          .suggested-commands-bar {
+            padding: 6px 10px;
+          }
+          .quick-cmd-chip {
+            font-size: 10px;
+            padding: 2px 6px;
+          }
         }
       `}</style>
     </div>

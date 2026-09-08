@@ -141,7 +141,7 @@ export default function ProjectsSection() {
 
         .projects-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+          grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
           gap: 28px;
           margin-top: 40px;
         }
@@ -360,6 +360,30 @@ export default function ProjectsSection() {
           .bento-photo-card {
             max-width: 400px;
             margin: 0 auto;
+          }
+        }
+
+        @media (max-width: 768px) {
+          .projects-section {
+            padding: 50px 0;
+          }
+          .projects-grid {
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin-top: 24px;
+          }
+          .project-card {
+            padding: 20px 16px;
+          }
+          .project-card h4 {
+            font-size: 19px;
+          }
+          .sandbox-divider {
+            margin-top: 48px;
+          }
+          .btn-watch-demo-card {
+            width: 100%;
+            justify-content: center;
           }
         }
 

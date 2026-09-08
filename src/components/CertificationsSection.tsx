@@ -287,7 +287,7 @@ export default function CertificationsSection() {
 
         .certs-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+          grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
           gap: 26px;
         }
 
@@ -483,6 +483,41 @@ export default function CertificationsSection() {
           text-decoration: none;
           font-size: 12px;
           font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+          .certifications-section {
+            padding: 50px 0;
+          }
+
+          .certs-filter-bar {
+            gap: 6px;
+            margin-top: 20px;
+            margin-bottom: 24px;
+            justify-content: flex-start;
+          }
+
+          .filter-btn {
+            font-size: 11.5px;
+            padding: 6px 12px;
+          }
+
+          .certs-grid {
+            grid-template-columns: 1fr;
+            gap: 16px;
+          }
+
+          .cert-thumb-box {
+            height: 160px;
+          }
+
+          .cert-content {
+            padding: 16px;
+          }
+
+          .cert-card-title {
+            font-size: 15px;
+          }
         }
       `}</style>
     </section>

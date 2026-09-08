@@ -219,6 +219,34 @@ export default function SRETelemetryBar() {
           .desktop-only {
             display: none !important;
           }
+          .telemetry-inner-container {
+            padding: 0 12px;
+            gap: 10px;
+          }
+          .telemetry-items-group {
+            gap: 12px;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            -webkit-overflow-scrolling: touch;
+          }
+          .telemetry-items-group::-webkit-scrollbar {
+            display: none;
+          }
+        }
+
+        @media (max-width: 500px) {
+          .sfx-btn-text {
+            display: none;
+          }
+          .sfx-toggle-btn {
+            padding: 4px 8px;
+          }
+          .stat-label {
+            font-size: 10px;
+          }
+          .stat-value {
+            font-size: 10px;
+          }
         }
       `}</style>
     </div>

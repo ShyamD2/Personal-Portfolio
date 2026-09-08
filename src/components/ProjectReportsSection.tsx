@@ -144,7 +144,7 @@ export default function ProjectReportsSection() {
 
         .reports-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+          grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
           gap: 28px;
           margin-top: 40px;
         }
@@ -314,6 +314,47 @@ export default function ProjectReportsSection() {
         .btn-download-pdf:hover {
           border-color: var(--accent-color);
           color: var(--accent-color);
+        }
+
+        @media (max-width: 768px) {
+          .project-reports-section {
+            padding: 50px 0;
+          }
+
+          .reports-grid {
+            grid-template-columns: 1fr;
+            gap: 18px;
+            margin-top: 24px;
+          }
+
+          .report-card {
+            padding: 20px 16px;
+          }
+
+          .report-title {
+            font-size: 17px;
+            margin-bottom: 8px;
+          }
+
+          .report-summary {
+            font-size: 13px;
+            margin-bottom: 16px;
+          }
+
+          .report-highlights {
+            padding: 12px 14px;
+            margin-bottom: 18px;
+          }
+
+          .report-actions {
+            flex-direction: column;
+            gap: 8px;
+          }
+
+          .btn-read-dossier, .btn-download-pdf {
+            width: 100%;
+            justify-content: center;
+          }
         }
       `}</style>
     </section>

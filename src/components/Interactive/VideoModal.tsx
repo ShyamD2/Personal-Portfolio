@@ -203,11 +203,21 @@ export default function VideoModal({ isOpen, onClose, videoSrc, title, subtitle 
         }
 
         @media (max-width: 768px) {
+          .video-modal-backdrop {
+            padding: 12px;
+          }
           .video-modal-card {
-            padding: 16px;
+            padding: 16px 12px;
+            max-height: 92vh;
+            overflow-y: auto;
           }
           .video-modal-header-info h3 {
-            font-size: 17px;
+            font-size: 16px;
+          }
+          .video-modal-footer {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 8px;
           }
         }
       `}</style>

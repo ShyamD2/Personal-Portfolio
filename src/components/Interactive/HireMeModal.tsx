@@ -399,6 +399,67 @@ export default function HireMeModal({ isOpen, onClose }: HireMeModalProps) {
         .modal-footer-note a:hover {
           text-decoration: underline;
         }
+
+        @media (max-width: 600px) {
+          .modal-backdrop-overlay {
+            padding: 12px;
+          }
+
+          .hire-modal-card {
+            padding: 22px 16px;
+            max-width: 96vw;
+            max-height: 90vh;
+          }
+
+          .modal-header h3 {
+            font-size: 20px;
+          }
+
+          .modal-header p {
+            font-size: 12.5px;
+          }
+
+          .modal-profile-strip {
+            padding: 12px;
+            gap: 12px;
+            margin-bottom: 16px;
+          }
+
+          .modal-avatar-box {
+            width: 44px;
+            height: 44px;
+          }
+
+          .modal-profile-info h4 {
+            font-size: 15px;
+          }
+
+          .profile-role {
+            font-size: 12px;
+          }
+
+          .profile-location {
+            font-size: 10px;
+          }
+
+          .action-channel-card {
+            padding: 10px 14px;
+          }
+
+          .channel-icon-box {
+            width: 38px;
+            height: 38px;
+            margin-right: 12px;
+          }
+
+          .channel-title {
+            font-size: 13px;
+          }
+
+          .channel-detail {
+            font-size: 11px;
+          }
+        }
       `}</style>
     </div>
   );
