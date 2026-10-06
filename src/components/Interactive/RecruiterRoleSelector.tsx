@@ -51,14 +51,14 @@ export const ROLES: RoleData[] = [
     label: 'DevOps & CI/CD (IaC)',
     icon: <Terminal size={15} />,
     tagline: '100% codified infrastructure with Terraform, immutable container delivery pipelines, and FinOps automation.',
-    coreStack: ['Terraform IaC', 'GitHub Actions', 'Docker CI/CD', 'Helm Charts', 'Linux Admin', 'Git'],
+    coreStack: ['Terraform IaC', 'Go 1.24+', 'GitHub Actions', 'Docker CI/CD', 'Helm Charts', 'Linux Admin'],
     keyAchievements: [
+      'Engineered DriftWarden: High-precision 3-source AWS drift detection engine in Go with CIS v3.0 security audit & GitOps PR reconciliation',
       '100% Codified Infrastructure as Code: Zero manual clicks via modular, DRY Terraform codebases',
-      'Configured automated CI/CD linting, container vulnerability scanning with Trivy, and automated EKS rollouts',
       'Codified state management with remote S3 backends, DynamoDB state locking, and zero drift'
     ],
-    targetProjects: ['KubeForecast Terraform Modules', 'Automated CI/CD Delivery Fabric'],
-    targetCert: 'Linux Systems Administration & Open Source Software Simulation',
+    targetProjects: ['DriftWarden (AWS Drift & GitOps Engine)', 'KubeForecast Terraform Modules'],
+    targetCert: 'Scaler DevOps/SRE Masterclass & Linux Administration',
     recommendedReport: { name: 'Automated Terraform Infrastructure Report', url: '/reports/AEGIS_Project_Report.pdf' }
   },
   {

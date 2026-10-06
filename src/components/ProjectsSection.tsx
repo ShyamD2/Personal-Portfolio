@@ -6,40 +6,95 @@ import VideoModal from './Interactive/VideoModal';
 
 export default function ProjectsSection() {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+  const [activeProjectFilter, setActiveProjectFilter] = useState('all');
+
   const projectsList = [
     {
+      id: 'kubeforecast',
       title: 'KubeForecast: Kubernetes Predictive Scheduler & FinOps Engine',
       badge: 'Kubernetes & AWS EKS',
+      category: 'sre',
       problem: 'Standard Kubernetes round-robin scheduling causes severe fleet fragmentation, stranding nodes at 15–30% capacity while paying for 100% compute hours.',
       solution: 'Engineered a custom Go Kubernetes Scheduling Framework plugin (evaluating node placement in 90.35 ns) and 100% Terraform AWS EKS IaC. Steers pods to safe waterline nodes, validated on live AWS EKS with 50%–66.7% node reduction and 5 Grafana dashboards.',
       tech: ['Kubernetes', 'AWS EKS v1.31', 'Terraform', 'Go 1.23', 'Helm v3', 'Prometheus', 'Grafana'],
       github: 'https://github.com/ShyamD2/KubeForecast',
+      hasDemoVideo: true
     },
     {
+      id: 'driftwarden',
+      title: 'DriftWarden: Three-Source AWS Drift Detection & GitOps Engine',
+      badge: 'AWS & Go 1.24+ GitOps',
+      category: 'sre',
+      problem: 'Traditional drift tools only inspect Terraform State <-> AWS Live State, completely missing uncommitted local Git edits, out-of-band ClickOps mutations, and CIS security regressions.',
+      solution: 'Engineered a high-precision 3-way reconciliation engine in Go 1.24+ comparing Git HCL, Terraform state, and live AWS reality. Packaged in an ultra-lean <25MB distroless container with built-in CIS AWS v3.0 compliance auditing and automated GitOps PR remediation.',
+      tech: ['Go 1.24+', 'AWS SDK v2', 'Terraform State', 'Docker Distroless', 'CIS AWS v3.0', 'GitOps', 'GitHub Actions'],
+      github: 'https://github.com/ShyamD2/driftwarden'
+    },
+    {
+      id: 'jarvis',
+      title: 'Project J.A.R.V.I.S.: Autonomous Cyber-Physical AI Operating Agent',
+      badge: 'Agentic AI & OS Automation',
+      category: 'ai',
+      problem: 'AI assistants lack ground-truth sensory verification when executing real actions across operating systems, browsers, and cloud resources, leading to dangerous hallucinated actions.',
+      solution: 'Engineered a cloud-connected cyber-physical AI agent architecture uniting physical IoT telemetry, Windows OS/desktop accessibility, and AWS cloud automation. Features dual-channel ground-truth verification, 4-tier blast radius isolation, and HMAC action leases. Validated with 183 automated tests (100% pass) and a strict 0.00% false-success invariant.',
+      tech: ['Python 3.13', 'FastAPI', 'Agentic AI', 'Playwright', 'AWS Cloud', 'Docker', 'AsyncIO'],
+      github: 'https://github.com/ShyamD2/project-jarvis'
+    },
+    {
+      id: 'aegis',
       title: 'Project AEGIS: Autonomous Cloud Defense & SOAR Fabric',
       badge: '100% Terraform & DevSecOps',
+      category: 'security',
       problem: 'Manual cloud threat containment is slow and error-prone, while digital forensic records remain vulnerable to tampering during security breaches.',
       solution: 'Codified 100% multi-account AWS infrastructure in Terraform. Engineered autonomous SOAR containment pipelines using EventBridge, Step Functions, and Lambda, streaming immutable forensic trails to SEC Rule 17a-4 S3 WORM vaults.',
       tech: ['AWS Multi-Account', 'Terraform', 'EventBridge', 'Step Functions', 'S3 WORM', 'KMS', 'Checkov'],
-      github: 'https://github.com/ShyamD2/aegis-cloud-security',
+      github: 'https://github.com/ShyamD2/aegis-cloud-security'
     },
     {
+      id: 'url-shortener',
       title: 'Event-Driven Serverless URL Shortener & Analytics',
       badge: 'AWS Serverless & Data',
+      category: 'sre',
       problem: 'Traditional container or VM-based redirect services incur continuous idle baseline costs ($20–$80/mo) and couple analytics logging directly to redirection latency.',
       solution: 'Architected an asynchronous event-driven system using HTTP API Gateway and Lambda for sub-30ms redirects at $0 idle cost. Decoupled analytics via Amazon SQS dead-letter queues to partitioned S3 logs, queried in-place via Amazon Athena.',
       tech: ['AWS Lambda', 'API Gateway', 'DynamoDB', 'Amazon SQS', 'Amazon S3', 'Amazon Athena', 'Terraform'],
-      github: 'https://github.com/ShyamD2/aws-cloud-serverless-url-shortener',
+      github: 'https://github.com/ShyamD2/aws-cloud-serverless-url-shortener'
     },
     {
+      id: 'scalable-aws',
       title: 'Scalable Multi-AZ Infrastructure & Traffic Management',
       badge: 'AWS Core Infrastructure',
+      category: 'sre',
       problem: 'Designing fault-tolerant, highly available cloud web systems capable of surviving availability zone failures with zero manual downtime.',
       solution: 'Architected high-availability multi-tier infrastructure across 3 AZs using Application Load Balancers, dynamic Auto Scaling groups, VPC private subnets, and CloudWatch alarms, automated with Bash User Data on Ubuntu.',
       tech: ['AWS EC2', 'AWS ALB', 'Auto Scaling', 'VPC Routing', 'CloudWatch', 'Bash Scripting'],
-      github: 'https://github.com/ShyamD2/Scalable-AWS-Cloud-Infrastructure-Deployment',
+      github: 'https://github.com/ShyamD2/Scalable-AWS-Cloud-Infrastructure-Deployment'
+    },
+    {
+      id: 'incident-response',
+      title: 'Incident Response & Threat Telemetry Platform',
+      badge: 'SecOps & Full-Stack SRE',
+      category: 'security',
+      problem: 'Security engineers struggle to triage high-volume alerts and correlate distributed incident timelines across fragmented cloud and on-premise monitoring silos.',
+      solution: 'Built a unified incident response console with interactive telemetry boards, automated severity classification, response runbook tracking, and forensic audit logs for SOC analysts.',
+      tech: ['TypeScript', 'React', 'Node.js', 'REST API', 'Incident Management', 'Security Analytics'],
+      github: 'https://github.com/ShyamD2/incident-response-platform'
+    },
+    {
+      id: 'cloud-journey',
+      title: 'Cloud Engineering Journey: Living Systems Architecture Journal',
+      badge: 'Hands-on Architecture Journal',
+      category: 'sre',
+      problem: 'Cloud architecture knowledge is often theoretical; enterprise hiring managers want verifiable proof of deep hands-on troubleshooting and systems design.',
+      solution: 'Comprehensive living open-source engineering journal documenting production AWS infrastructure, Linux kernel internals, container networking, and IaC troubleshooting playbooks.',
+      tech: ['AWS Solutions', 'Terraform', 'Kubernetes', 'Linux Internals', 'Networking', 'Security Architecture'],
+      github: 'https://github.com/ShyamD2/cloud-engineering-journey'
     }
   ];
+
+  const filteredProjects = activeProjectFilter === 'all'
+    ? projectsList
+    : projectsList.filter(p => p.category === activeProjectFilter);
 
   return (
     <section id="projects" className="projects-section fade-in-section">
@@ -48,15 +103,46 @@ export default function ProjectsSection() {
         <div className="section-header">
           <div className="section-label">04. Engineering</div>
           <h3 className="section-title">Projects That Define My Journey</h3>
+          <p className="section-subtitle">
+            Production-grade systems code, Kubernetes schedulers, GitOps drift engines, and zero-trust security platforms.
+          </p>
+        </div>
+
+        {/* Project Category Filter Pills */}
+        <div className="projects-filter-bar">
+          <button
+            className={`proj-filter-btn ${activeProjectFilter === 'all' ? 'active' : ''}`}
+            onClick={() => setActiveProjectFilter('all')}
+          >
+            All Repositories ({projectsList.length})
+          </button>
+          <button
+            className={`proj-filter-btn ${activeProjectFilter === 'sre' ? 'active' : ''}`}
+            onClick={() => setActiveProjectFilter('sre')}
+          >
+            Cloud Systems & SRE ({projectsList.filter(p => p.category === 'sre').length})
+          </button>
+          <button
+            className={`proj-filter-btn ${activeProjectFilter === 'security' ? 'active' : ''}`}
+            onClick={() => setActiveProjectFilter('security')}
+          >
+            DevSecOps & Security ({projectsList.filter(p => p.category === 'security').length})
+          </button>
+          <button
+            className={`proj-filter-btn ${activeProjectFilter === 'ai' ? 'active' : ''}`}
+            onClick={() => setActiveProjectFilter('ai')}
+          >
+            Agentic AI & Automation ({projectsList.filter(p => p.category === 'ai').length})
+          </button>
         </div>
 
         {/* Case Studies Grid */}
         <div className="projects-grid">
-          {projectsList.map((proj, idx) => (
-            <div key={idx} className="project-card glass-card">
+          {filteredProjects.map((proj) => (
+            <div key={proj.id} className="project-card glass-card">
               <div className="project-card-header">
                 <span className="project-badge">{proj.badge}</span>
-                <a href={proj.github} target="_blank" rel="noopener noreferrer" className="proj-github-link" aria-label="GitHub">
+                <a href={proj.github} target="_blank" rel="noopener noreferrer" className="proj-github-link" aria-label={`GitHub repository for ${proj.title}`}>
                   <Github size={18} />
                 </a>
               </div>
@@ -80,7 +166,7 @@ export default function ProjectsSection() {
                 ))}
               </div>
 
-              {idx === 0 && (
+              {proj.hasDemoVideo && (
                 <button
                   type="button"
                   className="btn-watch-demo-card"
@@ -139,11 +225,45 @@ export default function ProjectsSection() {
           position: relative;
         }
 
+        .projects-filter-bar {
+          display: flex;
+          gap: 10px;
+          flex-wrap: wrap;
+          margin-top: 28px;
+          margin-bottom: 8px;
+        }
+
+        .proj-filter-btn {
+          font-family: var(--font-display);
+          font-size: 13px;
+          font-weight: 600;
+          padding: 8px 16px;
+          border-radius: 20px;
+          background: rgba(255, 255, 255, 0.04);
+          border: 1px solid var(--border-color);
+          color: var(--text-secondary);
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+
+        .proj-filter-btn:hover {
+          color: var(--text-primary);
+          border-color: rgba(var(--accent-rgb), 0.4);
+          background: rgba(var(--accent-rgb), 0.06);
+        }
+
+        .proj-filter-btn.active {
+          color: #ffffff;
+          background: var(--accent-color);
+          border-color: var(--accent-color);
+          box-shadow: 0 4px 14px rgba(var(--accent-rgb), 0.3);
+        }
+
         .projects-grid {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
           gap: 28px;
-          margin-top: 40px;
+          margin-top: 32px;
         }
 
         .project-card {

@@ -46,7 +46,7 @@ export default function CommandPalette({ isOpen, onClose, onOpenSpeedrun, onOpen
     playSuccessChime();
     const pitchText = `Hi Team — found a strong Cloud/DevOps candidate for our upcoming internship / graduate roles:
 • Candidate: Shyam Kumar D (B.Sc. Networking, 8.4 GPA, 6th Semester)
-• Core Proof: Engineered KubeForecast (custom Go K8s scheduler, 90.35ns latency, hardware-tested on AWS EKS) & Project AEGIS (autonomous SOAR threat isolation).
+• Core Proof: Engineered KubeForecast (custom Go K8s scheduler, 90.35ns latency), DriftWarden (AWS 3-source drift detection in Go), Project J.A.R.V.I.S. (Agentic AI OS), & Project AEGIS (autonomous SOAR threat isolation).
 • Availability: 6-Month Full-Time Internship (PPO Track) starting Jan/Feb | Open to Relocation & Remote.
 • Interactive SRE Cockpit: https://shyam-kumar-portfolio.netlify.app
 • Direct Contact: shyamcloud021@gmail.com | +91 7010672248`;
@@ -175,8 +175,8 @@ export default function CommandPalette({ isOpen, onClose, onOpenSpeedrun, onOpen
     {
       id: 'nav-projects',
       category: 'Navigation',
-      title: 'Go to Flagship Projects (KubeForecast, AEGIS)',
-      subtitle: 'Kubernetes scheduling engine, serverless URL shortener, multi-AZ IaC',
+      title: 'Go to Flagship Projects (KubeForecast, DriftWarden, J.A.R.V.I.S.)',
+      subtitle: 'K8s Go scheduler, 3-source AWS drift engine, cyber-physical AI OS, SOAR fabric',
       icon: <ArrowRight size={15} />,
       action: () => scrollTo('#projects')
     },
@@ -199,8 +199,8 @@ export default function CommandPalette({ isOpen, onClose, onOpenSpeedrun, onOpen
     {
       id: 'nav-certs',
       category: 'Navigation',
-      title: 'Go to Certifications (AWS Academy, TCM Security, Deloitte)',
-      subtitle: 'View credentials, Credly verification badges, and cybersecurity simulations',
+      title: 'Go to Certifications & Masterclasses (Scaler, AWS, TCM, Deloitte)',
+      subtitle: 'View 12 verified credentials, Scaler masterclasses, Credly verification badges',
       icon: <ArrowRight size={15} />,
       action: () => scrollTo('#certifications')
     },

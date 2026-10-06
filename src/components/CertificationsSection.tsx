@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Award, ShieldCheck, Maximize2, ExternalLink, X, Cloud, Terminal, Shield, BarChart2 } from 'lucide-react';
+import { Award, ShieldCheck, Maximize2, ExternalLink, X, Cloud, Terminal, Shield, BarChart2, Bot, Sparkles, Cpu } from 'lucide-react';
 
 export default function CertificationsSection() {
   const [activeFilter, setActiveFilter] = useState('all');
@@ -17,6 +17,50 @@ export default function CertificationsSection() {
       icon: <Cloud size={16} />,
       img: '/certificates/aws-academy-cloud-foundations.jpg',
       description: 'Comprehensive AWS foundational training covering cloud economics, core compute, IAM security, VPC networking, and high-availability architecture.'
+    },
+    {
+      id: 'scaler-devops-sre',
+      title: 'DevOps vs. SRE vs. Cloud Engineer vs. Platform Engineer Masterclass',
+      issuer: 'Scaler Masterclass',
+      category: 'cloud',
+      date: 'Sep 2026',
+      credId: 'SCALER-MC-SRE-2026',
+      icon: <Cloud size={16} />,
+      img: '/certificates/scaler-devops-sre-platform.jpg',
+      description: 'Architectural deep dive into boundaries between Site Reliability Engineering (SRE), Cloud Systems, DevOps pipelines, and Internal Developer Platform engineering.'
+    },
+    {
+      id: 'scaler-agentic-engineering',
+      title: 'Master Agentic Engineering & Workflow Automation Masterclass',
+      issuer: 'Scaler Masterclass',
+      category: 'ai',
+      date: 'Sep 2026',
+      credId: 'SCALER-MC-AGENTIC-2026',
+      icon: <Bot size={16} />,
+      img: '/certificates/scaler-agentic-engineering.jpg',
+      description: 'Advanced masterclass on agentic AI workflows, LLM tool orchestration, autonomous execution loops, multi-agent coordination, and real-world system automation.'
+    },
+    {
+      id: 'scaler-fde-ai',
+      title: 'The FDE Simulation: Build & Deploy AI in 3 Hours Masterclass',
+      issuer: 'Scaler Masterclass',
+      category: 'ai',
+      date: 'Sep 2026',
+      credId: 'SCALER-MC-FDE-2026',
+      icon: <Sparkles size={16} />,
+      img: '/certificates/scaler-fde-ai-simulation.jpg',
+      description: 'Forward Deployed Engineering (FDE) masterclass simulation focusing on rapid model deployment, container packaging, API latency constraints, and production rollouts.'
+    },
+    {
+      id: 'techvista-ai-wireless',
+      title: 'Careers in AI + Wireless Workshop (TECHVISTA\'26)',
+      issuer: 'Thiagarajar College of Engineering',
+      category: 'ai',
+      date: 'Feb 2026',
+      credId: 'TCE-TECHVISTA-2026',
+      icon: <Cpu size={16} />,
+      img: '/certificates/techvista-ai-wireless-workshop.jpg',
+      description: 'Hands-on offline technical workshop by IEI & IETE Student Chapters exploring edge AI compute, wireless communication protocols, and cyber-physical infrastructure.'
     },
     {
       id: 'tcm-linux',
@@ -109,7 +153,7 @@ export default function CertificationsSection() {
           <div className="section-label">07. Credentials</div>
           <h3 className="section-title">Verified Certifications & Accreditations</h3>
           <p className="section-subtitle">
-            Formal technical certifications and verified simulations validating competencies in cloud architecture, Linux administration, and security.
+            Formal technical certifications, masterclasses, and verified simulations validating competencies in cloud architecture, Linux administration, agentic AI, and cybersecurity.
           </p>
         </div>
 
@@ -126,6 +170,12 @@ export default function CertificationsSection() {
             onClick={() => setActiveFilter('cloud')}
           >
             Cloud & Systems ({certificates.filter(c => c.category === 'cloud').length})
+          </button>
+          <button 
+            className={`filter-btn ${activeFilter === 'ai' ? 'active' : ''}`}
+            onClick={() => setActiveFilter('ai')}
+          >
+            AI & Masterclasses ({certificates.filter(c => c.category === 'ai').length})
           </button>
           <button 
             className={`filter-btn ${activeFilter === 'cyber' ? 'active' : ''}`}

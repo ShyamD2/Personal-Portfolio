@@ -80,7 +80,7 @@ const SLIDES: Slide[] = [
       'Autonomous Python Lambda executes AWS WAFv2 API call to blacklist rogue IP in 820ms',
       'Digital forensics streamed into immutable S3 Object Lock WORM vaults for SEC Rule 17a-4 compliance'
     ],
-    takeaway: 'Zero manual ClickOps: Audited with Checkov, TFLint, and Trivy static analysis guardrails across 110/110 passing test suites.'
+    takeaway: 'Zero manual ClickOps: Codified alongside DriftWarden (AWS 3-source drift engine in Go), Checkov, and Trivy security guardrails.'
   },
   {
     id: 4,
