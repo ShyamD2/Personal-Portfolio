@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { X, Mail, Phone, MessageSquare, FileText, Check, Copy, ExternalLink, Sparkles, MapPin } from 'lucide-react';
+import { X, Mail, Phone, MessageSquare, FileText, Check, Copy, ExternalLink, Sparkles, MapPin, Send } from 'lucide-react';
+import { playSuccessChime, playTactileClick } from '../../utils/soundEffects';
 
 interface HireMeModalProps {
   isOpen: boolean;
@@ -8,13 +9,29 @@ interface HireMeModalProps {
 
 export default function HireMeModal({ isOpen, onClose }: HireMeModalProps) {
   const [copied, setCopied] = useState(false);
+  const [copiedPitch, setCopiedPitch] = useState(false);
 
   if (!isOpen) return null;
 
   const handleCopyEmail = () => {
+    playTactileClick();
     navigator.clipboard.writeText('shyamcloud021@gmail.com');
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
+  };
+
+  const handleCopyPitch = () => {
+    playSuccessChime();
+    const pitchText = `Hi Team — found a strong Cloud/DevOps candidate for our upcoming internship / graduate roles:
+• Candidate: Shyam Kumar D (B.Sc. Networking, 8.4 GPA, 6th Semester)
+• Core Proof: Engineered KubeForecast (custom Go K8s scheduler, 90.35ns latency, hardware-tested on AWS EKS) & Project AEGIS (autonomous SOAR threat isolation).
+• Availability: 6-Month Full-Time Internship (PPO Track) starting Jan/Feb | Open to Relocation & Remote.
+• Interactive SRE Cockpit: https://shyam-kumar-portfolio.netlify.app
+• Direct Contact: shyamcloud021@gmail.com | +91 7010672248`;
+
+    navigator.clipboard.writeText(pitchText);
+    setCopiedPitch(true);
+    setTimeout(() => setCopiedPitch(false), 3000);
   };
 
   const whatsappMessage = encodeURIComponent(
@@ -116,6 +133,23 @@ export default function HireMeModal({ isOpen, onClose }: HireMeModalProps) {
             </div>
             <ExternalLink size={16} className="channel-ext-icon" />
           </a>
+        </div>
+
+        {/* 1-Click Hiring Manager Forwarding Pitch */}
+        <div className="hiring-pitch-banner">
+          <div className="pitch-banner-text">
+            <span className="pitch-tag"><Sparkles size={11} /> Recruiter Superpower</span>
+            <h5>Copy 1-Click Hiring Manager Summary</h5>
+            <p>Pre-formatted executive summary ready to paste directly into your internal Slack or hiring thread.</p>
+          </div>
+          <button 
+            type="button" 
+            className={`btn-copy-pitch ${copiedPitch ? 'copied' : ''}`}
+            onClick={handleCopyPitch}
+          >
+            {copiedPitch ? <Check size={16} /> : <Copy size={16} />}
+            <span>{copiedPitch ? 'Pitch Copied!' : 'Copy Summary'}</span>
+          </button>
         </div>
 
         {/* Footer Note */}
@@ -387,6 +421,77 @@ export default function HireMeModal({ isOpen, onClose }: HireMeModalProps) {
 
         .copied-check {
           color: #10B981;
+        }
+
+        /* Hiring Manager Pitch Banner */
+        .hiring-pitch-banner {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 16px;
+          padding: 16px 20px;
+          border-radius: var(--radius-md);
+          background: rgba(229, 62, 62, 0.06);
+          border: 1px solid rgba(229, 62, 62, 0.25);
+          margin-bottom: 20px;
+        }
+
+        .pitch-banner-text {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+        }
+
+        .pitch-tag {
+          display: inline-flex;
+          align-items: center;
+          gap: 4px;
+          font-size: 11px;
+          font-weight: 700;
+          color: var(--accent-color);
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+        }
+
+        .pitch-banner-text h5 {
+          font-size: 14px;
+          font-weight: 700;
+          color: var(--text-primary);
+          margin: 0;
+        }
+
+        .pitch-banner-text p {
+          font-size: 12px;
+          color: var(--text-secondary);
+          margin: 0;
+          line-height: 1.4;
+        }
+
+        .btn-copy-pitch {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 10px 18px;
+          border-radius: var(--radius-sm);
+          background: var(--accent-color);
+          color: #FFFFFF;
+          border: none;
+          font-size: 13px;
+          font-weight: 700;
+          cursor: pointer;
+          white-space: nowrap;
+          transition: var(--transition-fast);
+          box-shadow: 0 4px 15px rgba(229, 62, 62, 0.3);
+        }
+
+        .btn-copy-pitch:hover {
+          background: #c53030;
+          transform: translateY(-1px);
+        }
+
+        .btn-copy-pitch.copied {
+          background: #10B981;
+          box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
         }
 
         /* Footer */

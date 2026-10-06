@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Linkedin, Github, FileText, Send, CheckCircle2, MessageSquare, Copy, Check, ExternalLink } from 'lucide-react';
+import { Mail, Phone, MapPin, Linkedin, Github, FileText, Send, CheckCircle2, MessageSquare, Copy, Check, ExternalLink, Sparkles } from 'lucide-react';
 import { playSuccessChime, playTactileClick } from '../utils/soundEffects';
 
 export default function ContactSection() {
@@ -8,6 +8,21 @@ export default function ContactSection() {
   const [isSent, setIsSent] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [copied, setCopied] = useState(false);
+  const [copiedPitch, setCopiedPitch] = useState(false);
+
+  const handleCopyPitch = () => {
+    playSuccessChime();
+    const pitchText = `Hi Team — found a strong Cloud/DevOps candidate for our upcoming internship / graduate roles:
+• Candidate: Shyam Kumar D (B.Sc. Networking, 8.4 GPA, 6th Semester)
+• Core Proof: Engineered KubeForecast (custom Go K8s scheduler, 90.35ns latency, hardware-tested on AWS EKS) & Project AEGIS (autonomous SOAR threat isolation).
+• Availability: 6-Month Full-Time Internship (PPO Track) starting Jan/Feb | Open to Relocation & Remote.
+• Interactive SRE Cockpit: https://shyam-kumar-portfolio.netlify.app
+• Direct Contact: shyamcloud021@gmail.com | +91 7010672248`;
+
+    navigator.clipboard.writeText(pitchText);
+    setCopiedPitch(true);
+    setTimeout(() => setCopiedPitch(false), 3000);
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -148,6 +163,16 @@ export default function ContactSection() {
               >
                 {copied ? <Check size={16} className="copied-icon" /> : <Copy size={16} />}
                 <span>{copied ? 'Email Copied to Clipboard!' : 'Copy: shyamcloud021@gmail.com'}</span>
+              </button>
+
+              <button
+                type="button"
+                className={`btn-copy-pitch-action ${copiedPitch ? 'copied' : ''}`}
+                onClick={handleCopyPitch}
+                title="Copy a pre-formatted hiring manager summary to forward internally"
+              >
+                {copiedPitch ? <Check size={16} className="copied-icon" /> : <Sparkles size={15} />}
+                <span>{copiedPitch ? 'Hiring Pitch Copied to Clipboard!' : 'Copy 1-Click Hiring Manager Summary'}</span>
               </button>
             </div>
 
@@ -447,6 +472,35 @@ export default function ContactSection() {
         .btn-copy-email-action:hover {
           background: rgba(var(--accent-rgb), 0.15);
           border-color: var(--accent-color);
+        }
+
+        .btn-copy-pitch-action {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          background: rgba(229, 62, 62, 0.12);
+          border: 1px solid rgba(229, 62, 62, 0.35);
+          color: var(--accent-color);
+          padding: 11px 16px;
+          border-radius: var(--radius-md);
+          font-size: 12.5px;
+          font-weight: 700;
+          cursor: pointer;
+          transition: var(--transition-fast);
+          text-align: left;
+        }
+
+        .btn-copy-pitch-action:hover {
+          background: var(--accent-color);
+          color: #FFFFFF;
+          transform: translateY(-1px);
+          box-shadow: 0 4px 15px rgba(229, 62, 62, 0.25);
+        }
+
+        .btn-copy-pitch-action.copied {
+          background: #10B981;
+          color: #FFFFFF;
+          border-color: #10B981;
         }
 
         .copied-icon {

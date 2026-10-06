@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Sun, Moon } from 'lucide-react';
+import { Menu, X, Sun, Moon, Command, Zap } from 'lucide-react';
 
 interface NavbarProps {
   onOpenHireMe?: () => void;
+  onOpenSpeedrun?: () => void;
+  onOpenCommandPalette?: () => void;
 }
 
-export default function Navbar({ onOpenHireMe }: NavbarProps) {
+export default function Navbar({ onOpenHireMe, onOpenSpeedrun, onOpenCommandPalette }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [theme, setTheme] = useState('light');
   const [isScrolled, setIsScrolled] = useState(false);
@@ -92,6 +94,28 @@ export default function Navbar({ onOpenHireMe }: NavbarProps) {
           <button onClick={toggleTheme} className="theme-toggle" aria-label="Toggle theme">
             {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
           </button>
+
+          {/* SRE Command Palette Trigger */}
+          <button 
+            type="button" 
+            className="cmd-k-trigger-btn"
+            onClick={onOpenCommandPalette}
+            title="Open SRE Command Palette (Ctrl + K)"
+          >
+            <Command size={13} />
+            <span className="cmd-k-text">Ctrl K</span>
+          </button>
+
+          {/* 60s Speedrun Trigger */}
+          <button
+            type="button"
+            className="navbar-speedrun-btn"
+            onClick={onOpenSpeedrun}
+            title="Launch 60-Second Recruiter Speedrun"
+          >
+            <Zap size={14} />
+            <span>Speedrun</span>
+          </button>
           
           {/* Desktop Hire Me button */}
           <button
@@ -108,6 +132,24 @@ export default function Navbar({ onOpenHireMe }: NavbarProps) {
 
         {/* Mobile toggle */}
         <div className="mobile-actions">
+          <button 
+            type="button" 
+            className="theme-toggle mobile-palette-btn" 
+            onClick={onOpenCommandPalette}
+            aria-label="Open Command Palette"
+            title="Command Palette"
+          >
+            <Command size={16} />
+          </button>
+          <button 
+            type="button" 
+            className="theme-toggle mobile-speedrun-icon-btn" 
+            onClick={onOpenSpeedrun}
+            aria-label="60s Speedrun"
+            title="60s Speedrun"
+          >
+            <Zap size={16} style={{ color: '#E53E3E' }} />
+          </button>
           <button onClick={toggleTheme} className="theme-toggle mobile-theme-btn" aria-label="Toggle theme">
             {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
           </button>
@@ -273,6 +315,71 @@ export default function Navbar({ onOpenHireMe }: NavbarProps) {
         .theme-toggle:hover {
           border-color: var(--accent-color);
           color: var(--accent-color);
+        }
+
+        .cmd-k-trigger-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          color: var(--text-secondary);
+          padding: 6px 12px;
+          border-radius: var(--radius-sm);
+          cursor: pointer;
+          font-family: var(--font-body);
+          font-size: 12px;
+          font-weight: 600;
+          transition: var(--transition-fast);
+        }
+
+        .navbar:not(.scrolled) .cmd-k-trigger-btn {
+          color: rgba(255, 255, 255, 0.85);
+          border-color: rgba(255, 255, 255, 0.25);
+          background: rgba(0, 0, 0, 0.25);
+        }
+
+        .cmd-k-trigger-btn:hover {
+          border-color: var(--accent-color);
+          color: var(--accent-color);
+        }
+
+        .cmd-k-text {
+          font-family: monospace;
+          font-size: 10.5px;
+          background: rgba(255, 255, 255, 0.1);
+          padding: 1px 5px;
+          border-radius: 3px;
+        }
+
+        .navbar-speedrun-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          background: rgba(229, 62, 62, 0.12);
+          border: 1px solid rgba(229, 62, 62, 0.35);
+          color: var(--accent-color);
+          padding: 7px 14px;
+          border-radius: 50px;
+          cursor: pointer;
+          font-family: var(--font-display);
+          font-size: 12px;
+          font-weight: 800;
+          text-transform: uppercase;
+          letter-spacing: 0.04em;
+          transition: var(--transition-fast);
+        }
+
+        .navbar:not(.scrolled) .navbar-speedrun-btn {
+          background: rgba(229, 62, 62, 0.25);
+          border-color: rgba(229, 62, 62, 0.5);
+          color: #FFFFFF;
+        }
+
+        .navbar-speedrun-btn:hover {
+          background: var(--accent-color);
+          color: #FFFFFF;
+          transform: translateY(-1px);
         }
 
         .desktop-hire-btn {

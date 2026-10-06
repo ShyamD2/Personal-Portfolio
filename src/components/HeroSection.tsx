@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ArrowRight, Play, Pause, FileText, Sparkles, Volume2, VolumeX } from 'lucide-react';
+import { ArrowRight, Play, Pause, FileText, Sparkles, Volume2, VolumeX, Zap } from 'lucide-react';
 import RecruiterRoleSelector from './Interactive/RecruiterRoleSelector';
 
 interface Particle {
@@ -19,7 +19,7 @@ interface Particle {
   decay: number;
 }
 
-export default function HeroSection({ onOpenHireMe }: { onOpenHireMe?: () => void }) {
+export default function HeroSection({ onOpenHireMe, onOpenSpeedrun }: { onOpenHireMe?: () => void; onOpenSpeedrun?: () => void }) {
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(false);
   
@@ -521,6 +521,14 @@ export default function HeroSection({ onOpenHireMe }: { onOpenHireMe?: () => voi
           </p>
 
           <div className="hero-cta-group">
+            <button 
+              type="button" 
+              className="btn btn-speedrun-hero" 
+              onClick={onOpenSpeedrun}
+              title="Launch 60-Second Guided Recruiter Speedrun"
+            >
+              <Zap size={16} /> 60s Speedrun
+            </button>
             <a href="#projects" className="btn btn-pill-white" onClick={handleScrollToProjects}>
               View My Work <ArrowRight size={16} />
             </a>
@@ -792,6 +800,29 @@ export default function HeroSection({ onOpenHireMe }: { onOpenHireMe?: () => voi
           align-items: center;
           gap: 16px;
           flex-wrap: wrap;
+        }
+
+        .btn-speedrun-hero {
+          background: linear-gradient(135deg, #E53E3E 0%, #B91C1C 100%);
+          color: #FFFFFF;
+          padding: 14px 26px;
+          border-radius: 50px;
+          border: 1px solid rgba(255, 255, 255, 0.25);
+          font-weight: 800;
+          font-size: 13.5px;
+          cursor: pointer;
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          box-shadow: 0 8px 25px rgba(229, 62, 62, 0.45);
+          transition: var(--transition-fast);
+          text-decoration: none;
+        }
+
+        .btn-speedrun-hero:hover {
+          background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+          transform: translateY(-2px);
+          box-shadow: 0 12px 30px rgba(229, 62, 62, 0.6);
         }
 
         .btn-pill-white {

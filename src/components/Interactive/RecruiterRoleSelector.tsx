@@ -29,7 +29,7 @@ export const ROLES: RoleData[] = [
     ],
     targetProjects: ['KubeForecast (Go K8s Scheduler)', 'Distributed Key-Value Raft Cluster'],
     targetCert: 'AWS Academy Cloud Architecting & Linux Systems Administration',
-    recommendedReport: { name: 'KubeForecast Empirical Dossier', url: '/reports/Project Report-KubeForecast.pdf' }
+    recommendedReport: { name: 'KubeForecast Empirical Dossier', url: '/reports/KubeForecast_Project_Report.pdf' }
   },
   {
     id: 'cloud',
@@ -44,7 +44,7 @@ export const ROLES: RoleData[] = [
     ],
     targetProjects: ['Multi-Region VPC Peering Fabric', 'KubeForecast AWS Production Infrastructure'],
     targetCert: 'AWS Academy Graduate - Cloud Architecting & Foundations',
-    recommendedReport: { name: 'AWS Cloud Architecture Blueprint', url: '/reports/Project Report-KubeForecast.pdf' }
+    recommendedReport: { name: 'AWS Cloud Architecture Blueprint', url: '/reports/URL_Shortener_Project_Report.pdf' }
   },
   {
     id: 'devops',
@@ -59,7 +59,7 @@ export const ROLES: RoleData[] = [
     ],
     targetProjects: ['KubeForecast Terraform Modules', 'Automated CI/CD Delivery Fabric'],
     targetCert: 'Linux Systems Administration & Open Source Software Simulation',
-    recommendedReport: { name: 'Automated Terraform Infrastructure Report', url: '/reports/Project Report-KubeForecast.pdf' }
+    recommendedReport: { name: 'Automated Terraform Infrastructure Report', url: '/reports/AEGIS_Project_Report.pdf' }
   },
   {
     id: 'security',
@@ -74,7 +74,7 @@ export const ROLES: RoleData[] = [
     ],
     targetProjects: ['Project AEGIS (Autonomous Threat Containment)', 'Zero-Trust VPC Security Architecture'],
     targetCert: 'Mastercard Cybersecurity Simulation & Tata Cybersecurity Analyst',
-    recommendedReport: { name: 'Project AEGIS SOAR Security Dossier', url: '/reports/Project Report-KubeForecast.pdf' }
+    recommendedReport: { name: 'Project AEGIS SOAR Security Dossier', url: '/reports/AEGIS_Project_Report.pdf' }
   }
 ];
 
