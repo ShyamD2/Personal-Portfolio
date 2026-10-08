@@ -31,11 +31,11 @@ export default function SkillsSection() {
       icon: <Terminal className="skill-icon" size={22} />,
       skills: [
         { name: 'Terraform Modules & State', status: 'Expert' },
+        { name: 'GitOps & Drift Detection (Go)', status: 'Expert' },
         { name: 'GitHub Actions Workflows', status: 'Expert' },
-        { name: 'Automated CI/CD Pipelines', status: 'Advanced' },
+        { name: 'Go (Golang Systems Code)', status: 'Advanced' },
         { name: 'Bash Shell Automation', status: 'Expert' },
-        { name: 'Python Automation Scripts', status: 'Advanced' },
-        { name: 'Linux Systemd Services', status: 'Core' }
+        { name: 'Python Automation Scripts', status: 'Advanced' }
       ]
     },
     {

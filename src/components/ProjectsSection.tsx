@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Github, Command, PlayCircle } from 'lucide-react';
+import { Github, Command, PlayCircle, FileText, ExternalLink } from 'lucide-react';
 import ArchitectureShowcase from './Interactive/ArchitectureShowcase';
 import SupportTerminal from './Interactive/SupportTerminal';
 import VideoModal from './Interactive/VideoModal';
@@ -15,20 +15,32 @@ export default function ProjectsSection() {
       badge: 'Kubernetes & AWS EKS',
       category: 'sre',
       problem: 'Standard Kubernetes round-robin scheduling causes severe fleet fragmentation, stranding nodes at 15–30% capacity while paying for 100% compute hours.',
-      solution: 'Engineered a custom Go Kubernetes Scheduling Framework plugin (evaluating node placement in 90.35 ns) and 100% Terraform AWS EKS IaC. Steers pods to safe waterline nodes, validated on live AWS EKS with 50%–66.7% node reduction and 5 Grafana dashboards.',
-      tech: ['Kubernetes', 'AWS EKS v1.31', 'Terraform', 'Go 1.23', 'Helm v3', 'Prometheus', 'Grafana'],
+      solution: 'Engineered a native Go Kubernetes Scheduling Framework plugin (evaluating node placement in 90.35 ns) and 100% Terraform AWS EKS IaC. Steers pods to safe waterline nodes, validated on live AWS EKS with 50%–66.7% node reduction and 5 Grafana dashboards.',
+      bullets: [
+        'Engineered a native Kubernetes Scheduling Framework plugin in Go with a predictive waterline algorithm to consolidate workloads and expose empty nodes for safe cluster scale-down.',
+        'Provisioned multi-AZ AWS EKS infrastructure using modular Terraform (VPC, EKS, IAM IRSA, ECR, S3); packaged components with Helm v3 and automated CI/CD builds.',
+        'Validated 50.0%–66.7% worker-node reduction during live AWS EKS soak testing while maintaining PDB safety; configured Prometheus telemetry & 5 Grafana dashboards.'
+      ],
+      tech: ['Kubernetes (AWS EKS v1.31)', 'Terraform', 'Go 1.23', 'Helm v3', 'Docker', 'Prometheus', 'Grafana', 'GitHub Actions'],
       github: 'https://github.com/ShyamD2/KubeForecast',
+      pdfUrl: '/reports/KubeForecast_Project_Report.pdf',
       hasDemoVideo: true
     },
     {
       id: 'driftwarden',
-      title: 'DriftWarden: Three-Source AWS Drift Detection & GitOps Engine',
+      title: 'DriftWarden: AWS Infrastructure Drift Detection & GitOps Reconciliation Engine',
       badge: 'AWS & Go 1.24+ GitOps',
       category: 'sre',
       problem: 'Traditional drift tools only inspect Terraform State <-> AWS Live State, completely missing uncommitted local Git edits, out-of-band ClickOps mutations, and CIS security regressions.',
-      solution: 'Engineered a high-precision 3-way reconciliation engine in Go 1.24+ comparing Git HCL, Terraform state, and live AWS reality. Packaged in an ultra-lean <25MB distroless container with built-in CIS AWS v3.0 compliance auditing and automated GitOps PR remediation.',
-      tech: ['Go 1.24+', 'AWS SDK v2', 'Terraform State', 'Docker Distroless', 'CIS AWS v3.0', 'GitOps', 'GitHub Actions'],
-      github: 'https://github.com/ShyamD2/driftwarden'
+      solution: 'Built a three-source drift engine in Go 1.24+ correlating Git desired configuration, Terraform state, and live AWS resources. Packaged in an ultra-lean <25MB distroless container with built-in CIS AWS v3.0 compliance auditing and automated GitOps PR remediation.',
+      bullets: [
+        'Built a three-source drift engine correlating Git desired configuration, Terraform state, and live AWS resources to detect configuration drift, shadow resources, and unapplied changes.',
+        'Implemented AWS multi-account discovery, CIS security checks, FinOps cost-bleed analysis, consistency re-probes, and lock-aware Terraform state auditing to reduce false-positive alerts.',
+        'Automated CI/CD quality gates with JSON/JUnit evidence, Docker packaging, safe dry-run remediation, and Terraform 1.5+ GitOps import generation.'
+      ],
+      tech: ['Go', 'AWS SDK v2', 'Terraform', 'GitOps', 'Docker', 'GitHub Actions', 'CIS Benchmark', 'JUnit'],
+      github: 'https://github.com/ShyamD2/driftwarden',
+      pdfUrl: '/reports/DriftWarden_Project_Report.pdf'
     },
     {
       id: 'jarvis',
@@ -37,6 +49,11 @@ export default function ProjectsSection() {
       category: 'ai',
       problem: 'AI assistants lack ground-truth sensory verification when executing real actions across operating systems, browsers, and cloud resources, leading to dangerous hallucinated actions.',
       solution: 'Engineered a cloud-connected cyber-physical AI agent architecture uniting physical IoT telemetry, Windows OS/desktop accessibility, and AWS cloud automation. Features dual-channel ground-truth verification, 4-tier blast radius isolation, and HMAC action leases. Validated with 183 automated tests (100% pass) and a strict 0.00% false-success invariant.',
+      bullets: [
+        'Engineered a cloud-connected cyber-physical AI agent architecture uniting physical IoT telemetry, Windows OS/desktop accessibility, and AWS cloud automation.',
+        'Features dual-channel ground-truth verification, 4-tier blast radius isolation, universal ActionLease, and HMAC ticket tampering defense.',
+        'Validated with 183 automated tests (100% pass) and a strict 0.00% false-success invariant across 100-task empirical benchmark runs.'
+      ],
       tech: ['Python 3.13', 'FastAPI', 'Agentic AI', 'Playwright', 'AWS Cloud', 'Docker', 'AsyncIO'],
       github: 'https://github.com/ShyamD2/project-jarvis'
     },
@@ -47,18 +64,30 @@ export default function ProjectsSection() {
       category: 'security',
       problem: 'Manual cloud threat containment is slow and error-prone, while digital forensic records remain vulnerable to tampering during security breaches.',
       solution: 'Codified 100% multi-account AWS infrastructure in Terraform. Engineered autonomous SOAR containment pipelines using EventBridge, Step Functions, and Lambda, streaming immutable forensic trails to SEC Rule 17a-4 S3 WORM vaults.',
+      bullets: [
+        'Codified 100% multi-account AWS infrastructure in Terraform with zero manual ClickOps.',
+        'Captures brute-force findings and blacklists rogue IPs via AWS WAFv2 in under 820ms, isolating compromised EC2 nodes.',
+        'Streams immutable digital forensics into SEC Rule 17a-4 S3 WORM vaults with KMS encryption; verified across 110/110 passing test suites.'
+      ],
       tech: ['AWS Multi-Account', 'Terraform', 'EventBridge', 'Step Functions', 'S3 WORM', 'KMS', 'Checkov'],
-      github: 'https://github.com/ShyamD2/aegis-cloud-security'
+      github: 'https://github.com/ShyamD2/aegis-cloud-security',
+      pdfUrl: '/reports/AEGIS_Project_Report.pdf'
     },
     {
       id: 'url-shortener',
-      title: 'Event-Driven Serverless URL Shortener & Analytics',
+      title: 'AWS Serverless Platform & Real-Time Analytics Engine',
       badge: 'AWS Serverless & Data',
       category: 'sre',
       problem: 'Traditional container or VM-based redirect services incur continuous idle baseline costs ($20–$80/mo) and couple analytics logging directly to redirection latency.',
       solution: 'Architected an asynchronous event-driven system using HTTP API Gateway and Lambda for sub-30ms redirects at $0 idle cost. Decoupled analytics via Amazon SQS dead-letter queues to partitioned S3 logs, queried in-place via Amazon Athena.',
-      tech: ['AWS Lambda', 'API Gateway', 'DynamoDB', 'Amazon SQS', 'Amazon S3', 'Amazon Athena', 'Terraform'],
-      github: 'https://github.com/ShyamD2/aws-cloud-serverless-url-shortener'
+      bullets: [
+        'Architected an event-driven AWS platform using API Gateway, Lambda, and DynamoDB for low-latency URL redirection with asynchronous telemetry isolated from the request path.',
+        'Implemented SQS/SNS messaging, dead-letter queues, structured logging, correlation IDs, S3 analytics storage, and Athena diagnostics to improve fault isolation.',
+        'Provisioned 10 modular Terraform components with remote state and DynamoDB locking; automated testing, Docker-based local testing, and CloudWatch monitoring.'
+      ],
+      tech: ['AWS (API Gateway, Lambda, DynamoDB, SQS, SNS, S3, CloudFront, Athena, CloudWatch)', 'Terraform', 'Python', 'Docker'],
+      github: 'https://github.com/ShyamD2/aws-cloud-serverless-url-shortener',
+      pdfUrl: '/reports/URL_Shortener_Project_Report.pdf'
     },
     {
       id: 'scalable-aws',
@@ -67,18 +96,27 @@ export default function ProjectsSection() {
       category: 'sre',
       problem: 'Designing fault-tolerant, highly available cloud web systems capable of surviving availability zone failures with zero manual downtime.',
       solution: 'Architected high-availability multi-tier infrastructure across 3 AZs using Application Load Balancers, dynamic Auto Scaling groups, VPC private subnets, and CloudWatch alarms, automated with Bash User Data on Ubuntu.',
+      bullets: [
+        'Architected high-availability multi-tier infrastructure across 3 AZs using Application Load Balancers and dynamic Auto Scaling groups.',
+        'Configured private/public VPC subnets, NAT gateways, and CloudWatch alarm triggers automated via Bash User Data scripts.'
+      ],
       tech: ['AWS EC2', 'AWS ALB', 'Auto Scaling', 'VPC Routing', 'CloudWatch', 'Bash Scripting'],
       github: 'https://github.com/ShyamD2/Scalable-AWS-Cloud-Infrastructure-Deployment'
     },
     {
       id: 'incident-response',
-      title: 'Incident Response & Threat Telemetry Platform',
+      title: 'NetPulse: Incident Response & Threat Telemetry Platform',
       badge: 'SecOps & Full-Stack SRE',
       category: 'security',
       problem: 'Security engineers struggle to triage high-volume alerts and correlate distributed incident timelines across fragmented cloud and on-premise monitoring silos.',
       solution: 'Built a unified incident response console with interactive telemetry boards, automated severity classification, response runbook tracking, and forensic audit logs for SOC analysts.',
+      bullets: [
+        'Built a unified incident response console with interactive telemetry boards and automated severity classification.',
+        'Streamlined incident triage workflows, SLA breach prevention alerts, and forensic audit logs for SOC analysts.'
+      ],
       tech: ['TypeScript', 'React', 'Node.js', 'REST API', 'Incident Management', 'Security Analytics'],
-      github: 'https://github.com/ShyamD2/incident-response-platform'
+      github: 'https://github.com/ShyamD2/incident-response-platform',
+      pdfUrl: '/reports/NetPulse_Incident_Response_Platform.pdf'
     },
     {
       id: 'cloud-journey',
@@ -87,6 +125,10 @@ export default function ProjectsSection() {
       category: 'sre',
       problem: 'Cloud architecture knowledge is often theoretical; enterprise hiring managers want verifiable proof of deep hands-on troubleshooting and systems design.',
       solution: 'Comprehensive living open-source engineering journal documenting production AWS infrastructure, Linux kernel internals, container networking, and IaC troubleshooting playbooks.',
+      bullets: [
+        'Comprehensive living open-source engineering journal documenting production AWS infrastructure, Terraform modules, and Linux internals.',
+        'Deep-dive playbooks on TCP/IP networking, BGP routing, container isolation, and production incident post-mortems.'
+      ],
       tech: ['AWS Solutions', 'Terraform', 'Kubernetes', 'Linux Internals', 'Networking', 'Security Architecture'],
       github: 'https://github.com/ShyamD2/cloud-engineering-journey'
     }
@@ -158,6 +200,16 @@ export default function ProjectsSection() {
                   <h5>Implementation & Resolution:</h5>
                   <p>{proj.solution}</p>
                 </div>
+                {proj.bullets && (
+                  <div className="body-block">
+                    <h5>Key Engineering Achievements:</h5>
+                    <ul className="project-bullet-list">
+                      {proj.bullets.map((b, bIdx) => (
+                        <li key={bIdx}>{b}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
 
               <div className="project-tech-tags">
@@ -166,16 +218,41 @@ export default function ProjectsSection() {
                 ))}
               </div>
 
-              {proj.hasDemoVideo && (
-                <button
-                  type="button"
-                  className="btn-watch-demo-card"
-                  onClick={() => setIsVideoModalOpen(true)}
+              <div className="project-card-actions">
+                {proj.hasDemoVideo && (
+                  <button
+                    type="button"
+                    className="btn-card-action btn-watch-demo"
+                    onClick={() => setIsVideoModalOpen(true)}
+                  >
+                    <PlayCircle size={14} />
+                    <span>Watch K8s Demo</span>
+                  </button>
+                )}
+                {proj.pdfUrl && (
+                  <a
+                    href={proj.pdfUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-card-action btn-view-report"
+                    title={`View ${proj.title} PDF Report`}
+                  >
+                    <FileText size={14} />
+                    <span>Read Dossier (PDF)</span>
+                  </a>
+                )}
+                <a
+                  href={proj.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-card-action btn-view-github"
+                  title={`View GitHub Repository for ${proj.title}`}
                 >
-                  <PlayCircle size={15} />
-                  <span>Watch Live K8s Demo Video</span>
-                </button>
-              )}
+                  <Github size={14} />
+                  <span>GitHub Code</span>
+                  <ExternalLink size={12} />
+                </a>
+              </div>
             </div>
           ))}
         </div>
@@ -349,6 +426,92 @@ export default function ProjectsSection() {
           color: var(--text-secondary);
           padding: 4px 10px;
           border-radius: 4px;
+        }
+
+        .project-bullet-list {
+          list-style: none;
+          padding: 0;
+          margin: 6px 0 0 0;
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+        }
+
+        .project-bullet-list li {
+          font-size: 13px;
+          color: var(--text-secondary);
+          line-height: 1.5;
+          position: relative;
+          padding-left: 16px;
+        }
+
+        .project-bullet-list li::before {
+          content: '•';
+          position: absolute;
+          left: 0;
+          color: var(--accent-color);
+          font-weight: bold;
+        }
+
+        .project-card-actions {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+          margin-top: 20px;
+          padding-top: 18px;
+          border-top: 1px solid var(--border-color);
+        }
+
+        .btn-card-action {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 7px 14px;
+          border-radius: 50px;
+          font-size: 12px;
+          font-weight: 600;
+          text-decoration: none;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+
+        .btn-watch-demo {
+          background: rgba(229, 62, 62, 0.15);
+          border: 1px solid rgba(229, 62, 62, 0.4);
+          color: #FFFFFF;
+        }
+
+        .btn-watch-demo:hover {
+          background: var(--accent-color);
+          color: #FFFFFF;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(229, 62, 62, 0.35);
+        }
+
+        .btn-view-report {
+          background: rgba(56, 189, 248, 0.1);
+          border: 1px solid rgba(56, 189, 248, 0.35);
+          color: #38BDF8;
+        }
+
+        .btn-view-report:hover {
+          background: #38BDF8;
+          color: #0A0F1D;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
+        }
+
+        .btn-view-github {
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid var(--border-color);
+          color: var(--text-secondary);
+        }
+
+        .btn-view-github:hover {
+          background: rgba(255, 255, 255, 0.12);
+          color: var(--text-primary);
+          border-color: rgba(255, 255, 255, 0.3);
+          transform: translateY(-2px);
         }
 
         /* Sandbox Divider */

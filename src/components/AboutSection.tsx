@@ -30,7 +30,7 @@ export default function AboutSection() {
               As a B.Sc. Networking (Cloud Computing) undergraduate graduating in 2027, I bridge low-level network protocols—such as CIDR subnetting, route tables, and IPsec VPNs—with modern cloud virtualization and container orchestration on AWS.
             </p>
             <p className="story-body">
-              Through flagship systems like KubeForecast (a Go Kubernetes scheduling engine hardware-validated on AWS EKS) and Project AEGIS (an autonomous AWS SOAR security fabric), I build production-grade solutions that eliminate compute waste, automate DevSecOps containment, and guarantee high availability with 100% codified Terraform.
+              Through flagship systems like KubeForecast (a Go Kubernetes scheduling engine hardware-validated on AWS EKS), DriftWarden (a 3-source AWS drift & GitOps reconciliation engine in Go), and Project AEGIS (an autonomous AWS SOAR security fabric), I build production-grade solutions that eliminate compute waste, automate DevSecOps containment, and guarantee high availability with 100% codified Terraform.
             </p>
             <p className="story-emphasis">
               🎓 <strong>Currently in 6th Semester</strong> — Actively seeking a <strong>6-Month Full-Time Internship (with PPO Conversion)</strong> and graduate <strong>Cloud Infrastructure, DevOps & SRE Opportunities</strong>. Open to on-site relocation & remote.

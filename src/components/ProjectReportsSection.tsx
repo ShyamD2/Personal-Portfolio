@@ -1,5 +1,5 @@
 import React from 'react';
-import { FileText, Download, ExternalLink, ShieldAlert, Cpu, Database, Server, Layers } from 'lucide-react';
+import { FileText, Download, ExternalLink, ShieldAlert, Cpu, Database, Server, Layers, RefreshCw } from 'lucide-react';
 
 export default function ProjectReportsSection() {
   const reports = [
@@ -16,6 +16,20 @@ export default function ProjectReportsSection() {
         '100% codified Terraform modules & Helm v3 charts'
       ],
       pdfUrl: '/reports/KubeForecast_Project_Report.pdf'
+    },
+    {
+      title: 'DriftWarden: AWS Drift Detection & GitOps Reconciliation Dossier',
+      category: 'AWS & Go 1.24+ GitOps',
+      icon: <RefreshCw size={22} />,
+      pages: 'Engineering Dossier',
+      fileSize: '1.1 MB',
+      summary: 'High-precision three-source AWS drift detection specification in Go. Correlates Git desired configuration, Terraform state, and live AWS resources to detect configuration drift, shadow resources, and unapplied changes with CIS security compliance.',
+      highlights: [
+        'High-precision three-source reconciliation engine in Go 1.24+',
+        'Automated CIS AWS v3.0 compliance & FinOps cost-bleed audit',
+        'Safe dry-run remediation & Terraform 1.5+ GitOps import generation'
+      ],
+      pdfUrl: '/reports/DriftWarden_Project_Report.pdf'
     },
     {
       title: 'Project AEGIS: Autonomous Cloud Defense & Active SOAR Fabric',
