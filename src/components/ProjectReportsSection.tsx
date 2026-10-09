@@ -1,5 +1,5 @@
 import React from 'react';
-import { FileText, Download, ExternalLink, ShieldAlert, Cpu, Database, Server, Layers, RefreshCw } from 'lucide-react';
+import { FileText, Download, ExternalLink, ShieldAlert, Cpu, Database, Server, Layers, RefreshCw, Bot } from 'lucide-react';
 
 export default function ProjectReportsSection() {
   const reports = [
@@ -30,6 +30,20 @@ export default function ProjectReportsSection() {
         'Safe dry-run remediation & Terraform 1.5+ GitOps import generation'
       ],
       pdfUrl: '/reports/DriftWarden_Project_Report.pdf'
+    },
+    {
+      title: 'Project J.A.R.V.I.S.: Autonomous Cyber-Physical AgentOS Dossier',
+      category: 'Agentic AI & Systems Engineering',
+      icon: <Bot size={22} />,
+      pages: '19 Pages',
+      fileSize: '3.9 MB',
+      summary: 'Comprehensive 19-page engineering specification for an autonomous cyber-physical AgentOS. Documents 6-stage canonical execution pipelines, dual-channel sensory ground-truth verification, 4-tier blast-radius containment, and a mathematically enforced 0% false-success invariant.',
+      highlights: [
+        'Mathematically enforced 0.00% false-success invariant',
+        'Dual-channel sensory verification & HMAC ActionLeases',
+        '100-task empirical benchmark suite with 183 passing tests'
+      ],
+      pdfUrl: '/reports/JARVIS_Project_Report.pdf'
     },
     {
       title: 'Project AEGIS: Autonomous Cloud Defense & Active SOAR Fabric',

@@ -184,7 +184,7 @@ export default function CommandPalette({ isOpen, onClose, onOpenSpeedrun, onOpen
       id: 'nav-reports',
       category: 'Navigation',
       title: 'Go to Project Reports & Dossiers (PDF Blueprints)',
-      subtitle: 'Download formal 18-page technical specifications and soak test reports',
+      subtitle: 'Download formal engineering specs (KubeForecast, DriftWarden, J.A.R.V.I.S., AEGIS)',
       icon: <ArrowRight size={15} />,
       action: () => scrollTo('#reports')
     },

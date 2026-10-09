@@ -55,7 +55,8 @@ export default function ProjectsSection() {
         'Validated with 183 automated tests (100% pass) and a strict 0.00% false-success invariant across 100-task empirical benchmark runs.'
       ],
       tech: ['Python 3.13', 'FastAPI', 'Agentic AI', 'Playwright', 'AWS Cloud', 'Docker', 'AsyncIO'],
-      github: 'https://github.com/ShyamD2/project-jarvis'
+      github: 'https://github.com/ShyamD2/project-jarvis',
+      pdfUrl: '/reports/JARVIS_Project_Report.pdf'
     },
     {
       id: 'aegis',
