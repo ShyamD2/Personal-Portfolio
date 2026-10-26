@@ -1,5 +1,13 @@
 # ⚡ Shyam Kumar D — SRE & Cloud DevOps Engineering Portfolio
 
+
+
+<p align="center">
+  <a href="https://shyamd2-portfolio.netlify.app" target="_blank">
+    <img src="https://img.shields.io/badge/Live%20Cockpit-shyamd2--portfolio.netlify.app-00C7B7?style=for-the-badge&logo=netlify&logoColor=white" alt="Live Portfolio Cockpit" />
+  </a>
+</p>
+
 <div align="center">
 
   <h3>Production-Grade Cloud Systems • Deterministic Kubernetes Schedulers • Automated Terraform IaC</h3>
