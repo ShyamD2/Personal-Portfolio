@@ -69,7 +69,7 @@ html, body {
 .portfolio-app {
   width: 100%;
   overflow-x: hidden;
-  padding-bottom: 40px; /* Clears fixed SRE telemetry bar */
+  padding-bottom: 0px;
 }
 
 /* Scrollbar styling */

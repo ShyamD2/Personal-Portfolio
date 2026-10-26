@@ -6,6 +6,7 @@ export default function SRETelemetryBar() {
   const [soundOn, setSoundOn] = useState(true);
   const [latency, setLatency] = useState(24);
   const [uptime, setUptime] = useState('99.99%');
+  const [isMinimized, setIsMinimized] = useState(false);
 
   useEffect(() => {
     setSoundOn(isSoundEnabled());
@@ -32,6 +33,23 @@ export default function SRETelemetryBar() {
     setSoundEnabled(next);
     if (next) playTactileClick();
   };
+
+  if (isMinimized) {
+    return (
+      <div className="sre-telemetry-pill-wrapper">
+        <button
+          type="button"
+          className="telemetry-pill-btn"
+          onClick={() => setIsMinimized(false)}
+          title="Expand Mission Control Telemetry"
+        >
+          <span className="telemetry-dot"></span>
+          <span className="pill-title">SRE COCKPIT</span>
+          <span className="pill-stat">{latency}ms • 99.99% Uptime</span>
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="sre-telemetry-bar">
@@ -68,7 +86,7 @@ export default function SRETelemetryBar() {
           </div>
         </div>
 
-        {/* Right: Master Audio SFX Toggle */}
+        {/* Right: SFX Toggle & Minimize */}
         <div className="telemetry-controls-group">
           <button 
             type="button" 
@@ -80,10 +98,81 @@ export default function SRETelemetryBar() {
             {soundOn ? <Volume2 size={14} /> : <VolumeX size={14} />}
             <span className="sfx-btn-text">{soundOn ? 'SFX ON' : 'SFX MUTED'}</span>
           </button>
+
+          <button
+            type="button"
+            className="telemetry-minimize-btn"
+            onClick={() => setIsMinimized(true)}
+            title="Minimize Telemetry Bar"
+            aria-label="Minimize Telemetry Bar"
+          >
+            ✕
+          </button>
         </div>
       </div>
 
       <style>{`
+        
+        .sre-telemetry-pill-wrapper {
+          position: fixed;
+          bottom: 20px;
+          left: 24px;
+          z-index: 999;
+          animation: fadeInUp 0.3s ease-out;
+        }
+
+        .telemetry-pill-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: var(--nav-bg);
+          border: 1px solid var(--border-color);
+          backdrop-filter: blur(16px);
+          -webkit-backdrop-filter: blur(16px);
+          padding: 6px 14px;
+          border-radius: 50px;
+          color: var(--text-primary);
+          font-family: var(--font-display);
+          font-size: 11px;
+          font-weight: 700;
+          cursor: pointer;
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+          transition: var(--transition-fast);
+        }
+
+        .telemetry-pill-btn:hover {
+          border-color: var(--accent-color);
+          transform: translateY(-2px);
+        }
+
+        .pill-title {
+          color: var(--accent-color);
+          letter-spacing: 0.05em;
+        }
+
+        .pill-stat {
+          color: var(--text-secondary);
+          font-family: monospace;
+          font-size: 10px;
+        }
+
+        .telemetry-minimize-btn {
+          background: transparent;
+          border: none;
+          color: var(--text-muted);
+          font-size: 11px;
+          margin-left: 6px;
+          padding: 2px 6px;
+          border-radius: 4px;
+          cursor: pointer;
+          transition: var(--transition-fast);
+        }
+
+        .telemetry-minimize-btn:hover {
+          color: var(--text-primary);
+          background: rgba(255, 255, 255, 0.08);
+        }
+
         .sre-telemetry-bar {
           position: fixed;
           bottom: 0;

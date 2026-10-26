@@ -493,20 +493,6 @@ export default function HeroSection({ onOpenHireMe, onOpenSpeedrun }: { onOpenHi
             Bengaluru, KA • Available Nov 16, 2026 • College NOC Secured • Immediate Joiner
           </div>
 
-          {/* Sound Notification if Browser Autoplay Policy Blocked Audio on Load */}
-          {isMuted && !isDisintegrated && (
-            <button
-              type="button"
-              className="sound-autoplay-banner"
-              onClick={toggleMute}
-              aria-label="Click to play audio transmission"
-              title="Click to Unmute Audio Transmission"
-            >
-              <Volume2 size={15} className="sound-pulse-icon" />
-              <span>Audio Muted by Browser • Tap Anywhere to Play Sound</span>
-            </button>
-          )}
-
           <h1 className="hero-title">
             Hi, I'm a Cloud &<br />
             <span>DevOps Engineer</span>
@@ -529,14 +515,11 @@ export default function HeroSection({ onOpenHireMe, onOpenSpeedrun }: { onOpenHi
             >
               <Zap size={16} /> 60s Speedrun
             </button>
-            <a href="#projects" className="btn btn-pill-white" onClick={handleScrollToProjects}>
-              View My Work <ArrowRight size={16} />
+            <a href="/Shyam_Kumar_D_Resume.pdf" download="Shyam_Kumar_D_Resume.pdf" className="btn btn-pill-white">
+              <FileText size={16} /> Resume & NOC <ArrowRight size={15} />
             </a>
-            <button className="btn btn-pill-translucent" onClick={handleContactClick}>
-              <Sparkles size={16} /> Hire Me / Connect
-            </button>
-            <a href="/Shyam_Kumar_D_Resume.pdf" download="Shyam_Kumar_D_Resume.pdf" className="btn btn-resume-download">
-              <FileText size={18} /> Download CV
+            <a href="#projects" className="btn btn-pill-translucent" onClick={handleScrollToProjects}>
+              Explore Systems & Code ↓
             </a>
           </div>
 
@@ -544,68 +527,47 @@ export default function HeroSection({ onOpenHireMe, onOpenSpeedrun }: { onOpenHi
           <RecruiterRoleSelector />
         </div>
 
-        {/* Quick Floating Mute/Unmute Action Button (Bottom-Left) */}
-        {!isDisintegrated && (
-          <div className="hero-quick-mute-wrapper">
+        {/* Minimal Ambient Video Controls Dock */}
+        <div className="hero-ambient-dock">
+          <button
+            type="button"
+            className="ambient-dock-btn"
+            onClick={togglePlay}
+            aria-label={isDisintegrated ? "Re-assemble" : isPlaying ? "Pause ambient video" : "Play ambient video"}
+            title={isDisintegrated ? "Re-Assemble Video Transmission" : isPlaying ? "Pause Ambient Video" : "Play Ambient Video"}
+          >
+            {isDisintegrated ? <Sparkles size={13} /> : isPlaying ? <Pause size={13} /> : <Play size={13} />}
+            <span>{isDisintegrated ? 'RE-ASSEMBLE' : isPlaying ? 'PAUSE' : 'PLAY'}</span>
+          </button>
+
+          {!isDisintegrated && (
             <button
-              className={`hero-quick-mute-btn ${isMuted ? 'muted' : 'unmuted'}`}
+              type="button"
+              className={`ambient-dock-btn ${isMuted ? 'muted' : 'active'}`}
               onClick={toggleMute}
               aria-label={isMuted ? "Unmute audio" : "Mute audio"}
-              title={isMuted ? "Click to Unmute Audio" : "Click to Mute Audio"}
+              title={isMuted ? "Unmute Audio" : "Mute Audio"}
             >
-              {isMuted ? <VolumeX size={17} /> : <Volume2 size={17} />}
-              <span className="quick-mute-text">{isMuted ? 'UNMUTE AUDIO' : 'MUTE AUDIO'}</span>
+              {isMuted ? <VolumeX size={13} /> : <Volume2 size={13} />}
+              <span>{isMuted ? 'MUTED' : 'AUDIO'}</span>
             </button>
-          </div>
-        )}
-
-        {/* Right Side: Media Control Dock (Only Play / Pause or Re-Assemble; No Mute buttons, Clean Status) */}
-        <div className="hero-right-media-controls">
-          <div className="media-controls-dock glass-card">
-            <div className="dock-status-label">
-              <span className={`dock-status-dot ${isDisintegrated ? 'snapped' : isPlaying ? 'playing' : 'paused'}`}></span>
-              <span>{isDisintegrated ? 'DISINTEGRATED' : isPlaying ? 'PLAYING' : 'PAUSED'}</span>
-            </div>
-
-            <div className="dock-buttons-row">
-              {/* Play / Pause / Re-Assemble Button */}
-              <button
-                className="dock-ctrl-btn primary-media-btn"
-                onClick={togglePlay}
-                aria-label={isDisintegrated ? "Re-assemble" : isPlaying ? "Pause video" : "Play video"}
-                title={isDisintegrated ? "Re-Assemble Video Transmission" : isPlaying ? "Pause Video" : "Play Video"}
-              >
-                {isDisintegrated ? <Sparkles size={16} /> : isPlaying ? <Pause size={16} /> : <Play size={16} />}
-                <span className="dock-btn-text">{isDisintegrated ? 'RE-ASSEMBLE' : isPlaying ? 'PAUSE' : 'PLAY'}</span>
-              </button>
-
-              {/* Mute / Unmute Button */}
-              {!isDisintegrated && (
-                <button
-                  className={`dock-ctrl-btn secondary-media-btn ${isMuted ? 'muted-active' : ''}`}
-                  onClick={toggleMute}
-                  aria-label={isMuted ? "Unmute audio" : "Mute audio"}
-                  title={isMuted ? "Unmute Audio" : "Mute Audio"}
-                >
-                  {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
-                  <span className="dock-btn-text">{isMuted ? 'UNMUTE' : 'MUTE'}</span>
-                </button>
-              )}
-            </div>
-          </div>
+          )}
         </div>
       </div>
 
       <style>{`
         .hero-section {
           position: relative;
-          height: 100vh;
+          min-height: 100vh;
+          min-height: 100dvh;
+          height: auto;
           width: 100%;
           display: flex;
           align-items: center;
           overflow: hidden;
           background-color: #0E0E10;
           transition: background-color 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+          padding: 120px 0 80px 0;
         }
 
         .hero-section.snapped-red-theme {
@@ -884,6 +846,62 @@ export default function HeroSection({ onOpenHireMe, onOpenSpeedrun }: { onOpenHi
 
         .btn-resume-download:hover {
           color: #FFFFFF;
+        }
+
+
+        /* Sleek Ambient Video Dock */
+        .hero-ambient-dock {
+          position: absolute;
+          right: 28px;
+          bottom: 24px;
+          z-index: 20;
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          background: rgba(18, 18, 22, 0.75);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          border-radius: 50px;
+          padding: 4px 8px;
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        .ambient-dock-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          background: transparent;
+          border: none;
+          color: rgba(255, 255, 255, 0.75);
+          padding: 6px 12px;
+          border-radius: 50px;
+          font-family: var(--font-display);
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 0.05em;
+          cursor: pointer;
+          transition: var(--transition-fast);
+        }
+
+        .ambient-dock-btn:hover {
+          color: #FFFFFF;
+          background: rgba(255, 255, 255, 0.1);
+        }
+
+        .ambient-dock-btn.active {
+          color: #38BDF8;
+        }
+
+        .ambient-dock-btn.muted {
+          color: #FFA3A3;
+        }
+
+        @media (max-width: 600px) {
+          .hero-ambient-dock {
+            right: 16px;
+            bottom: 16px;
+          }
         }
 
         /* Right Side: Clean Media Control Dock (Only Pause/Play or Re-Assemble) */

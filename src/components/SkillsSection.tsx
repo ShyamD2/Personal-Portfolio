@@ -81,7 +81,7 @@ export default function SkillsSection() {
       <div className="container">
         {/* Section title */}
         <div className="section-header">
-          <div className="section-label">02. Capabilities</div>
+          <div className="section-label">02. Systems Architecture & Stack</div>
           <h3 className="section-title">Core Technical Expertise</h3>
         </div>
 

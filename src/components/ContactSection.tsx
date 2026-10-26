@@ -118,7 +118,7 @@ export default function ContactSection() {
       <div className="container">
         {/* Section title */}
         <div className="section-header">
-          <div className="section-label">05. Connect</div>
+          <div className="section-label">07. Dispatch & Transmission</div>
           <h3 className="section-title">Initiate Contact & Engineering Inquiries</h3>
         </div>
 

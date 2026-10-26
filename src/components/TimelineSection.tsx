@@ -60,7 +60,7 @@ export default function TimelineSection() {
       <div className="container">
         {/* Section Title */}
         <div className="section-header">
-          <div className="section-label">03. History</div>
+          <div className="section-label">06. Career Trajectory & Milestones</div>
           <h3 className="section-title">Timeline & Professional Journeys</h3>
         </div>
 

@@ -150,11 +150,78 @@ export default function CertificationsSection() {
       <div className="container">
         {/* Section Header */}
         <div className="section-header">
-          <div className="section-label">07. Credentials</div>
+          <div className="section-label">05. Verified Credentials & Accreditations</div>
           <h3 className="section-title">Verified Certifications & Accreditations</h3>
           <p className="section-subtitle">
             Formal technical certifications, masterclasses, and verified simulations validating competencies in cloud architecture, Linux administration, agentic AI, and cybersecurity.
           </p>
+        </div>
+
+        {/* Tier-1 Core Industry Credentials Spotlight */}
+        <div className="tier1-credentials-grid">
+          <div className="tier1-card glass-card">
+            <div className="tier1-badge-pill aws">
+              <ShieldCheck size={13} /> AWS Verified Credential
+            </div>
+            <h4>AWS Academy Graduate</h4>
+            <div className="tier1-sub">Amazon Web Services (AWS) • Cloud Foundations</div>
+            <p className="tier1-desc">
+              Comprehensive AWS foundational architecture covering compute, VPC networking, IAM governance, security policies, and fault tolerance.
+            </p>
+            <div className="tier1-footer">
+              <span className="tier1-meta">Badge: aXAl5Kum</span>
+              <a 
+                href="https://www.credly.com/go/aXAl5Kum" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="btn-tier1-verify"
+              >
+                <span>Credly Verify</span>
+                <ExternalLink size={12} />
+              </a>
+            </div>
+          </div>
+
+          <div className="tier1-card glass-card">
+            <div className="tier1-badge-pill industry">
+              <Award size={13} /> Industrial Experience
+            </div>
+            <h4>Cloud & Systems Internship</h4>
+            <div className="tier1-sub">Reccsar Private Limited • April – May 2026</div>
+            <p className="tier1-desc">
+              Hands-on Linux server administration, cloud environment orchestration, Docker container setups, and CI/CD pipelines.
+            </p>
+            <div className="tier1-footer">
+              <span className="tier1-meta">Ref: 2026/000047</span>
+              <a href="#internship" className="btn-tier1-verify">
+                <span>View Internship</span>
+                <ExternalLink size={12} />
+              </a>
+            </div>
+          </div>
+
+          <div className="tier1-card glass-card">
+            <div className="tier1-badge-pill clearance">
+              <ShieldCheck size={13} /> Academic Clearance
+            </div>
+            <h4>B.Sc. Networking (Cloud Computing)</h4>
+            <div className="tier1-sub">Subbalakshmi Lakshmipathy College • GPA: 8.4 / 10.0</div>
+            <p className="tier1-desc">
+              Core TCP/IP routing, Linux kernel administration, and cloud engineering. <strong>College NOC Secured</strong> for Nov 16, 2026 full-time industrial start in Bengaluru.
+            </p>
+            <div className="tier1-footer">
+              <span className="tier1-meta highlight-green">Immediate Joiner</span>
+              <a href="/Shyam_Kumar_D_Resume.pdf" download="Shyam_Kumar_D_Resume.pdf" className="btn-tier1-verify">
+                <span>Download Resume</span>
+                <ExternalLink size={12} />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Continuous Learning Ledger Heading */}
+        <div className="cert-catalog-divider">
+          <span>Continuous Learning & Masterclasses Index</span>
         </div>
 
         {/* Category Filters */}
@@ -301,6 +368,150 @@ export default function CertificationsSection() {
         .certifications-section {
           padding: 80px 0;
           position: relative;
+        }
+
+
+        /* Tier-1 Spotlight Grid */
+        .tier1-credentials-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+          gap: 24px;
+          margin-bottom: 48px;
+        }
+
+        .tier1-card {
+          padding: 28px;
+          border-radius: var(--radius-md);
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          border: 1px solid var(--border-color);
+          background: var(--card-bg-solid);
+          position: relative;
+          overflow: hidden;
+        }
+
+        .tier1-card::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 3px;
+          background: linear-gradient(90deg, var(--accent-color), #38BDF8);
+        }
+
+        .tier1-badge-pill {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          font-family: var(--font-display);
+          font-size: 11px;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          padding: 4px 10px;
+          border-radius: 50px;
+          margin-bottom: 16px;
+          width: fit-content;
+        }
+
+        .tier1-badge-pill.aws {
+          background: rgba(255, 153, 0, 0.1);
+          color: #FF9900;
+          border: 1px solid rgba(255, 153, 0, 0.25);
+        }
+
+        .tier1-badge-pill.industry {
+          background: rgba(56, 189, 248, 0.1);
+          color: #38BDF8;
+          border: 1px solid rgba(56, 189, 248, 0.25);
+        }
+
+        .tier1-badge-pill.clearance {
+          background: rgba(16, 185, 129, 0.1);
+          color: #10B981;
+          border: 1px solid rgba(16, 185, 129, 0.25);
+        }
+
+        .tier1-card h4 {
+          font-size: 20px;
+          font-weight: 800;
+          color: var(--text-primary);
+          margin-bottom: 6px;
+        }
+
+        .tier1-sub {
+          font-size: 13px;
+          font-weight: 600;
+          color: var(--text-muted);
+          margin-bottom: 12px;
+        }
+
+        .tier1-desc {
+          font-size: 13.5px;
+          color: var(--text-secondary);
+          line-height: 1.55;
+          margin-bottom: 20px;
+        }
+
+        .tier1-footer {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding-top: 16px;
+          border-top: 1px solid var(--border-color);
+        }
+
+        .tier1-meta {
+          font-family: monospace;
+          font-size: 11.5px;
+          color: var(--text-muted);
+          font-weight: 600;
+        }
+
+        .tier1-meta.highlight-green {
+          color: #10B981;
+          background: rgba(16, 185, 129, 0.08);
+          padding: 2px 8px;
+          border-radius: 4px;
+        }
+
+        .btn-tier1-verify {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          font-family: var(--font-display);
+          font-size: 12px;
+          font-weight: 700;
+          color: var(--accent-color);
+          text-decoration: none;
+          padding: 6px 12px;
+          border-radius: 6px;
+          background: rgba(var(--accent-rgb), 0.06);
+          border: 1px solid rgba(var(--accent-rgb), 0.15);
+          transition: var(--transition-fast);
+        }
+
+        .btn-tier1-verify:hover {
+          background: var(--accent-color);
+          color: #FFFFFF;
+          border-color: var(--accent-color);
+        }
+
+        .cert-catalog-divider {
+          display: flex;
+          align-items: center;
+          margin-bottom: 24px;
+        }
+
+        .cert-catalog-divider span {
+          font-family: var(--font-display);
+          font-size: 12px;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+          color: var(--text-muted);
         }
 
         .cert-filters {
