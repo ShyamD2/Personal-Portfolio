@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, Command, Zap, Sparkles, FileText, MessageSquare, Terminal, Flame, DollarSign, Network, Play, Moon, Sun, Volume2, VolumeX, ArrowRight, CornerDownLeft, X, ExternalLink, Calendar } from 'lucide-react';
+import { Search, Command, Zap, Sparkles, FileText, MessageSquare, Terminal, Flame, DollarSign, Network, Play, Moon, Sun, Volume2, VolumeX, ArrowRight, CornerDownLeft, X, ExternalLink, Calendar, ShieldCheck } from 'lucide-react';
 import { playTactileClick, playSuccessChime, isSoundEnabled, setSoundEnabled } from '../../utils/soundEffects';
 
 interface CommandPaletteProps {
@@ -7,6 +7,7 @@ interface CommandPaletteProps {
   onClose: () => void;
   onOpenSpeedrun: () => void;
   onOpenHireMe: () => void;
+  onOpenNoc?: () => void;
 }
 
 interface CommandItem {
@@ -19,7 +20,7 @@ interface CommandItem {
   action: () => void;
 }
 
-export default function CommandPalette({ isOpen, onClose, onOpenSpeedrun, onOpenHireMe }: CommandPaletteProps) {
+export default function CommandPalette({ isOpen, onClose, onOpenSpeedrun, onOpenHireMe, onOpenNoc }: CommandPaletteProps) {
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [copiedPitch, setCopiedPitch] = useState(false);
@@ -124,6 +125,18 @@ Target Roles: Cloud Engineer, DevOps Engineer, Site Reliability Engineer (SRE)
       }
     },
     {
+      id: 'open-noc',
+      category: 'Recruiter Actions',
+      title: '🎓 View Official College NOC & Clearance Verification',
+      subtitle: 'Official institutional clearance for Nov 16, 2026 start (100% attendance exemption)',
+      icon: <ShieldCheck size={15} style={{ color: '#10B981' }} />,
+      shortcut: 'N',
+      action: () => {
+        onClose();
+        if (onOpenNoc) onOpenNoc();
+      }
+    },
+    {
       id: 'download-resume',
       category: 'Recruiter Actions',
       title: '📄 Download Official Resume (PDF)',
@@ -194,12 +207,20 @@ Target Roles: Cloud Engineer, DevOps Engineer, Site Reliability Engineer (SRE)
       action: () => scrollTo('#projects')
     },
     {
-      id: 'nav-reports',
+      id: 'nav-postmortems',
       category: 'Navigation',
-      title: 'Go to Project Reports & Dossiers (PDF Blueprints)',
-      subtitle: 'Download formal engineering specs (KubeForecast, DriftWarden, J.A.R.V.I.S., AEGIS)',
+      title: 'Go to SRE Incident Chronicles & Runbooks (SEV-1/SEV-2 Post-Mortems)',
+      subtitle: 'View real RCA post-mortems (INC-2026-01, INC-2026-02, INC-2026-03) and telemetry logs',
       icon: <ArrowRight size={15} />,
-      action: () => scrollTo('#reports')
+      action: () => scrollTo('#post-mortems')
+    },
+    {
+      id: 'nav-timeline',
+      category: 'Navigation',
+      title: 'Go to Career Trajectory & Milestones (2024–2027)',
+      subtitle: 'Timeline covering Reccsar internship, TCM Security certs, and Deloitte simulations',
+      icon: <ArrowRight size={15} />,
+      action: () => scrollTo('#experience')
     },
     {
       id: 'nav-internship',

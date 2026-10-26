@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Award, ShieldCheck, Maximize2, ExternalLink, X, Cloud, Terminal, Shield, BarChart2, Bot, Sparkles, Cpu } from 'lucide-react';
 
-export default function CertificationsSection() {
+export default function CertificationsSection({ onOpenNoc }: { onOpenNoc?: () => void }) {
   const [activeFilter, setActiveFilter] = useState('all');
   const [selectedCert, setSelectedCert] = useState<any>(null);
 
@@ -211,10 +211,15 @@ export default function CertificationsSection() {
             </p>
             <div className="tier1-footer">
               <span className="tier1-meta highlight-green">Immediate Joiner</span>
-              <a href="/Shyam_Kumar_D_Resume.pdf" download="Shyam_Kumar_D_Resume.pdf" className="btn-tier1-verify">
-                <span>Download Resume</span>
+              <button 
+                type="button" 
+                onClick={onOpenNoc} 
+                className="btn-tier1-verify" 
+                title="Verify Official College NOC & Clearance"
+              >
+                <span>Verify Clearance</span>
                 <ExternalLink size={12} />
-              </a>
+              </button>
             </div>
           </div>
         </div>

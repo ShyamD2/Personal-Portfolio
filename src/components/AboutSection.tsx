@@ -1,6 +1,6 @@
 import { Cpu, Shield, Terminal } from 'lucide-react';
 
-export default function AboutSection() {
+export default function AboutSection({ onOpenNoc }: { onOpenNoc?: () => void }) {
   return (
     <section id="about" className="about-section fade-in-section">
       <div className="container about-container">
@@ -33,7 +33,7 @@ export default function AboutSection() {
               Through flagship systems like KubeForecast (a Go Kubernetes scheduling engine hardware-validated on AWS EKS), DriftWarden (a 3-source AWS drift & GitOps reconciliation engine in Go), and Project AEGIS (an autonomous AWS SOAR security fabric), I build production-grade solutions that eliminate compute waste, automate DevSecOps containment, and guarantee high availability with 100% codified Terraform.
             </p>
             <p className="story-emphasis">
-              🎓 <strong>Available Nov 16, 2026 in Bengaluru</strong> — <strong>College NOC Secured & Immediate Joiner</strong> for <strong>6-Month Industrial Internship (PPO Track)</strong> or full-time <strong>Cloud Engineer, DevOps & SRE roles</strong>.
+              🎓 <strong>Available Nov 16, 2026 in Bengaluru</strong> — <span className="noc-trigger-span" onClick={onOpenNoc} role="button" tabIndex={0} style={{ cursor: onOpenNoc ? 'pointer' : 'default', textDecoration: 'underline', textUnderlineOffset: '3px', color: 'var(--accent-color)' }} title="Click to view verified College NOC">College NOC Secured & Immediate Joiner</span> for <strong>6-Month Industrial Internship (PPO Track)</strong> or full-time <strong>Cloud Engineer, DevOps & SRE roles</strong>.
             </p>
 
             {/* Quick attribute tags */}
@@ -69,9 +69,9 @@ export default function AboutSection() {
             <span className="cockpit-label">Operating Systems</span>
             <strong className="cockpit-val">Linux (Ubuntu LTS & Distroless)</strong>
           </div>
-          <div className="cockpit-item">
+          <div className="cockpit-item clickable-cockpit" onClick={onOpenNoc} title="Click to view Official College NOC Clearance" style={{ cursor: onOpenNoc ? 'pointer' : 'default' }}>
             <span className="cockpit-label">Primary Availability</span>
-            <strong className="cockpit-val highlight">Bengaluru • Nov 16, 2026 (NOC)</strong>
+            <strong className="cockpit-val highlight">Bengaluru • Nov 16, 2026 (NOC) ↗</strong>
           </div>
         </div>
       </div>

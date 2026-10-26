@@ -94,7 +94,7 @@ export default function Navbar({ onOpenHireMe, onOpenSpeedrun, onOpenCommandPale
             <a
               key={link.id}
               href={link.href}
-              className={`nav-item ${activeSection === link.id ? 'active' : ''}`}
+              className={`nav-item ${(activeSection === link.id || (link.id === 'internship' && activeSection === 'experience')) ? 'active' : ''}`}
               onClick={(e) => {
                 e.preventDefault();
                 handleLinkClick(link.href);
@@ -185,7 +185,7 @@ export default function Navbar({ onOpenHireMe, onOpenSpeedrun, onOpenCommandPale
             <a
               key={link.id}
               href={link.href}
-              className={`mobile-nav-item ${activeSection === link.id ? 'active' : ''}`}
+              className={`mobile-nav-item ${(activeSection === link.id || (link.id === 'internship' && activeSection === 'experience')) ? 'active' : ''}`}
               onClick={(e) => {
                 e.preventDefault();
                 handleLinkClick(link.href);

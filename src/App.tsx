@@ -81,12 +81,12 @@ export default function App() {
           onOpenSpeedrun={() => setIsSpeedrunOpen(true)}
           onOpenNoc={() => setIsNocOpen(true)}
         />
-        <AboutSection />
+        <AboutSection onOpenNoc={() => setIsNocOpen(true)} />
         <SkillsSection />
         <ProjectsSection />
         <PostMortemsSection />
         <InternshipSection />
-        <CertificationsSection />
+        <CertificationsSection onOpenNoc={() => setIsNocOpen(true)} />
         <TimelineSection onOpenNoc={() => setIsNocOpen(true)} />
         <ContactSection />
       </main>
@@ -102,6 +102,7 @@ export default function App() {
         onClose={() => setIsPaletteOpen(false)} 
         onOpenSpeedrun={() => setIsSpeedrunOpen(true)} 
         onOpenHireMe={() => setIsHireMeOpen(true)} 
+        onOpenNoc={() => setIsNocOpen(true)} 
       />
       <CollegeNocModal
         isOpen={isNocOpen}
