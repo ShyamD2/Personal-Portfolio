@@ -150,7 +150,7 @@ export default function CertificationsSection() {
       <div className="container">
         {/* Section Header */}
         <div className="section-header">
-          <div className="section-label">05. Verified Credentials & Accreditations</div>
+          <div className="section-label">06. Verified Credentials & Accreditations</div>
           <h3 className="section-title">Verified Certifications & Accreditations</h3>
           <p className="section-subtitle">
             Formal technical certifications, masterclasses, and verified simulations validating competencies in cloud architecture, Linux administration, agentic AI, and cybersecurity.

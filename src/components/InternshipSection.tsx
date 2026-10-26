@@ -9,7 +9,7 @@ export default function InternshipSection() {
       <div className="container">
         {/* Section Header */}
         <div className="section-header">
-          <div className="section-label">04. Industrial Experience</div>
+          <div className="section-label">05. Industrial Experience</div>
           <h3 className="section-title">Industrial Cloud & Web Engineering</h3>
           <p className="section-subtitle">
             Formal industry training credential issued by Reccsar Private Limited validating hands-on cloud virtualization and web development competencies.

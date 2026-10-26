@@ -4,6 +4,7 @@ import HeroSection from './components/HeroSection';
 import AboutSection from './components/AboutSection';
 import SkillsSection from './components/SkillsSection';
 import ProjectsSection from './components/ProjectsSection';
+import PostMortemsSection from './components/PostMortemsSection';
 import InternshipSection from './components/InternshipSection';
 import CertificationsSection from './components/CertificationsSection';
 import TimelineSection from './components/TimelineSection';
@@ -83,6 +84,7 @@ export default function App() {
         <AboutSection />
         <SkillsSection />
         <ProjectsSection />
+        <PostMortemsSection />
         <InternshipSection />
         <CertificationsSection />
         <TimelineSection onOpenNoc={() => setIsNocOpen(true)} />

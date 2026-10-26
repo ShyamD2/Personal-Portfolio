@@ -24,7 +24,7 @@ export default function Navbar({ onOpenHireMe, onOpenSpeedrun, onOpenCommandPale
       setIsScrolled(window.scrollY > 20);
 
       // Section tracking
-      const sections = ['hero', 'about', 'skills', 'projects', 'reports', 'internship', 'certifications', 'experience', 'contact'];
+      const sections = ['hero', 'about', 'skills', 'projects', 'post-mortems', 'internship', 'certifications', 'experience', 'contact'];
       const scrollPosition = window.scrollY + 120;
 
       for (const section of sections) {
@@ -63,8 +63,9 @@ export default function Navbar({ onOpenHireMe, onOpenSpeedrun, onOpenCommandPale
     { name: 'Home', href: '#hero', id: 'hero' },
     { name: 'About', href: '#about', id: 'about' },
     { name: 'Skills', href: '#skills', id: 'skills' },
-    { name: 'Projects & Dossiers', href: '#projects', id: 'projects' },
-    { name: 'Internship', href: '#internship', id: 'internship' },
+    { name: 'Projects', href: '#projects', id: 'projects' },
+    { name: 'Incidents', href: '#post-mortems', id: 'post-mortems' },
+    { name: 'Experience', href: '#internship', id: 'internship' },
     { name: 'Certs', href: '#certifications', id: 'certifications' },
     { name: 'Contact', href: '#contact', id: 'contact' },
   ];

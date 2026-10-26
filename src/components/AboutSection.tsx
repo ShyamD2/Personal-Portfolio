@@ -6,7 +6,7 @@ export default function AboutSection() {
       <div className="container about-container">
         {/* Section title */}
         <div className="section-header">
-          <div className="section-label">01. Biography</div>
+          <div className="section-label">01. Biography & Cockpit</div>
           <h3 className="section-title">My Professional Narrative</h3>
         </div>
 
@@ -50,9 +50,85 @@ export default function AboutSection() {
             </div>
           </div>
         </div>
+
+        {/* Battle-Tested Engineering Cockpit Strip */}
+        <div className="about-cockpit-strip glass-card">
+          <div className="cockpit-item">
+            <span className="cockpit-label">Core Runtime</span>
+            <strong className="cockpit-val">Go 1.24+ & Python 3.13</strong>
+          </div>
+          <div className="cockpit-item">
+            <span className="cockpit-label">Cloud Infrastructure</span>
+            <strong className="cockpit-val">AWS (14 Core Services)</strong>
+          </div>
+          <div className="cockpit-item">
+            <span className="cockpit-label">IaC & Orchestration</span>
+            <strong className="cockpit-val">Terraform & EKS (K8s v1.31)</strong>
+          </div>
+          <div className="cockpit-item">
+            <span className="cockpit-label">Operating Systems</span>
+            <strong className="cockpit-val">Linux (Ubuntu LTS & Distroless)</strong>
+          </div>
+          <div className="cockpit-item">
+            <span className="cockpit-label">Primary Availability</span>
+            <strong className="cockpit-val highlight">Bengaluru • Nov 16, 2026 (NOC)</strong>
+          </div>
+        </div>
       </div>
 
       <style>{`
+
+        /* Battle-Tested Cockpit Strip */
+        .about-cockpit-strip {
+          margin-top: 48px;
+          padding: 20px 28px;
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+          gap: 20px;
+          border-radius: var(--radius-md);
+          border: 1px solid var(--border-color);
+          background: var(--card-bg-solid);
+        }
+
+        .cockpit-item {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+        }
+
+        .cockpit-label {
+          font-family: var(--font-display);
+          font-size: 11px;
+          font-weight: 700;
+          color: var(--text-muted);
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+        }
+
+        .cockpit-val {
+          font-size: 13.5px;
+          font-weight: 700;
+          color: var(--text-primary);
+        }
+
+        .cockpit-val.highlight {
+          color: #10B981;
+        }
+
+        @media (max-width: 768px) {
+          .about-cockpit-strip {
+            grid-template-columns: 1fr 1fr;
+            padding: 16px;
+            gap: 16px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .about-cockpit-strip {
+            grid-template-columns: 1fr;
+          }
+        }
+
         .about-section {
           padding: 90px 0 80px 0;
           position: relative;
@@ -186,7 +262,59 @@ export default function AboutSection() {
         }
 
         @media (max-width: 768px) {
-          .about-section {
+  
+        /* Battle-Tested Cockpit Strip */
+        .about-cockpit-strip {
+          margin-top: 48px;
+          padding: 20px 28px;
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+          gap: 20px;
+          border-radius: var(--radius-md);
+          border: 1px solid var(--border-color);
+          background: var(--card-bg-solid);
+        }
+
+        .cockpit-item {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+        }
+
+        .cockpit-label {
+          font-family: var(--font-display);
+          font-size: 11px;
+          font-weight: 700;
+          color: var(--text-muted);
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+        }
+
+        .cockpit-val {
+          font-size: 13.5px;
+          font-weight: 700;
+          color: var(--text-primary);
+        }
+
+        .cockpit-val.highlight {
+          color: #10B981;
+        }
+
+        @media (max-width: 768px) {
+          .about-cockpit-strip {
+            grid-template-columns: 1fr 1fr;
+            padding: 16px;
+            gap: 16px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .about-cockpit-strip {
+            grid-template-columns: 1fr;
+          }
+        }
+
+        .about-section {
             padding: 50px 0;
           }
           .about-container {

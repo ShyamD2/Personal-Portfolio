@@ -12,12 +12,25 @@ export default function ContactSection() {
 
   const handleCopyPitch = () => {
     playSuccessChime();
-    const pitchText = `Hi Team — found a strong Cloud/DevOps candidate for our upcoming internship / graduate roles:
-• Candidate: Shyam Kumar D (B.Sc. Networking, 8.4 GPA, 6th Semester)
-• Core Proof: Engineered KubeForecast (custom Go K8s scheduler, 90.35ns latency, hardware-tested on AWS EKS) & Project AEGIS (autonomous SOAR threat isolation).
-• Availability: 6-Month Industrial Internship / Full-Time Engineering starting Nov 16, 2026 in Bengaluru (College NOC Secured; Immediate Joiner).
-• Interactive SRE Cockpit: https://shyamd2-portfolio.netlify.app
-• Direct Contact: shyamcloud021@gmail.com | +91 7010672248`;
+    const pitchText = `📌 Candidate Summary for Hiring Manager & Team (Slack / Teams):
+Candidate: Shyam Kumar D — Cloud & DevOps Systems Engineer
+Location: Bengaluru, KA • Available: Nov 16, 2026 (College NOC Secured • Immediate Joiner)
+Target Roles: Cloud Engineer, DevOps Engineer, Site Reliability Engineer (SRE)
+
+🚀 Core Engineering Achievements:
+• KubeForecast: Custom Go K8s Scheduler Framework plugin (90.35 ns latency, 50–66.7% node fleet reduction on AWS EKS)
+• DriftWarden: 3-Source AWS drift detection & GitOps reconciliation engine in Go (<25MB distroless)
+• Project AEGIS: Autonomous AWS cloud defense & SOAR fabric (<820ms WAF containment, S3 WORM)
+• AWS Serverless: Event-driven platform with sub-30ms redirects at $0 idle cost
+
+🏆 Verified Credentials:
+• AWS Academy Graduate — Cloud Foundations (Credly Verified)
+• Reccsar Pvt. Ltd. — Cloud Virtualization Internship (Ref: 2026/000047)
+• B.Sc. Networking (GPA: 8.4 / 10.0 • Madurai)
+
+🌐 Portfolio: https://shyamkumard.netlify.app/
+📄 Resume & Dossiers: https://shyamkumard.netlify.app/Shyam_Kumar_D_Resume.pdf
+📞 Direct Contact: shyamcloud021@gmail.com | +91 7010672248`;
 
     navigator.clipboard.writeText(pitchText);
     setCopiedPitch(true);
@@ -118,7 +131,7 @@ export default function ContactSection() {
       <div className="container">
         {/* Section title */}
         <div className="section-header">
-          <div className="section-label">07. Dispatch & Transmission</div>
+          <div className="section-label">08. Dispatch & Transmission</div>
           <h3 className="section-title">Initiate Contact & Engineering Inquiries</h3>
         </div>
 
