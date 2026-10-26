@@ -121,7 +121,7 @@ export default function TimelineSection() {
             <span className="edu-year">Graduating 2027</span>
             <h4>B.Sc. Networking</h4>
             <h5>Subbalakshmi Lakshmipathy College of Science, Madurai</h5>
-            <p className="edu-gpa">GPA: 8.4 / 10.0</p>
+            <p className="edu-gpa">GPA: 8.4 / 10.0 • College NOC Secured (Available from Nov 16, 2026 in Bengaluru)</p>
             <p className="edu-desc">Core coursework in TCP/IP architectures, Linux systems administration, cloud computing, and high-performance network engineering.</p>
           </div>
 

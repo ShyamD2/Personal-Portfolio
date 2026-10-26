@@ -47,8 +47,8 @@ export default function CommandPalette({ isOpen, onClose, onOpenSpeedrun, onOpen
     const pitchText = `Hi Team — found a strong Cloud/DevOps candidate for our upcoming internship / graduate roles:
 • Candidate: Shyam Kumar D (B.Sc. Networking, 8.4 GPA, 6th Semester)
 • Core Proof: Engineered KubeForecast (custom Go K8s scheduler, 90.35ns latency), DriftWarden (AWS 3-source drift detection in Go), Project J.A.R.V.I.S. (Agentic AI OS), & Project AEGIS (autonomous SOAR threat isolation).
-• Availability: 6-Month Full-Time Internship (PPO Track) starting Jan/Feb | Open to Relocation & Remote.
-• Interactive SRE Cockpit: https://shyam-kumar-portfolio.netlify.app
+• Availability: 6-Month Industrial Internship / Full-Time Engineering starting Nov 16, 2026 in Bengaluru (College NOC Secured; Immediate Joiner).
+• Interactive SRE Cockpit: https://shyamd2-portfolio.netlify.app
 • Direct Contact: shyamcloud021@gmail.com | +91 7010672248`;
 
     navigator.clipboard.writeText(pitchText);

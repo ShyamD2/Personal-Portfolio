@@ -490,7 +490,7 @@ export default function HeroSection({ onOpenHireMe, onOpenSpeedrun }: { onOpenHi
         <div className="hero-main-details">
           <div className="hero-badge">
             <span className="badge-pulse"></span>
-            6th Sem • Open for 6-Month Internship & Full-Time Roles
+            Bengaluru, KA • Available Nov 16, 2026 • College NOC Secured • Immediate Joiner
           </div>
 
           {/* Sound Notification if Browser Autoplay Policy Blocked Audio on Load */}

@@ -33,7 +33,7 @@ export default function AboutSection() {
               Through flagship systems like KubeForecast (a Go Kubernetes scheduling engine hardware-validated on AWS EKS), DriftWarden (a 3-source AWS drift & GitOps reconciliation engine in Go), and Project AEGIS (an autonomous AWS SOAR security fabric), I build production-grade solutions that eliminate compute waste, automate DevSecOps containment, and guarantee high availability with 100% codified Terraform.
             </p>
             <p className="story-emphasis">
-              🎓 <strong>Currently in 6th Semester</strong> — Actively seeking a <strong>6-Month Full-Time Internship (with PPO Conversion)</strong> and graduate <strong>Cloud Infrastructure, DevOps & SRE Opportunities</strong>. Open to on-site relocation & remote.
+              🎓 <strong>Available Nov 16, 2026 in Bengaluru</strong> — <strong>College NOC Secured & Immediate Joiner</strong> for <strong>6-Month Industrial Internship (PPO Track)</strong> or full-time <strong>Cloud Engineer, DevOps & SRE roles</strong>.
             </p>
 
             {/* Quick attribute tags */}

@@ -15,8 +15,8 @@ export default function ContactSection() {
     const pitchText = `Hi Team — found a strong Cloud/DevOps candidate for our upcoming internship / graduate roles:
 • Candidate: Shyam Kumar D (B.Sc. Networking, 8.4 GPA, 6th Semester)
 • Core Proof: Engineered KubeForecast (custom Go K8s scheduler, 90.35ns latency, hardware-tested on AWS EKS) & Project AEGIS (autonomous SOAR threat isolation).
-• Availability: 6-Month Full-Time Internship (PPO Track) starting Jan/Feb | Open to Relocation & Remote.
-• Interactive SRE Cockpit: https://shyam-kumar-portfolio.netlify.app
+• Availability: 6-Month Industrial Internship / Full-Time Engineering starting Nov 16, 2026 in Bengaluru (College NOC Secured; Immediate Joiner).
+• Interactive SRE Cockpit: https://shyamd2-portfolio.netlify.app
 • Direct Contact: shyamcloud021@gmail.com | +91 7010672248`;
 
     navigator.clipboard.writeText(pitchText);
@@ -134,7 +134,7 @@ export default function ContactSection() {
                 <h4>Shyam Kumar D</h4>
                 <p>Cloud & DevOps Engineer</p>
                 <span className="location-pill">
-                  <MapPin size={10} /> Madurai, Tamil Nadu
+                  <MapPin size={10} /> Bengaluru, Karnataka
                 </span>
               </div>
             </div>
@@ -187,7 +187,7 @@ export default function ContactSection() {
               </a>
               <div className="contact-link-item non-click">
                 <MapPin className="link-icon" size={16} />
-                <span>Open to Relocation & Remote (Worldwide)</span>
+                <span>Bengaluru, Karnataka (College NOC Secured • Immediate Joiner)</span>
               </div>
             </div>
 

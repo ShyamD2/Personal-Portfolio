@@ -93,11 +93,11 @@ const SLIDES: Slide[] = [
     metrics: [
       { label: 'Academic Standing', value: '8.4 / 10.0 GPA' },
       { label: 'College Term', value: '6th Semester' },
-      { label: 'Target Track', value: '6-Month Full-Time Internship (PPO Track)', highlight: true }
+      { label: 'Target Track', value: '6-Month Industrial Internship / SRE Role (Starts Nov 16)', highlight: true }
     ],
     visualPoints: [
-      'Available immediately / Jan 2027 for a dedicated 6-month full-time internship term with PPO track',
-      'Prepared for immediate relocation to Bangalore, Chennai, Hyderabad, Pune, or global remote roles',
+      'Available starting Nov 16, 2026 in Bengaluru with College NOC already secured (Immediate Joiner)',
+      'Immediate joiner for Bengaluru on-site, hybrid, or remote cloud engineering roles',
       'Industrial experience at Reccsar Pvt. Ltd. (Web Development with Cloud Computing) & Deloitte Simulations'
     ],
     takeaway: 'Ready to deploy production value from Day 1 across SRE, Kubernetes, Cloud Infrastructure, and DevOps automation.'
@@ -177,8 +177,8 @@ export default function SpeedrunModal({ isOpen, onClose, onOpenHireMe }: Speedru
     const pitchText = `Hi Team — found a strong Cloud/DevOps candidate for our upcoming internship / graduate roles:
 • Candidate: Shyam Kumar D (B.Sc. Networking, 8.4 GPA, 6th Semester)
 • Core Proof: Engineered KubeForecast (custom Go K8s scheduler, 90.35ns latency, hardware-tested on AWS EKS) & Project AEGIS (autonomous SOAR threat isolation).
-• Availability: 6-Month Full-Time Internship (PPO Track) starting Jan/Feb | Open to Relocation & Remote.
-• Interactive SRE Cockpit: https://shyam-kumar-portfolio.netlify.app
+• Availability: 6-Month Industrial Internship / Full-Time Engineering starting Nov 16, 2026 in Bengaluru (College NOC Secured; Immediate Joiner).
+• Interactive SRE Cockpit: https://shyamd2-portfolio.netlify.app
 • Direct Contact: shyamcloud021@gmail.com | +91 7010672248`;
 
     navigator.clipboard.writeText(pitchText);

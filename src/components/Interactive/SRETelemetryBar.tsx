@@ -64,7 +64,7 @@ export default function SRETelemetryBar() {
           <div className="telemetry-stat-item">
             <CheckCircle2 size={13} className="telemetry-icon green" />
             <span className="stat-label">Hiring Status:</span>
-            <span className="stat-value highlight">Open for 6th Sem Internship & Full-Time</span>
+            <span className="stat-value highlight">Available Nov 16 (Bengaluru • College NOC Secured)</span>
           </div>
         </div>
 

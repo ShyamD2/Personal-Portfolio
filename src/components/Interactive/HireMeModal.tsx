@@ -25,8 +25,8 @@ export default function HireMeModal({ isOpen, onClose }: HireMeModalProps) {
     const pitchText = `Hi Team — found a strong Cloud/DevOps candidate for our upcoming internship / graduate roles:
 • Candidate: Shyam Kumar D (B.Sc. Networking, 8.4 GPA, 6th Semester)
 • Core Proof: Engineered KubeForecast (custom Go K8s scheduler, 90.35ns latency, hardware-tested on AWS EKS) & Project AEGIS (autonomous SOAR threat isolation).
-• Availability: 6-Month Full-Time Internship (PPO Track) starting Jan/Feb | Open to Relocation & Remote.
-• Interactive SRE Cockpit: https://shyam-kumar-portfolio.netlify.app
+• Availability: 6-Month Industrial Internship / Full-Time Engineering starting Nov 16, 2026 in Bengaluru (College NOC Secured; Immediate Joiner).
+• Interactive SRE Cockpit: https://shyamd2-portfolio.netlify.app
 • Direct Contact: shyamcloud021@gmail.com | +91 7010672248`;
 
     navigator.clipboard.writeText(pitchText);
@@ -35,7 +35,7 @@ export default function HireMeModal({ isOpen, onClose }: HireMeModalProps) {
   };
 
   const whatsappMessage = encodeURIComponent(
-    "Hi Shyam, I saw your Cloud & DevOps portfolio (KubeForecast & AWS projects) and would love to connect about an engineering opportunity!"
+    "Hi Shyam, I saw your Cloud & DevOps portfolio (KubeForecast & DriftWarden) and would love to connect about an engineering role starting Nov 16 in Bengaluru!"
   );
 
   return (
@@ -50,10 +50,10 @@ export default function HireMeModal({ isOpen, onClose }: HireMeModalProps) {
         <div className="modal-header">
           <div className="modal-badge">
             <Sparkles size={12} />
-            <span>Open for 6th Sem Internship & Full-Time</span>
+            <span>Available Nov 16, 2026 • College NOC Secured</span>
           </div>
           <h3>Let's Connect & Collaborate</h3>
-          <p>Actively seeking a 6-month full-time internship for Semester 6 (PPO track) and graduate Cloud / DevOps roles.</p>
+          <p>Actively seeking a 6-month industrial internship or full-time Cloud / DevOps / SRE roles in Bengaluru starting Nov 16, 2026 (Immediate Joiner).</p>
         </div>
 
         {/* Candidate Profile Strip */}
@@ -66,7 +66,7 @@ export default function HireMeModal({ isOpen, onClose }: HireMeModalProps) {
             <h4>Shyam Kumar D</h4>
             <span className="profile-role">Cloud Infrastructure & DevOps Engineer</span>
             <span className="profile-location">
-              <MapPin size={12} /> Madurai, Tamil Nadu • Open to Relocation & Remote
+              <MapPin size={12} /> Bengaluru, Karnataka (College NOC Secured • Immediate Joiner)
             </span>
           </div>
         </div>

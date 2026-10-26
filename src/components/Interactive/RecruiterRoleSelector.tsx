@@ -164,7 +164,7 @@ export default function RecruiterRoleSelector({ onSelectRole }: { onSelectRole?:
                   </div>
                   <div className="highlight-item">
                     <span className="hl-label">Candidate Availability:</span>
-                    <span className="hl-val green">6th Sem 6-Month Internship (PPO Track) & Full-Time</span>
+                    <span className="hl-val green">Available Nov 16, 2026 in Bengaluru (College NOC Secured)</span>
                   </div>
                 </div>
               </div>
