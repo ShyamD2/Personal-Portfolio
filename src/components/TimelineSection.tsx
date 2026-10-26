@@ -1,7 +1,7 @@
 import React from 'react';
 import { Calendar, Briefcase, Award, ShieldAlert, BarChart3, Terminal } from 'lucide-react';
 
-export default function TimelineSection() {
+export default function TimelineSection({ onOpenNoc }: { onOpenNoc?: () => void }) {
   const experiences = [
     {
       index: '01',
@@ -121,7 +121,15 @@ export default function TimelineSection() {
             <span className="edu-year">Graduating 2027</span>
             <h4>B.Sc. Networking</h4>
             <h5>Subbalakshmi Lakshmipathy College of Science, Madurai</h5>
-            <p className="edu-gpa">GPA: 8.4 / 10.0 • College NOC Secured (Available from Nov 16, 2026 in Bengaluru)</p>
+            <p className="edu-gpa">
+              GPA: 8.4 / 10.0 • {onOpenNoc ? (
+                <button type="button" onClick={onOpenNoc} className="edu-noc-link-btn" title="Click to view verified College NOC">
+                  College NOC Secured (Available from Nov 16, 2026 in Bengaluru)
+                </button>
+              ) : (
+                "College NOC Secured (Available from Nov 16, 2026 in Bengaluru)"
+              )}
+            </p>
             <p className="edu-desc">Core coursework in TCP/IP architectures, Linux systems administration, cloud computing, and high-performance network engineering.</p>
           </div>
 
@@ -375,6 +383,23 @@ export default function TimelineSection() {
           color: var(--text-secondary);
           margin-bottom: 8px;
           font-weight: 500;
+        }
+
+
+        .edu-noc-link-btn {
+          background: transparent;
+          border: none;
+          color: #10B981;
+          font-weight: 700;
+          cursor: pointer;
+          text-decoration: underline;
+          padding: 0;
+          font-size: inherit;
+          font-family: inherit;
+        }
+
+        .edu-noc-link-btn:hover {
+          color: #34D399;
         }
 
         .edu-gpa {

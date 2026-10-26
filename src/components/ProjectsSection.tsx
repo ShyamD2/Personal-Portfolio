@@ -3,9 +3,13 @@ import { Github, Command, PlayCircle, FileText, ExternalLink } from 'lucide-reac
 import ArchitectureShowcase from './Interactive/ArchitectureShowcase';
 import SupportTerminal from './Interactive/SupportTerminal';
 import VideoModal from './Interactive/VideoModal';
+import ArchitectureInspectorModal from './Interactive/ArchitectureInspectorModal';
+import { Layers } from 'lucide-react';
 
 export default function ProjectsSection() {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+  const [isArchModalOpen, setIsArchModalOpen] = useState(false);
+  const [selectedArchProj, setSelectedArchProj] = useState<'kubeforecast' | 'driftwarden' | 'aegis'>('kubeforecast');
   const [activeProjectFilter, setActiveProjectFilter] = useState('all');
 
   const projectsList = [
@@ -265,6 +269,21 @@ export default function ProjectsSection() {
                     <FileText size={14} />
                     <span>Dossier ({proj.reportPages || 'PDF'})</span>
                   </a>
+                )}
+
+                {(proj.id === 'kubeforecast' || proj.id === 'driftwarden' || proj.id === 'aegis') && (
+                  <button
+                    type="button"
+                    className="btn-card-action btn-inspect-arch"
+                    onClick={() => {
+                      setSelectedArchProj(proj.id as any);
+                      setIsArchModalOpen(true);
+                    }}
+                    title={`Inspect ${proj.title} Architecture`}
+                  >
+                    <Layers size={14} />
+                    <span>Inspect Architecture</span>
+                  </button>
                 )}
 
                 {proj.hasDemoVideo && (
@@ -533,6 +552,19 @@ export default function ProjectsSection() {
           box-shadow: 0 4px 12px rgba(229, 62, 62, 0.35);
         }
 
+
+        .btn-inspect-arch {
+          background: rgba(56, 189, 248, 0.08);
+          border-color: rgba(56, 189, 248, 0.35);
+          color: #38BDF8;
+        }
+
+        .btn-inspect-arch:hover {
+          background: rgba(56, 189, 248, 0.2);
+          border-color: #38BDF8;
+          color: #FFFFFF;
+        }
+
         .btn-view-report {
           background: rgba(56, 189, 248, 0.1);
           border: 1px solid rgba(56, 189, 248, 0.35);
@@ -749,6 +781,13 @@ export default function ProjectsSection() {
         videoSrc="/videos/kubeforecast_live_cockpit_demo.mp4"
         title="KubeForecast™ Live Cockpit & Kubernetes Scheduler Evaluation"
         subtitle="Live demonstration of Go PreScore/Score evaluation hooks (90.35 ns) and 50% cluster waterline bin-packing on AWS EKS"
+      />
+
+      {/* Interactive Architecture Inspector Modal */}
+      <ArchitectureInspectorModal
+        isOpen={isArchModalOpen}
+        onClose={() => setIsArchModalOpen(false)}
+        initialProject={selectedArchProj}
       />
     </section>
   );

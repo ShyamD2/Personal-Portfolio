@@ -13,11 +13,13 @@ import HireMeModal from './components/Interactive/HireMeModal';
 import SRETelemetryBar from './components/Interactive/SRETelemetryBar';
 import SpeedrunModal from './components/Interactive/SpeedrunModal';
 import CommandPalette from './components/Interactive/CommandPalette';
+import CollegeNocModal from './components/Interactive/CollegeNocModal';
 
 export default function App() {
   const [isHireMeOpen, setIsHireMeOpen] = useState(false);
   const [isSpeedrunOpen, setIsSpeedrunOpen] = useState(false);
   const [isPaletteOpen, setIsPaletteOpen] = useState(false);
+  const [isNocOpen, setIsNocOpen] = useState(false);
 
   useEffect(() => {
     // Global Ctrl+K / Cmd+K listener
@@ -70,18 +72,20 @@ export default function App() {
         onOpenHireMe={() => setIsHireMeOpen(true)}
         onOpenSpeedrun={() => setIsSpeedrunOpen(true)}
         onOpenCommandPalette={() => setIsPaletteOpen(true)}
+        onOpenNoc={() => setIsNocOpen(true)}
       />
       <main>
         <HeroSection 
           onOpenHireMe={() => setIsHireMeOpen(true)}
           onOpenSpeedrun={() => setIsSpeedrunOpen(true)}
+          onOpenNoc={() => setIsNocOpen(true)}
         />
         <AboutSection />
         <SkillsSection />
         <ProjectsSection />
         <InternshipSection />
         <CertificationsSection />
-        <TimelineSection />
+        <TimelineSection onOpenNoc={() => setIsNocOpen(true)} />
         <ContactSection />
       </main>
       <Footer />
@@ -96,6 +100,14 @@ export default function App() {
         onClose={() => setIsPaletteOpen(false)} 
         onOpenSpeedrun={() => setIsSpeedrunOpen(true)} 
         onOpenHireMe={() => setIsHireMeOpen(true)} 
+      />
+      <CollegeNocModal
+        isOpen={isNocOpen}
+        onClose={() => setIsNocOpen(false)}
+        onOpenHireMe={() => {
+          setIsNocOpen(false);
+          setIsHireMeOpen(true);
+        }}
       />
       <SRETelemetryBar />
     </div>

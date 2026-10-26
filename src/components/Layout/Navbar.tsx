@@ -5,9 +5,10 @@ interface NavbarProps {
   onOpenHireMe?: () => void;
   onOpenSpeedrun?: () => void;
   onOpenCommandPalette?: () => void;
+  onOpenNoc?: () => void;
 }
 
-export default function Navbar({ onOpenHireMe, onOpenSpeedrun, onOpenCommandPalette }: NavbarProps) {
+export default function Navbar({ onOpenHireMe, onOpenSpeedrun, onOpenCommandPalette, onOpenNoc }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [theme, setTheme] = useState('light');
   const [isScrolled, setIsScrolled] = useState(false);
@@ -71,9 +72,20 @@ export default function Navbar({ onOpenHireMe, onOpenSpeedrun, onOpenCommandPale
   return (
     <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
       <div className="container nav-container">
-        <a href="#hero" className="nav-logo" onClick={() => handleLinkClick('#hero')}>
-          Shyam<span>.</span>
-        </a>
+        <div className="nav-logo-cluster">
+          <a href="#hero" className="nav-logo" onClick={() => handleLinkClick('#hero')}>
+            Shyam<span>.</span>
+          </a>
+          <button 
+            type="button" 
+            className="nav-edge-badge" 
+            onClick={onOpenNoc}
+            title="Netlify Edge Active • College NOC Verified for Nov 16, 2026"
+          >
+            <span className="edge-pulse-dot"></span>
+            <span className="edge-text">Nov 16 NOC</span>
+          </button>
+        </div>
 
         {/* Desktop nav */}
         <div className="nav-links">
@@ -225,6 +237,52 @@ export default function Navbar({ onOpenHireMe, onOpenSpeedrun, onOpenCommandPale
           display: flex;
           justify-content: space-between;
           align-items: center;
+        }
+
+
+        .nav-logo-cluster {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
+
+        .nav-edge-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          background: rgba(16, 185, 129, 0.08);
+          border: 1px solid rgba(16, 185, 129, 0.25);
+          color: #10B981;
+          font-family: var(--font-display);
+          font-size: 10px;
+          font-weight: 800;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+          padding: 3px 8px;
+          border-radius: 50px;
+          cursor: pointer;
+          transition: var(--transition-fast);
+        }
+
+        .nav-edge-badge:hover {
+          background: rgba(16, 185, 129, 0.16);
+          border-color: #10B981;
+          transform: translateY(-1px);
+        }
+
+        .edge-pulse-dot {
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background-color: #10B981;
+          box-shadow: 0 0 6px #10B981;
+          animation: pulse-glow 2s infinite;
+        }
+
+        @media (max-width: 600px) {
+          .nav-edge-badge {
+            display: none;
+          }
         }
 
         .nav-logo {

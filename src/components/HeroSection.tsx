@@ -19,7 +19,7 @@ interface Particle {
   decay: number;
 }
 
-export default function HeroSection({ onOpenHireMe, onOpenSpeedrun }: { onOpenHireMe?: () => void; onOpenSpeedrun?: () => void }) {
+export default function HeroSection({ onOpenHireMe, onOpenSpeedrun, onOpenNoc }: { onOpenHireMe?: () => void; onOpenSpeedrun?: () => void; onOpenNoc?: () => void }) {
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(false);
   
@@ -488,9 +488,14 @@ export default function HeroSection({ onOpenHireMe, onOpenSpeedrun }: { onOpenHi
       {/* Floating Content Overlaid on Video */}
       <div className="container hero-content-container">
         <div className="hero-main-details">
-          <div className="hero-badge">
+          <div 
+            className="hero-badge clickable-noc-badge"
+            onClick={onOpenNoc}
+            title="Click to view Official College NOC & Clearance"
+            style={{ cursor: onOpenNoc ? 'pointer' : 'default' }}
+          >
             <span className="badge-pulse"></span>
-            Bengaluru, KA • Available Nov 16, 2026 • College NOC Secured • Immediate Joiner
+            <span>Bengaluru, KA • Available Nov 16, 2026 • College NOC Secured • Immediate Joiner</span>
           </div>
 
           <h1 className="hero-title">
