@@ -3,6 +3,7 @@
 
 
 <p align="center">
+  [![CI Pipeline](https://github.com/ShyamD2/Personal-Portfolio/workflows/CI%20Pipeline/badge.svg)](https://github.com/ShyamD2/Personal-Portfolio/actions)
   <a href="https://shyamd2-portfolio.netlify.app" target="_blank">
     <img src="https://img.shields.io/badge/Live%20Cockpit-shyamd2--portfolio.netlify.app-00C7B7?style=for-the-badge&logo=netlify&logoColor=white" alt="Live Portfolio Cockpit" />
   </a>
