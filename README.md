@@ -4,8 +4,8 @@
 
 <p align="center">
   [![CI Pipeline](https://github.com/ShyamD2/Personal-Portfolio/workflows/CI%20Pipeline/badge.svg)](https://github.com/ShyamD2/Personal-Portfolio/actions)
-  <a href="https://shyamd2-portfolio.netlify.app" target="_blank">
-    <img src="https://img.shields.io/badge/Live%20Cockpit-shyamd2--portfolio.netlify.app-00C7B7?style=for-the-badge&logo=netlify&logoColor=white" alt="Live Portfolio Cockpit" />
+  <a href="https://shyamkumard.netlify.app" target="_blank">
+    <img src="https://img.shields.io/badge/Live%20Cockpit-shyamkumard.netlify.app-00C7B7?style=for-the-badge&logo=netlify&logoColor=white" alt="Live Portfolio Cockpit" />
   </a>
 </p>
 
@@ -45,7 +45,7 @@
 This repository houses the source code for the high-performance engineering portfolio of **Shyam Kumar D**. Built with **React 18**, **TypeScript**, and **Vite**, the application functions as an interactive **SRE Cockpit**, providing recruiters, infrastructure architects, and engineering managers with hands-on simulations of real-world distributed cloud workloads, cost optimization algorithms, and automated incident containment.
 
 ### 🎯 Current Candidate Availability:
-- **6th Semester 6-Month Full-Time Internship** (Jan–June / Immediate start, dedicated college term with PPO track)
+- **6th Semester 6-Month Full-Time Internship** (Starts Nov 16, 2026 in Bengaluru (College NOC Secured • Immediate Joiner))
 - **Graduate Cloud Infrastructure / DevOps / SRE Positions** (2026/2027 Cohort)
 - **Work Model**: Open to On-Site Relocation (Bangalore, Chennai, Hyderabad, Pune, etc.) and Remote
 
