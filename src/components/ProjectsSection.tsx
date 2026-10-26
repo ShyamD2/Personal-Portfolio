@@ -723,19 +723,6 @@ export default function ProjectsSection() {
           }
         }
 
-        @media (max-width: 768px) {
-          .projects-section {
-            padding: 50px 0;
-          }
-          .projects-grid {
-            grid-template-columns: 1fr;
-            gap: 16px;
-            margin-top: 24px;
-          }
-          .project-card {
-            padding: 20px 16px;
-          }
-  
         .project-metrics-ribbon {
           display: flex;
           flex-wrap: wrap;
@@ -755,8 +742,29 @@ export default function ProjectsSection() {
           letter-spacing: -0.02em;
         }
 
-        .project-card h4 {
+        @media (max-width: 768px) {
+          .projects-section {
+            padding: 50px 0;
+          }
+          .projects-grid {
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-top: 24px;
+          }
+          .project-card {
+            padding: 22px 18px;
+          }
+          .project-card h4 {
             font-size: 19px;
+          }
+          .project-card-actions {
+            flex-direction: column;
+            gap: 8px;
+          }
+          .btn-card-action {
+            width: 100%;
+            justify-content: center;
+            padding: 10px 14px;
           }
           .sandbox-divider {
             margin-top: 48px;
@@ -768,8 +776,15 @@ export default function ProjectsSection() {
         }
 
         @media (max-width: 480px) {
-          .projects-grid {
-            grid-template-columns: 1fr;
+          .projects-filter-bar {
+            gap: 6px;
+          }
+          .proj-filter-btn {
+            font-size: 11.5px;
+            padding: 6px 12px;
+          }
+          .project-card {
+            padding: 18px 14px;
           }
         }
       `}</style>

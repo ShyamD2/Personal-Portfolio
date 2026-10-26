@@ -164,7 +164,7 @@ Resume: https://shyamkumard.netlify.app/Shyam_Kumar_D_Resume.pdf`;
 
         .noc-modal-container {
           width: 100%;
-          max-width: 620px;
+          max-width: min(620px, 95vw);
           background: var(--card-bg-solid);
           border: 1px solid var(--border-color);
           border-radius: var(--radius-lg);

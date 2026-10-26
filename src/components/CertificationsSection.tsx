@@ -372,6 +372,17 @@ export default function CertificationsSection() {
 
 
         /* Tier-1 Spotlight Grid */
+        
+        @media (max-width: 900px) {
+          .tier1-credentials-grid {
+            grid-template-columns: 1fr;
+            gap: 16px;
+          }
+          .tier1-card {
+            padding: 20px 18px;
+          }
+        }
+
         .tier1-credentials-grid {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));

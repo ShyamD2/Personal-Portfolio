@@ -578,13 +578,35 @@ export default function Navbar({ onOpenHireMe, onOpenSpeedrun, onOpenCommandPale
           box-shadow: 0 14px 35px rgba(0, 0, 0, 0.2);
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 1100px) {
+          .nav-links {
+            gap: 18px;
+          }
+          .cmd-k-trigger-btn {
+            display: none;
+          }
+        }
+
+        @media (max-width: 960px) {
           .nav-links {
             display: none;
           }
 
           .mobile-actions {
             display: flex;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .mobile-actions {
+            gap: 10px;
+          }
+          .theme-toggle, .mobile-palette-btn, .mobile-speedrun-icon-btn {
+            width: 34px;
+            height: 34px;
+          }
+          .nav-logo {
+            font-size: 24px;
           }
         }
 

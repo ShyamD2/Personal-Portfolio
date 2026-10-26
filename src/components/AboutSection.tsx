@@ -76,65 +76,12 @@ export default function AboutSection() {
         </div>
       </div>
 
-      <style>{`
-
-        /* Battle-Tested Cockpit Strip */
-        .about-cockpit-strip {
-          margin-top: 48px;
-          padding: 20px 28px;
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-          gap: 20px;
-          border-radius: var(--radius-md);
-          border: 1px solid var(--border-color);
-          background: var(--card-bg-solid);
-        }
-
-        .cockpit-item {
-          display: flex;
-          flex-direction: column;
-          gap: 4px;
-        }
-
-        .cockpit-label {
-          font-family: var(--font-display);
-          font-size: 11px;
-          font-weight: 700;
-          color: var(--text-muted);
-          text-transform: uppercase;
-          letter-spacing: 0.05em;
-        }
-
-        .cockpit-val {
-          font-size: 13.5px;
-          font-weight: 700;
-          color: var(--text-primary);
-        }
-
-        .cockpit-val.highlight {
-          color: #10B981;
-        }
-
-        @media (max-width: 768px) {
-          .about-cockpit-strip {
-            grid-template-columns: 1fr 1fr;
-            padding: 16px;
-            gap: 16px;
-          }
-        }
-
-        @media (max-width: 480px) {
-          .about-cockpit-strip {
-            grid-template-columns: 1fr;
-          }
-        }
-
+            <style>{`
         .about-section {
           padding: 90px 0 80px 0;
           position: relative;
         }
 
-        /* Grid */
         .about-container {
           margin-top: 40px;
         }
@@ -146,7 +93,6 @@ export default function AboutSection() {
           align-items: center;
         }
 
-        /* Portrait Offset Card Styling */
         .about-visual-block {
           display: flex;
           justify-content: center;
@@ -190,7 +136,6 @@ export default function AboutSection() {
           display: block;
         }
 
-        /* Biography content columns */
         .about-story {
           display: flex;
           flex-direction: column;
@@ -239,36 +184,12 @@ export default function AboutSection() {
           border-radius: 50px;
         }
 
-        @media (max-width: 992px) {
-          .about-parallax-banner {
-            height: auto;
-            min-height: 250px;
-            background-attachment: scroll;
-            padding: 60px 0;
-          }
-
-          .banner-quote {
-            font-size: 24px;
-          }
-
-          .about-grid {
-            grid-template-columns: 1fr;
-            gap: 48px;
-          }
-
-          .portrait-card-wrapper {
-            max-width: 300px;
-          }
-        }
-
-        @media (max-width: 768px) {
-  
         /* Battle-Tested Cockpit Strip */
         .about-cockpit-strip {
           margin-top: 48px;
-          padding: 20px 28px;
+          padding: 22px 28px;
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
           gap: 20px;
           border-radius: var(--radius-md);
           border: 1px solid var(--border-color);
@@ -300,21 +221,24 @@ export default function AboutSection() {
           color: #10B981;
         }
 
-        @media (max-width: 768px) {
-          .about-cockpit-strip {
-            grid-template-columns: 1fr 1fr;
-            padding: 16px;
-            gap: 16px;
-          }
-        }
-
-        @media (max-width: 480px) {
-          .about-cockpit-strip {
+        @media (max-width: 992px) {
+          .about-grid {
             grid-template-columns: 1fr;
+            gap: 48px;
+          }
+
+          .portrait-card-wrapper {
+            max-width: 300px;
+          }
+
+          .about-cockpit-strip {
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            padding: 20px;
           }
         }
 
-        .about-section {
+        @media (max-width: 768px) {
+          .about-section {
             padding: 50px 0;
           }
           .about-container {
@@ -331,6 +255,21 @@ export default function AboutSection() {
           }
           .about-grid {
             gap: 32px;
+          }
+          .about-cockpit-strip {
+            grid-template-columns: 1fr 1fr;
+            padding: 16px;
+            gap: 16px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .about-cockpit-strip {
+            grid-template-columns: 1fr;
+          }
+          .attr-chip {
+            font-size: 11px;
+            padding: 5px 10px;
           }
         }
       `}</style>

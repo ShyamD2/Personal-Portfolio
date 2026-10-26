@@ -337,7 +337,7 @@ await s3.putObject({
 
         .arch-modal-container {
           width: 100%;
-          max-width: 740px;
+          max-width: min(740px, 95vw);
           background: var(--card-bg-solid);
           border: 1px solid var(--border-color);
           border-radius: var(--radius-lg);

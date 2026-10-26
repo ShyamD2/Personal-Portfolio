@@ -904,8 +904,12 @@ export default function HeroSection({ onOpenHireMe, onOpenSpeedrun, onOpenNoc }:
 
         @media (max-width: 600px) {
           .hero-ambient-dock {
-            right: 16px;
-            bottom: 16px;
+            position: relative;
+            right: auto;
+            bottom: auto;
+            margin-top: 20px;
+            width: fit-content;
+            align-self: flex-start;
           }
         }
 
@@ -1151,11 +1155,11 @@ export default function HeroSection({ onOpenHireMe, onOpenSpeedrun, onOpenNoc }:
             gap: 10px;
           }
 
-          .btn-pill-white, .btn-pill-translucent {
+          .btn-speedrun-hero, .btn-pill-white, .btn-pill-translucent {
             width: 100%;
             justify-content: center;
             text-align: center;
-            padding: 12px 18px;
+            padding: 13px 18px;
             font-size: 13.5px;
           }
 
